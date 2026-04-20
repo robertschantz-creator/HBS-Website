@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About | HBS – Intelligent Insights</title>
+  <meta name="description" content="A grounded perspective on timing, transition, and direction. Human Behavior Specialists — pattern-based advisory for life transitions." />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .page-hero {
+      padding: 160px 0 96px;
+      background: linear-gradient(135deg, var(--violet-dark) 0%, var(--violet) 100%);
+      color: var(--white);
+      text-align: center;
+    }
+    .page-hero .eyebrow { color: var(--gold-light); }
+    .page-hero h1 { color: var(--white); font-weight: 300; margin-bottom: 20px; }
+    .page-hero .lead { color: rgba(255,255,255,0.78); max-width: 540px; margin: 0 auto; }
+
+    .about-origin { background: var(--white); padding: var(--section-pad) 0; }
+    .about-origin__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+    .about-origin__photo {
+      border-radius: 4px;
+      aspect-ratio: 4/5;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 24px 64px rgba(91,75,138,0.15);
+    }
+    .about-origin__photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+    .about-origin__content p { font-size: 0.93rem; color: var(--charcoal-soft); line-height: 1.85; }
+    .about-origin__content h2 { margin-bottom: 20px; }
+
+    .why-this-work { background: var(--lavender-bg); padding: var(--section-pad) 0; }
+    .why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .why-quote {
+      font-family: var(--font-serif);
+      font-size: clamp(1.5rem, 2.2vw, 2rem);
+      font-style: italic;
+      font-weight: 300;
+      color: var(--charcoal);
+      line-height: 1.5;
+      border-left: 3px solid var(--gold);
+      padding-left: 28px;
+      margin-bottom: 32px;
+    }
+    .why-content p { font-size: 0.93rem; color: var(--charcoal-soft); line-height: 1.85; }
+
+    .how-i-work { background: var(--white); padding: var(--section-pad) 0; }
+    .work-attrs { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 48px; }
+    .work-attr {
+      display: flex; gap: 20px; align-items: flex-start;
+      border: 1px solid var(--border); border-radius: 4px; padding: 24px;
+    }
+    .work-attr__line {
+      width: 3px; min-width: 3px; height: 40px;
+      background: linear-gradient(180deg, var(--violet), var(--gold));
+      border-radius: 2px; margin-top: 4px;
+    }
+    .work-attr h4 { font-family: var(--font-serif); font-size: 1.05rem; color: var(--charcoal); margin-bottom: 6px; }
+    .work-attr p { font-size: 0.87rem; color: var(--charcoal-soft); line-height: 1.65; margin: 0; }
+
+    .philosophy-section { background: var(--lavender-bg); padding: var(--section-pad) 0; }
+    .philosophy-section__inner { max-width: 760px; margin: 0 auto; }
+    .philosophy-section h2 { margin-bottom: 32px; }
+    .philosophy-section p { font-size: 0.95rem; color: var(--charcoal-soft); line-height: 1.9; }
+    .philosophy-section__cycles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin: 40px 0; }
+    .cycle-pill {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 40px;
+      padding: 14px 16px;
+      text-align: center;
+      font-size: 0.82rem;
+      color: var(--charcoal-mid);
+    }
+    .cycle-pill strong { display: block; font-family: var(--font-serif); font-size: 1rem; color: var(--violet); margin-bottom: 3px; }
+
+    .credentials { background: var(--white); padding: var(--section-pad) 0; }
+    .credentials__inner { max-width: 760px; margin: 0 auto; }
+    .credentials h2 { margin-bottom: 12px; }
+    .credentials__note {
+      font-size: 0.88rem;
+      color: var(--charcoal-soft);
+      line-height: 1.75;
+      margin-bottom: 40px;
+      font-style: italic;
+    }
+    .credentials__list { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .credential-item {
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 20px 24px;
+      display: flex; gap: 14px; align-items: flex-start;
+    }
+    .credential-item__dot {
+      width: 8px; height: 8px; min-width: 8px;
+      border-radius: 50%; background: var(--gold); margin-top: 6px;
+    }
+    .credential-item p { font-size: 0.87rem; color: var(--charcoal-mid); line-height: 1.6; margin: 0; }
+
+    .scope-note { background: var(--cream); padding: 72px 0; }
+    .scope-note__inner {
+      max-width: 680px; margin: 0 auto;
+      border: 1px solid var(--border);
+      border-radius: 4px; padding: 48px;
+      background: var(--white);
+      text-align: center;
+    }
+    .scope-note__inner p { font-size: 0.9rem; color: var(--charcoal-soft); line-height: 1.8; }
+
+    @media (max-width: 900px) {
+      .about-origin__grid, .why-grid { grid-template-columns: 1fr; gap: 40px; }
+      .work-attrs, .credentials__list { grid-template-columns: 1fr; }
+      .philosophy-section__cycles { grid-template-columns: repeat(2, 1fr); }
+      .scope-note__inner { padding: 32px 24px; }
+    }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-nav">Skip to main content</a>
+
+  <nav class="nav" role="navigation">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo">
+        <svg width="40" height="40" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M22 8 L38 24 L22 40 L6 24 Z" fill="#6040A0"/>
+          <path d="M58 8 L74 24 L58 40 L42 24 Z" fill="#8060C0"/>
+          <path d="M40 42 L56 58 L40 74 L24 58 Z" fill="#A080D8"/>
+          <text x="22" y="29" text-anchor="middle" fill="white" font-family="Arial" font-size="14" font-weight="bold">H</text>
+          <text x="58" y="29" text-anchor="middle" fill="white" font-family="Arial" font-size="14" font-weight="bold">S</text>
+          <text x="40" y="63" text-anchor="middle" fill="white" font-family="Arial" font-size="14" font-weight="bold">B</text>
+        </svg>
+        <div class="nav__logo-text">
+          <span class="nav__logo-name">Human Behavior Specialists</span>
+          <span class="nav__logo-tag">HBS – Intelligent Insights</span>
+        </div>
+      </a>
+      <ul class="nav__links">
+        <li><a href="the-work.html">The Work</a></li>
+        <li><a href="ways-to-work.html">Ways to Work Together</a></li>
+        <li><a href="personal-forecast.html">Personal Forecast</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="begin.html">Contact</a></li>
+      </ul>
+      <a href="begin.html" class="btn btn-primary nav__cta">Begin</a>
+      <button class="nav__toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <section class="page-hero">
+    <div class="container">
+      <span class="eyebrow">Human Behavior Specialists</span>
+      <span class="page-hero__sub">Pattern Intelligence for Life Transitions</span>
+      <h1>About</h1>
+      <p class="lead">A grounded perspective on timing, transition, and direction — formed over decades of observing how people navigate change.</p>
+    </div>
+  </section>
+
+  <!-- ORIGIN -->
+  <section class="about-origin">
+    <div class="container">
+      <div class="about-origin__grid">
+        <div class="about-origin__photo fade-in">
+          <img src="images/robert-schantz.jpg" alt="Robert Schantz — Human Behavior Specialists" />
+        </div>
+        <div class="about-origin__content fade-in">
+          <span class="eyebrow">Why This Work Exists</span>
+          <h2>Most of the meaningful transitions in life don't arrive with clear instructions.</h2>
+          <p>They arrive as discomfort, restlessness, or a quiet sense that something is shifting — even when everything on the surface appears fine.</p>
+          <p>Human Behavior Specialists was created to support people during these moments. Not by telling them what to do — but by helping them understand where they are in their life cycle, and why the present moment feels the way it does.</p>
+          <p>Clarity changes everything when it arrives at the right time.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY THIS WORK -->
+  <section class="why-this-work">
+    <div class="container">
+      <div class="why-grid">
+        <div class="fade-in">
+          <span class="eyebrow">A Perspective Formed Over Time</span>
+          <h2>One Truth Became Clear</h2>
+          <p class="why-quote">"People don't struggle because they are broken — they struggle because they are out of rhythm with their current phase."</p>
+          <p>When timing is misunderstood, even good decisions feel heavy. When timing is understood, direction becomes steadier and more sustainable.</p>
+          <p>Human Behavior Specialists exists to provide that context.</p>
+        </div>
+        <div class="fade-in">
+          <p style="font-size:0.93rem;color:var(--charcoal-soft);line-height:1.85;">This work is informed by decades of observing human behavior — in business, leadership, relationships, and periods of transition.</p>
+          <p style="font-size:0.93rem;color:var(--charcoal-soft);line-height:1.85;">Over time, patterns emerged. People in the same kinds of situations — career plateaus, relationship crossroads, identity shifts — were navigating challenges that weren't about effort or intelligence. They were about timing.</p>
+          <p style="font-size:0.93rem;color:var(--charcoal-soft);line-height:1.85;">The Pythagorean-based numerological framework that forms the foundation of this work provided a structural map for those patterns — a way to see cycles, name phases, and understand what a particular period of life is actually designed for.</p>
+          <p style="font-size:0.93rem;color:var(--charcoal-soft);line-height:1.85;">That map, combined with direct advisory experience, is what each session draws from.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW I WORK -->
+  <section class="how-i-work">
+    <div class="container">
+      <div style="max-width:560px;" class="fade-in">
+        <span class="eyebrow">The Approach</span>
+        <h2>How I Work with People</h2>
+        <p class="lead">My role is not to motivate or persuade. It is to listen carefully, observe patterns, and reflect back what is already present but often unseen.</p>
+      </div>
+      <div class="work-attrs">
+        <div class="work-attr fade-in">
+          <div class="work-attr__line"></div>
+          <div>
+            <h4>Calm, Not Urgent</h4>
+            <p>The pace of sessions reflects the work itself — unhurried, focused, and designed to allow insight to emerge naturally.</p>
+          </div>
+        </div>
+        <div class="work-attr fade-in">
+          <div class="work-attr__line"></div>
+          <div>
+            <h4>Reflective, Not Prescriptive</h4>
+            <p>You are not told what to do. You are given context — and the decision remains entirely yours.</p>
+          </div>
+        </div>
+        <div class="work-attr fade-in">
+          <div class="work-attr__line"></div>
+          <div>
+            <h4>Structured, Not Chaotic</h4>
+            <p>Each session follows a clear framework, even as the conversation allows for what's most relevant to surface.</p>
+          </div>
+        </div>
+        <div class="work-attr fade-in">
+          <div class="work-attr__line"></div>
+          <div>
+            <h4>Intuitive and Analytical</h4>
+            <p>Pattern-based methodology provides the structure. Lived experience with human transitions provides the depth.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHILOSOPHY -->
+  <section class="philosophy-section">
+    <div class="container">
+      <div class="philosophy-section__inner fade-in">
+        <span class="eyebrow">The Philosophy</span>
+        <h2>Every Life Moves Through Distinct Cycles</h2>
+        <p>Some phases are meant for building. Others for consolidating, refining, or letting go. Difficulty often arises when we try to force a phase that has already passed — or rush one that hasn't yet arrived.</p>
+        <div class="philosophy-section__cycles">
+          <div class="cycle-pill"><strong>Building</strong>Creation &amp; momentum</div>
+          <div class="cycle-pill"><strong>Expanding</strong>Growth &amp; reach</div>
+          <div class="cycle-pill"><strong>Consolidating</strong>Refining &amp; deepening</div>
+          <div class="cycle-pill"><strong>Releasing</strong>Completion &amp; transition</div>
+        </div>
+        <p>This work helps people recognize the phase they are in, understand what is naturally completing, identify what is beginning to take shape, and make decisions that align with timing rather than pressure.</p>
+        <p style="margin:0;"><em>The goal is not certainty. The goal is orientation.</em></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CREDENTIALS -->
+  <section class="credentials">
+    <div class="container">
+      <div class="credentials__inner fade-in">
+        <span class="eyebrow">Background &amp; Experience</span>
+        <h2>A Note on Experience and Scope</h2>
+        <p class="credentials__note">Credentials are offered as context, not as the primary basis of trust. The work earns trust through what becomes clear — not through what's listed on a wall.</p>
+        <div class="credentials__list">
+          <div class="credential-item">
+            <div class="credential-item__dot"></div>
+            <p>Decades of experience observing human behavior across business, leadership, relationships, and major life transitions</p>
+          </div>
+          <div class="credential-item">
+            <div class="credential-item__dot"></div>
+            <p>Long-term work in advisory roles, coaching, and applied behavioral frameworks including DiSC, Enneagram, and Positive Intelligence</p>
+          </div>
+          <div class="credential-item">
+            <div class="credential-item__dot"></div>
+            <p>Deep study and application of Pythagorean-based numerological pattern mapping as a timing and cycle intelligence framework</p>
+          </div>
+          <div class="credential-item">
+            <div class="credential-item__dot"></div>
+            <p>Licensed Managing Broker with extensive experience advising individuals and families through major financial and life transitions</p>
+          </div>
+          <div class="credential-item">
+            <div class="credential-item__dot"></div>
+            <p>Experience working closely with individuals navigating high-stakes decisions, identity shifts, and significant periods of change</p>
+          </div>
+          <div class="credential-item">
+            <div class="credential-item__dot"></div>
+            <p>Ongoing study of behavioral science, cycle theory, and the intersection of timing, decision-making, and human development</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCOPE NOTE -->
+  <section class="scope-note">
+    <div class="container">
+      <div class="scope-note__inner fade-in">
+        <span class="eyebrow">Important Context</span>
+        <h3 style="margin-bottom:16px;">A Final Note on Scope</h3>
+        <p>This work is advisory and educational in nature. It draws on a multidisciplinary foundation that includes behavioral observation, coaching methodologies, and pattern-recognition frameworks.</p>
+        <p style="margin-bottom:0;">It does not constitute therapy, medical advice, legal counsel, or financial guidance. Decisions remain entirely the responsibility of the individual. This work is a tool for understanding timing, direction, and alignment — so decisions are made with greater awareness.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-section__inner fade-in">
+        <span class="eyebrow">Work Together</span>
+        <div class="cta-section__divider"></div>
+        <h2>Ready to Understand Where You Are?</h2>
+        <p class="lead">The Personal Forecast Session is where most people begin — a single, complete conversation designed to provide orientation during a moment of transition.</p>
+        <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+          <a href="personal-forecast.html" class="btn btn-primary">Begin with a Personal Forecast</a>
+          <a href="ways-to-work.html" class="btn btn-outline">See All Sessions</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div>
+          <div class="footer__brand-logo">
+            <svg width="32" height="32" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M22 8 L38 24 L22 40 L6 24 Z" fill="#6040A0"/>
+              <path d="M58 8 L74 24 L58 40 L42 24 Z" fill="#8060C0"/>
+              <path d="M40 42 L56 58 L40 74 L24 58 Z" fill="#A080D8"/>
+              <text x="22" y="29" text-anchor="middle" fill="white" font-family="Arial" font-size="14" font-weight="bold">H</text>
+              <text x="58" y="29" text-anchor="middle" fill="white" font-family="Arial" font-size="14" font-weight="bold">S</text>
+              <text x="40" y="63" text-anchor="middle" fill="white" font-family="Arial" font-size="14" font-weight="bold">B</text>
+            </svg>
+            <div>
+              <span class="footer__brand-name">Human Behavior Specialists</span>
+              <span class="footer__brand-tag">HBS – Intelligent Insights</span>
+            </div>
+          </div>
+          <p class="footer__desc">A pattern-based advisory practice focused on life transitions, decision timing, and sustainable direction.</p>
+          <div class="footer__social">
+            <a href="#" aria-label="Facebook">f</a>
+            <a href="#" aria-label="Instagram">in</a>
+            <a href="#" aria-label="LinkedIn">Li</a>
+            <a href="#" aria-label="Threads">Th</a>
+          </div>
+        </div>
+        <div class="footer__col">
+          <h5>Navigate</h5>
+          <ul class="footer__links">
+            <li><a href="the-work.html">The Work</a></li>
+            <li><a href="ways-to-work.html">Ways to Work Together</a></li>
+            <li><a href="personal-forecast.html">Personal Forecast Session</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="report.html">$47 Timing Report</a></li>
+            <li><a href="begin.html">Begin</a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h5>Contact</h5>
+          <div class="footer__contact-item"><span>Email</span> accounts@humanbehaviorspecialists.com</div>
+          <div style="margin-top:24px;">
+            <h5>Quick Start</h5>
+            <a href="report.html" class="btn btn-gold" style="font-size:0.75rem;padding:10px 20px;margin-top:12px;display:inline-block;">Get Your $47 Timing Report</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p>&copy; 2025 Human Behavior Specialists. All rights reserved.</p>
+        <p class="footer__disclaimer">This work is advisory and educational in nature and does not replace professional medical, legal, financial, or therapeutic services.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

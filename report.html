@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Personal Year Timing Report | HBS – Intelligent Insights</title>
+  <meta name="description" content="Not a horoscope. A structured, personalized guide to understanding what this year is designed to teach you — and how to work with its timing, not against it. $47." />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .report-hero {
+      min-height: 80vh;
+      display: flex;
+      align-items: center;
+      padding-top: 72px;
+      background: linear-gradient(135deg, var(--violet-dark) 0%, var(--violet) 60%, #8060C0 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .report-hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    .report-hero__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+    .report-hero__content .eyebrow { color: var(--gold-light); }
+    .report-hero__content h1 { color: var(--white); font-weight: 300; margin-bottom: 20px; }
+    .report-hero__content .lead { color: rgba(255,255,255,0.78); margin-bottom: 12px; }
+    .report-hero__not { font-size: 0.82rem; color: rgba(255,255,255,0.45); font-style: italic; margin-bottom: 36px; }
+    .report-hero__proof { display: flex; gap: 24px; flex-wrap: wrap; margin-top: 36px; }
+    .report-hero__proof-item { font-size: 0.8rem; color: rgba(255,255,255,0.65); display: flex; gap: 8px; align-items: center; }
+    .report-hero__proof-item::before { content: '✦'; color: var(--gold); font-size: 0.6rem; }
+
+    .buy-card {
+      background: var(--white);
+      border-radius: 6px;
+      padding: 48px 40px;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.25);
+    }
+    .buy-card__badge {
+      display: inline-block;
+      background: var(--gold-light);
+      color: var(--gold);
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 600;
+      padding: 5px 14px;
+      border-radius: 2px;
+      margin-bottom: 20px;
+    }
+    .buy-card__title {
+      font-family: var(--font-serif);
+      font-size: 1.4rem;
+      color: var(--charcoal);
+      margin-bottom: 8px;
+    }
+    .buy-card__subtitle {
+      font-size: 0.85rem;
+      color: var(--charcoal-soft);
+      margin-bottom: 28px;
+      line-height: 1.6;
+    }
+    .buy-card__price-row {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      margin-bottom: 28px;
+      padding-bottom: 28px;
+      border-bottom: 1px solid var(--border);
+    }
+    .buy-card__price {
+      font-family: var(--font-serif);
+      font-size: 3.5rem;
+      color: var(--charcoal);
+      line-height: 1;
+    }
+    .buy-card__price sup { font-size: 1.4rem; vertical-align: top; margin-top: 8px; display: inline-block; }
+    .buy-card__price-note { font-size: 0.8rem; color: var(--charcoal-soft); }
+    .buy-card__includes { list-style: none; margin-bottom: 28px; }
+    .buy-card__includes li {
+      display: flex; gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.88rem;
+      color: var(--charcoal-mid);
+    }
+    .buy-card__includes li:last-child { border-bottom: none; }
+    .buy-card__includes li::before { content: '✓'; color: var(--violet); font-weight: 600; flex-shrink: 0; }
+    .buy-card__form { margin-bottom: 0; }
+    .buy-card__form input {
+      width: 100%; padding: 13px 16px;
+      border: 1.5px solid var(--border);
+      border-radius: 2px;
+      font-family: var(--font-sans);
+      font-size: 0.9rem;
+      color: var(--charcoal);
+      background: var(--cream);
+      margin-bottom: 12px;
+      transition: border-color 0.2s;
+      outline: none;
+    }
+    .buy-card__form input:focus { border-color: var(--violet); background: var(--white); }
+    .buy-card__form input::placeholder { color: var(--charcoal-soft); }
+    .buy-card__disclaimer {
+      font-size: 0.72rem;
+      color: var(--charcoal-soft);
+      text-align: center;
+      margin-top: 12px;
+      line-height: 1.6;
+    }
+
+    .what-is { background: var(--white); padding: var(--section-pad) 0; }
+    .what-is__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .what-is__content p { font-size: 0.93rem; color: var(--charcoal-soft); line-height: 1.85; }
+    .not-list { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 32px; }
+    .not-list li {
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 16px;
+      font-size: 0.85rem;
+      color: var(--charcoal-mid);
+      display: flex; gap: 10px; align-items: flex-start;
+    }
+    .not-list__icon { font-size: 1rem; flex-shrink: 0; }
+
+    .sections { background: var(--lavender-bg); padding: var(--section-pad) 0; }
+    .sections__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 48px; }
+    .section-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 24px 20px;
+      text-align: center;
+    }
+    .section-card__num {
+      font-family: var(--font-serif);
+      font-size: 2rem;
+      color: var(--violet);
+      font-weight: 300;
+      line-height: 1;
+      margin-bottom: 12px;
+    }
+    .section-card h4 { font-family: var(--font-serif); font-size: 0.95rem; color: var(--charcoal); margin-bottom: 8px; line-height: 1.3; }
+    .section-card p { font-size: 0.8rem; color: var(--charcoal-soft); line-height: 1.6; margin: 0; }
+
+    .for-who-report { background: var(--white); padding: var(--section-pad) 0; }
+    .for-who-report__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+    .fwr-card {
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 28px 24px;
+      position: relative; overflow: hidden;
+    }
+    .fwr-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--violet), var(--gold));
+    }
+    .fwr-card h4 { font-family: var(--font-serif); font-size: 1.05rem; color: var(--charcoal); margin-bottom: 10px; }
+    .fwr-card p { font-size: 0.88rem; color: var(--charcoal-soft); line-height: 1.65; margin: 0; }
+
+    .headlines { background: var(--cream); padding: var(--section-pad) 0; }
+    .headlines__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 48px; }
+    .headline-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 32px 28px;
+    }
+    .headline-card h3 {
+      font-family: var(--font-serif);
+      font-size: 1.15rem;
+      font-style: italic;
+      color: var(--charcoal);
+      line-height: 1.4;
+      margin-bottom: 16px;
+      font-weight: 400;
+    }
+    .headline-card p { font-size: 0.85rem; color: var(--charcoal-soft); line-height: 1.7; margin: 0; }
+
+    .report-cta { background: linear-gradient(135deg, var(--violet-dark) 0%, var(--violet) 100%); padding: 120px 0; text-align: center; }
+    .report-cta h2 { color: var(--white); margin-bottom: 16px; }
+    .report-cta .lead { color: rgba(255,255,255,0.75); max-width: 520px; margin: 0 auto 48px; }
+    .report-cta__price {
+      font-family: var(--font-serif);
+      font-size: 1.2rem;
+      color: var(--gold-light);
+      margin-bottom: 24px;
+    }
+
+    @media (max-width: 900px) {
+      .report-hero__grid, .what-is__grid, .for-who-report__grid { grid-template-columns: 1fr; gap: 48px; }
+      .sections__grid { grid-template-columns: repeat(2, 1fr); }
+      .headlines__grid { grid-template-columns: 1fr; }
+      .not-list { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-nav">Skip to main content</a>
+
+  <nav class="nav" role="navigation">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo">
+        <svg width="40" height="40" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M22 8 L38 24 L22 40 L6 24 Z" fill="#6040A0"/>
+          <path d="M58 8 L74 24 L58 40 L42 24 Z" fill="#8060C0"/>
+          <path d="M40 42 L56 58 L40 74 L24 58 Z" fill="#A080D8"/>
+          <text x="22" y="29" text-anchor="middle" fill="white" font-family="Arial" font-size="14" font-weight="bold">H</text>
+          <text x="58" y="29" text-anchor="middle" fill="white" font-family="Arial" font-size="14" font-weight="bold">S</text>
+          <text x="40" y="63" text-anchor="middle" fill="white" font-family="Arial" font-size="14" font-weight="bold">B</text>
+        </svg>
+        <div class="nav__logo-text">
+          <span class="nav__logo-name">Human Behavior Specialists</span>
+          <span class="nav__logo-tag">HBS – Intelligent Insights</span>
+        </div>
+      </a>
+      <ul class="nav__links">
+        <li><a href="the-work.html">The Work</a></li>
+        <li><a href="ways-to-work.html">Ways to Work Together</a></li>
+        <li><a href="personal-forecast.html">Personal Forecast</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="begin.html">Contact</a></li>
+      </ul>
+      <a href="begin.html" class="btn btn-primary nav__cta">Begin</a>
+      <button class="nav__toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <!-- HERO + BUY -->
+  <section class="report-hero">
+    <div class="container">
+      <div class="report-hero__grid">
+        <div class="report-hero__content fade-in">
+          <span class="eyebrow">Start Here — $47</span>
+          <span class="page-hero__sub" style="color: var(--gold-light);">Pattern Intelligence for Life Transitions</span>
+          <h1>Your Personal Year Timing Report</h1>
+          <p class="lead">A structured, personalized guide to understanding what this year is designed to teach you — and how to work with its timing, not against it.</p>
+          <p class="report-hero__not">This is not a horoscope. Not a personality quiz. Not generic advice.</p>
+          <div class="report-hero__proof">
+            <span class="report-hero__proof-item">Personalized to your birth date</span>
+            <span class="report-hero__proof-item">18–22 page PDF</span>
+            <span class="report-hero__proof-item">Delivered within 48 hours</span>
+            <span class="report-hero__proof-item">No subscription</span>
+          </div>
+        </div>
+        <div class="buy-card fade-in">
+          <span class="buy-card__badge">Most Popular Starting Point</span>
+          <p class="buy-card__title">Personal Year Timing Report</p>
+          <p class="buy-card__subtitle">Pattern-based insight into your current life cycle — what this year is for, what to focus on, and where timing supports your decisions.</p>
+          <div class="buy-card__price-row">
+            <div class="buy-card__price"><sup>$</sup>47</div>
+            <span class="buy-card__price-note">One-time · No subscription</span>
+          </div>
+          <ul class="buy-card__includes">
+            <li>Your Personal Year number and meaning</li>
+            <li>What this year is designed for</li>
+            <li>What to focus on — and what to avoid</li>
+            <li>Decision-timing guidance</li>
+            <li>Relationship &amp; work energy overview</li>
+            <li>End-of-year transition outlook</li>
+            <li>How to use this report going forward</li>
+          </ul>
+          <form class="buy-card__form" action="begin.html" method="get">
+            <label for="birth_name" style="display:block;font-size:0.72rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--charcoal-mid);margin-bottom:4px;">Full Birth Certificate Name *</label>
+            <input id="birth_name" type="text" name="birth_name" placeholder="As it appears on your birth certificate" required aria-required="true" />
+            <label for="current_name" style="display:block;font-size:0.72rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--charcoal-mid);margin-bottom:4px;">Full Name You Currently Use *</label>
+            <input id="current_name" type="text" name="current_name" placeholder="Your current legal or preferred name" required aria-required="true" />
+            <label for="dob" style="display:block;font-size:0.72rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--charcoal-mid);margin-bottom:4px;">Date of Birth *</label>
+            <input id="dob" type="text" name="dob" placeholder="MM/DD/YYYY" required aria-required="true" />
+            <label for="email" style="display:block;font-size:0.72rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--charcoal-mid);margin-bottom:4px;">Email Address *</label>
+            <input id="email" type="email" name="email" placeholder="Where we'll deliver your report" required aria-required="true" />
+            <p style="font-size:0.75rem;color:var(--charcoal-soft);line-height:1.6;margin:4px 0 8px;font-style:italic;">Optional: Add city and time of birth below to receive a complimentary astrological overview alongside your timing report.</p>
+            <label for="birth_location" style="display:block;font-size:0.72rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--charcoal-mid);margin-bottom:4px;">City / Location of Birth</label>
+            <input id="birth_location" type="text" name="birth_location" placeholder="City, State, Country (optional)" />
+            <label for="birth_time" style="display:block;font-size:0.72rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--charcoal-mid);margin-bottom:4px;">Time of Birth</label>
+            <input id="birth_time" type="text" name="birth_time" placeholder="e.g. 7:42 AM (optional)" />
+            <a href="begin.html" class="btn btn-gold" style="width:100%;text-align:center;display:block;margin-top:8px;" role="button">
+              Get My Timing Report — $47
+            </a>
+          </form>
+          <p class="buy-card__disclaimer" style="margin-top:16px;">
+            Advisory and educational in nature. Delivered as a PDF within 48 hours of purchase.<br /><br />
+            * <strong>Your information is protected.</strong> Human Behavior Specialists collects your personal information solely for the purpose of preparing your Personal Year Timing Report. We do not sell, share, or disclose your information to third parties. We comply fully with the California Consumer Privacy Act (CCPA), the California Online Privacy Protection Act (CalOPPA), and all applicable California consumer protection laws. You have the right to request access to, correction of, or deletion of your personal information at any time by contacting <a href="mailto:accounts@humanbehaviorspecialists.com" style="color:var(--violet);">accounts@humanbehaviorspecialists.com</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT IT IS -->
+  <section class="what-is">
+    <div class="container">
+      <div class="what-is__grid">
+        <div class="what-is__content fade-in">
+          <span class="eyebrow">What This Report Is</span>
+          <h2>A Timing Blueprint. Not a Prediction.</h2>
+          <p>Based on Pythagorean pattern mapping, your Personal Year Timing Report identifies the specific cycle you are in right now — and what that cycle is actually designed for.</p>
+          <p>Different years carry different energies and purposes. Some years are meant for building. Others for consolidating, releasing, or preparing. When you're pushing in the wrong direction for the phase you're in, even the right moves feel heavy.</p>
+          <p>This report gives you the structural context to understand why this year feels the way it does — and how to use its energy intentionally.</p>
+        </div>
+        <div class="fade-in">
+          <span class="eyebrow">What This Report Is Not</span>
+          <ul class="not-list">
+            <li><span class="not-list__icon">✕</span> A horoscope or daily reading</li>
+            <li><span class="not-list__icon">✕</span> Generic personality typing</li>
+            <li><span class="not-list__icon">✕</span> Prediction of specific events</li>
+            <li><span class="not-list__icon">✕</span> A subscription or ongoing product</li>
+            <li><span class="not-list__icon">✕</span> Advice to replace professional guidance</li>
+            <li><span class="not-list__icon">✕</span> Vague or one-size-fits-all content</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT'S INSIDE -->
+  <section class="sections">
+    <div class="container">
+      <div style="text-align:center;max-width:560px;margin:0 auto;" class="fade-in">
+        <span class="eyebrow">What's Inside</span>
+        <h2>Eight Structured Sections</h2>
+        <p class="lead">Each section is written specifically for your Personal Year cycle — not pulled from a template library.</p>
+      </div>
+      <div class="sections__grid">
+        <div class="section-card fade-in">
+          <div class="section-card__num">01</div>
+          <h4>Your Personal Year Number</h4>
+          <p>What cycle you're in and what it fundamentally means.</p>
+        </div>
+        <div class="section-card fade-in">
+          <div class="section-card__num">02</div>
+          <h4>What This Year Is Designed For</h4>
+          <p>The core purpose and intention of your current cycle.</p>
+        </div>
+        <div class="section-card fade-in">
+          <div class="section-card__num">03</div>
+          <h4>What to Focus On</h4>
+          <p>Where your energy is most aligned and productive this year.</p>
+        </div>
+        <div class="section-card fade-in">
+          <div class="section-card__num">04</div>
+          <h4>What to Avoid</h4>
+          <p>Common patterns that create resistance during this cycle.</p>
+        </div>
+        <div class="section-card fade-in">
+          <div class="section-card__num">05</div>
+          <h4>Decision-Timing Guidance</h4>
+          <p>How to approach major decisions within your current cycle.</p>
+        </div>
+        <div class="section-card fade-in">
+          <div class="section-card__num">06</div>
+          <h4>Relationship &amp; Work Energy</h4>
+          <p>How this year's energy influences key areas of your life.</p>
+        </div>
+        <div class="section-card fade-in">
+          <div class="section-card__num">07</div>
+          <h4>End-of-Year Transition</h4>
+          <p>What to expect as this cycle closes and the next begins to form.</p>
+        </div>
+        <div class="section-card fade-in">
+          <div class="section-card__num">08</div>
+          <h4>How to Use This Report</h4>
+          <p>Practical guidance for integrating these insights into daily life.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHO IT'S FOR -->
+  <section class="for-who-report">
+    <div class="container">
+      <div style="text-align:center;max-width:520px;margin:0 auto 48px;" class="fade-in">
+        <span class="eyebrow">Is This for You?</span>
+        <h2>This Report Is Often Most Valuable When...</h2>
+      </div>
+      <div class="for-who-report__grid">
+        <div class="fwr-card fade-in">
+          <h4>You're in transition and need orientation</h4>
+          <p>Not sure what phase you're in or why things feel the way they do. This report names it — and gives it structure.</p>
+        </div>
+        <div class="fwr-card fade-in">
+          <h4>You're making a significant decision</h4>
+          <p>Timing matters. Understanding your current cycle provides essential context before any major move.</p>
+        </div>
+        <div class="fwr-card fade-in">
+          <h4>You've been pushing hard with little traction</h4>
+          <p>Sometimes the issue isn't effort — it's timing. This report can clarify whether you're swimming with or against the current.</p>
+        </div>
+        <div class="fwr-card fade-in">
+          <h4>You want to understand the year before it passes</h4>
+          <p>Every year has a distinct purpose. Understanding it — even mid-year — shifts how you use the time remaining.</p>
+        </div>
+        <div class="fwr-card fade-in">
+          <h4>You're curious about pattern-based insight</h4>
+          <p>A $47 report is a low-commitment way to experience the methodology and see if it resonates before a deeper session.</p>
+        </div>
+        <div class="fwr-card fade-in">
+          <h4>You want something concrete to hold</h4>
+          <p>A PDF you can return to, journal with, and revisit as the year unfolds — not a one-time conversation you have to remember.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SAMPLE FRAMING -->
+  <section class="headlines">
+    <div class="container">
+      <div style="text-align:center;max-width:520px;margin:0 auto;" class="fade-in">
+        <span class="eyebrow">Sample Insights</span>
+        <h2>The Kind of Clarity This Report Provides</h2>
+        <p class="lead">Every report is different — these examples reflect the tone and depth of the insight you'll receive.</p>
+      </div>
+      <div class="headlines__grid">
+        <div class="headline-card fade-in">
+          <h3>"This is not a year for launching new things. It is a year for finishing what you've already started — and building the foundation the next chapter will rest on."</h3>
+          <p>Personal Year 4 — Consolidation &amp; Foundation</p>
+        </div>
+        <div class="headline-card fade-in">
+          <h3>"This year will test your willingness to let go of what no longer serves you. The discomfort you're feeling is not a sign of failure — it's completion in progress."</h3>
+          <p>Personal Year 9 — Completion &amp; Release</p>
+        </div>
+        <div class="headline-card fade-in">
+          <h3>"New beginnings are available to you this year — but they require a clear decision and a willingness to commit. Hesitation will be the main obstacle."</h3>
+          <p>Personal Year 1 — New Cycles &amp; Initiation</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="report-cta">
+    <div class="container">
+      <div class="fade-in">
+        <span class="eyebrow" style="color:var(--gold-light);">Begin Here</span>
+        <h2>Understand What This Year Is Asking of You</h2>
+        <p class="lead">18–22 pages, personalized to your birth date, delivered within 48 hours. A grounded starting point before any deeper session.</p>
+        <p class="report-cta__price">One-time purchase · $47 · No subscription</p>
+        <a href="begin.html" class="btn btn-gold" style="padding:16px 48px;font-size:0.85rem;">
+          Get My Personal Year Timing Report
+        </a>
+        <p style="color:rgba(255,255,255,0.35);font-size:0.75rem;margin-top:20px;">Advisory and educational in nature. Not a replacement for professional medical, legal, or financial advice.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div>
+          <div class="footer__brand-logo">
+            <svg width="32" height="32" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M22 8 L38 24 L22 40 L6 24 Z" fill="#6040A0"/>
+              <path d="M58 8 L74 24 L58 40 L42 24 Z" fill="#8060C0"/>
+              <path d="M40 42 L56 58 L40 74 L24 58 Z" fill="#A080D8"/>
+              <text x="22" y="29" text-anchor="middle" fill="white" font-family="Arial" font-size="14" font-weight="bold">H</text>
+              <text x="58" y="29" text-anchor="middle" fill="white" font-family="Arial" font-size="14" font-weight="bold">S</text>
+              <text x="40" y="63" text-anchor="middle" fill="white" font-family="Arial" font-size="14" font-weight="bold">B</text>
+            </svg>
+            <div>
+              <span class="footer__brand-name">Human Behavior Specialists</span>
+              <span class="footer__brand-tag">HBS – Intelligent Insights</span>
+            </div>
+          </div>
+          <p class="footer__desc">A pattern-based advisory practice focused on life transitions, decision timing, and sustainable direction.</p>
+          <div class="footer__social">
+            <a href="#" aria-label="Facebook">f</a>
+            <a href="#" aria-label="Instagram">in</a>
+            <a href="#" aria-label="LinkedIn">Li</a>
+            <a href="#" aria-label="Threads">Th</a>
+          </div>
+        </div>
+        <div class="footer__col">
+          <h5>Navigate</h5>
+          <ul class="footer__links">
+            <li><a href="the-work.html">The Work</a></li>
+            <li><a href="ways-to-work.html">Ways to Work Together</a></li>
+            <li><a href="personal-forecast.html">Personal Forecast Session</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="report.html">$47 Timing Report</a></li>
+            <li><a href="begin.html">Begin</a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h5>Contact</h5>
+          <div class="footer__contact-item"><span>Email</span> accounts@humanbehaviorspecialists.com</div>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p>&copy; 2025 Human Behavior Specialists. All rights reserved.</p>
+        <p class="footer__disclaimer">This work is advisory and educational in nature and does not replace professional medical, legal, financial, or therapeutic services.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

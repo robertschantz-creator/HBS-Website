@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>3 Signs You're in a Transition Phase | HBS – Intelligent Insights</title>
+  <meta name="description" content="A free guide to understanding the signals of life transition — before the next chapter becomes clear. No email pitch. Just pattern insight." />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .guide-hero {
+      min-height: 80vh;
+      display: flex;
+      align-items: center;
+      padding-top: 72px;
+      background: linear-gradient(135deg, var(--violet-dark) 0%, var(--violet) 60%, #8060C0 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .guide-hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    .guide-hero__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+    .guide-hero__content .eyebrow { color: var(--gold-light); }
+    .guide-hero__content h1 { color: var(--white); font-weight: 300; margin-bottom: 16px; }
+    .guide-hero__content .lead { color: rgba(255,255,255,0.78); margin-bottom: 12px; }
+    .guide-hero__proof {
+      display: flex; gap: 20px; flex-wrap: wrap; margin-top: 28px;
+    }
+    .guide-hero__proof-item {
+      font-size: 0.78rem; color: rgba(255,255,255,0.55);
+      display: flex; gap: 8px; align-items: center;
+    }
+    .guide-hero__proof-item::before { content: '✦'; color: var(--gold); font-size: 0.6rem; }
+
+    .opt-card {
+      background: var(--white);
+      border-radius: 6px;
+      padding: 48px 40px;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.22);
+    }
+    .opt-card__free {
+      display: inline-block;
+      background: var(--lavender-bg);
+      color: var(--violet);
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-weight: 600;
+      padding: 5px 14px;
+      border-radius: 2px;
+      margin-bottom: 20px;
+    }
+    .opt-card h3 {
+      font-family: var(--font-serif);
+      font-size: 1.4rem;
+      color: var(--charcoal);
+      margin-bottom: 8px;
+    }
+    .opt-card__sub {
+      font-size: 0.85rem;
+      color: var(--charcoal-soft);
+      margin-bottom: 28px;
+      line-height: 1.65;
+    }
+    .opt-card__form input {
+      width: 100%; padding: 13px 16px;
+      border: 1.5px solid var(--border);
+      border-radius: 2px;
+      font-family: var(--font-sans); font-size: 0.9rem;
+      color: var(--charcoal); background: var(--cream);
+      margin-bottom: 12px;
+      transition: border-color 0.2s; outline: none;
+    }
+    .opt-card__form input:focus { border-color: var(--violet); background: var(--white); }
+    .opt-card__form input::placeholder { color: var(--charcoal-soft); }
+    .opt-card__disclaimer {
+      font-size: 0.72rem;
+      color: var(--charcoal-soft);
+      text-align: center;
+      margin-top: 14px;
+      line-height: 1.6;
+    }
+
+    .signs { background: var(--white); padding: var(--section-pad) 0; }
+    .signs__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 56px; }
+    .sign-card {
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 36px 28px;
+      position: relative;
+    }
+    .sign-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--violet), var(--gold));
+      border-radius: 4px 4px 0 0;
+    }
+    .sign-card__num {
+      font-family: var(--font-serif);
+      font-size: 3.5rem;
+      color: var(--border);
+      font-weight: 300;
+      line-height: 1;
+      margin-bottom: 16px;
+    }
+    .sign-card h3 { font-family: var(--font-serif); font-size: 1.2rem; color: var(--charcoal); margin-bottom: 12px; line-height: 1.3; }
+    .sign-card p { font-size: 0.88rem; color: var(--charcoal-soft); line-height: 1.75; margin: 0; }
+
+    .what-inside { background: var(--lavender-bg); padding: var(--section-pad) 0; }
+    .inside-list { max-width: 600px; margin: 40px auto 0; list-style: none; }
+    .inside-list li {
+      display: flex; gap: 16px; align-items: flex-start;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.92rem;
+      color: var(--charcoal-mid);
+      line-height: 1.65;
+    }
+    .inside-list li:last-child { border-bottom: none; }
+    .inside-list li::before {
+      content: '—';
+      color: var(--gold);
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .guide-cta { background: linear-gradient(135deg, var(--violet-dark) 0%, var(--violet) 100%); padding: 100px 0; text-align: center; }
+    .guide-cta h2 { color: var(--white); margin-bottom: 16px; }
+    .guide-cta .lead { color: rgba(255,255,255,0.72); max-width: 500px; margin: 0 auto 40px; }
+    .guide-cta__form { max-width: 440px; margin: 0 auto; }
+    .guide-cta__form input {
+      width: 100%; padding: 14px 18px;
+      border: 1.5px solid rgba(255,255,255,0.25);
+      border-radius: 2px;
+      background: rgba(255,255,255,0.1);
+      color: var(--white);
+      font-family: var(--font-sans); font-size: 0.9rem;
+      margin-bottom: 12px; outline: none;
+      transition: border-color 0.2s;
+    }
+    .guide-cta__form input:focus { border-color: rgba(255,255,255,0.6); }
+    .guide-cta__form input::placeholder { color: rgba(255,255,255,0.45); }
+    .guide-cta__note { color: rgba(255,255,255,0.3); font-size: 0.72rem; margin-top: 14px; }
+
+    @media (max-width: 900px) {
+      .guide-hero__grid { grid-template-columns: 1fr; gap: 48px; }
+      .signs__grid { grid-template-columns: 1fr; }
+      .opt-card { padding: 32px 24px; }
+    }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-nav">Skip to main content</a>
+
+  <nav class="nav" role="navigation">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo">
+        <svg width="40" height="40" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M22 8 L38 24 L22 40 L6 24 Z" fill="#6040A0"/>
+          <path d="M58 8 L74 24 L58 40 L42 24 Z" fill="#8060C0"/>
+          <path d="M40 42 L56 58 L40 74 L24 58 Z" fill="#A080D8"/>
+          <text x="22" y="29" text-anchor="middle" fill="white" font-family="Arial" font-size="14" font-weight="bold">H</text>
+          <text x="58" y="29" text-anchor="middle" fill="white" font-family="Arial" font-size="14" font-weight="bold">S</text>
+          <text x="40" y="63" text-anchor="middle" fill="white" font-family="Arial" font-size="14" font-weight="bold">B</text>
+        </svg>
+        <div class="nav__logo-text">
+          <span class="nav__logo-name">Human Behavior Specialists</span>
+          <span class="nav__logo-tag">HBS – Intelligent Insights</span>
+        </div>
+      </a>
+      <ul class="nav__links">
+        <li><a href="the-work.html">The Work</a></li>
+        <li><a href="ways-to-work.html">Ways to Work Together</a></li>
+        <li><a href="personal-forecast.html">Personal Forecast</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="begin.html">Contact</a></li>
+      </ul>
+      <a href="begin.html" class="btn btn-primary nav__cta">Begin</a>
+      <button class="nav__toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <!-- HERO + OPT-IN -->
+  <section class="guide-hero">
+    <div class="container">
+      <div class="guide-hero__grid">
+        <div class="guide-hero__content fade-in">
+          <span class="eyebrow">Free Guide — No Cost</span>
+          <h1>3 Signs You're in a Transition Phase</h1>
+          <p class="lead">Most people feel the signals of a major life transition long before they can name it. This guide helps you recognize what's already happening — and understand why.</p>
+          <div class="guide-hero__proof">
+            <span class="guide-hero__proof-item">5-page PDF guide</span>
+            <span class="guide-hero__proof-item">Instant delivery</span>
+            <span class="guide-hero__proof-item">No pitch, no pressure</span>
+          </div>
+        </div>
+        <div class="opt-card fade-in">
+          <span class="opt-card__free">Completely Free</span>
+          <h3>Get the Free Transition Guide</h3>
+          <p class="opt-card__sub">Enter your name and email and the guide goes straight to your inbox. You'll also receive the monthly HBS Timing Letter — one email per month, no selling, no noise.</p>
+          <form class="opt-card__form" action="#" method="post" novalidate>
+            <label for="guide-name" style="display:block;font-size:0.72rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--charcoal-mid);margin-bottom:4px;">First Name *</label>
+            <input id="guide-name" type="text" name="name" placeholder="Your first name" required aria-required="true" />
+            <label for="guide-email" style="display:block;font-size:0.72rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--charcoal-mid);margin-bottom:4px;">Email Address *</label>
+            <input id="guide-email" type="email" name="email" placeholder="Your email address" required aria-required="true" />
+            <button type="submit" class="btn btn-gold" style="width:100%;text-align:center;display:block;">
+              Send Me the Free Guide
+            </button>
+          </form>
+          <p class="opt-card__disclaimer">You can unsubscribe at any time. Your information is never shared. One email per month — that's it.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE 3 SIGNS -->
+  <section class="signs">
+    <div class="container">
+      <div style="text-align:center;max-width:560px;margin:0 auto;" class="fade-in">
+        <span class="eyebrow">What's Inside</span>
+        <h2>The 3 Signs This Guide Covers</h2>
+        <p class="lead">These aren't dramatic signs. They're quiet ones — the kind most people dismiss, push through, or try to fix with more effort.</p>
+      </div>
+      <div class="signs__grid">
+        <div class="sign-card fade-in">
+          <div class="sign-card__num">01</div>
+          <h3>Something That Used to Fit No Longer Does</h3>
+          <p>Your work, your relationships, your routines — they haven't changed, but the way they feel has. This is one of the clearest signals that a cycle is completing. The guide explains what it means and what to do with it.</p>
+        </div>
+        <div class="sign-card fade-in">
+          <div class="sign-card__num">02</div>
+          <h3>You're Tired in a Way That Sleep Doesn't Fix</h3>
+          <p>This isn't burnout from overwork. It's a particular exhaustion that comes from operating outside your current cycle. The guide helps you identify whether you're in a consolidation phase — and why pushing harder won't help.</p>
+        </div>
+        <div class="sign-card fade-in">
+          <div class="sign-card__num">03</div>
+          <h3>You Know Something Is Next — But You Can't Name It</h3>
+          <p>There's a pull. A sense that something is forming. But when you try to articulate it, it slips away. The guide explains why this is not vagueness — it's timing. And why the next step often reveals itself quietly.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT'S INSIDE -->
+  <section class="what-inside">
+    <div class="container">
+      <div style="text-align:center;max-width:520px;margin:0 auto;" class="fade-in">
+        <span class="eyebrow">The Guide Includes</span>
+        <h2>What You'll Walk Away With</h2>
+      </div>
+      <ul class="inside-list fade-in">
+        <li>A clear explanation of why transition feels different from ordinary change</li>
+        <li>The 3 specific signs — each explained in grounded, non-spiritual language</li>
+        <li>What each sign means in terms of your current life cycle</li>
+        <li>What NOT to do when you recognize these signs (the instinct is usually wrong)</li>
+        <li>A simple question to ask yourself that brings immediate orientation</li>
+        <li>An introduction to the pattern-based methodology behind HBS</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- BOTTOM CTA -->
+  <section class="guide-cta">
+    <div class="container">
+      <div class="fade-in">
+        <span class="eyebrow" style="color:var(--gold-light);">It's Free. Start Here.</span>
+        <h2>Recognize What's Already Happening.</h2>
+        <p class="lead">The guide takes five minutes to read. The clarity it provides can reframe months of confusion.</p>
+        <div class="guide-cta__form">
+          <form action="#" method="post" novalidate>
+            <label for="cta-name" class="sr-only">First Name</label>
+            <input id="cta-name" type="text" name="name" placeholder="Your first name" required aria-required="true" />
+            <label for="cta-email" class="sr-only">Email Address</label>
+            <input id="cta-email" type="email" name="email" placeholder="Your email address" required aria-required="true" />
+            <button type="submit" class="btn btn-gold" style="width:100%;text-align:center;display:block;padding:15px;">
+              Send Me the Free Guide
+            </button>
+          </form>
+          <p class="guide-cta__note">One email per month. No selling. Unsubscribe anytime.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div>
+          <div class="footer__brand-logo">
+            <svg width="32" height="32" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M22 8 L38 24 L22 40 L6 24 Z" fill="#6040A0"/>
+              <path d="M58 8 L74 24 L58 40 L42 24 Z" fill="#8060C0"/>
+              <path d="M40 42 L56 58 L40 74 L24 58 Z" fill="#A080D8"/>
+              <text x="22" y="29" text-anchor="middle" fill="white" font-family="Arial" font-size="14" font-weight="bold">H</text>
+              <text x="58" y="29" text-anchor="middle" fill="white" font-family="Arial" font-size="14" font-weight="bold">S</text>
+              <text x="40" y="63" text-anchor="middle" fill="white" font-family="Arial" font-size="14" font-weight="bold">B</text>
+            </svg>
+            <div>
+              <span class="footer__brand-name">Human Behavior Specialists</span>
+              <span class="footer__brand-tag">HBS – Intelligent Insights</span>
+            </div>
+          </div>
+          <p class="footer__desc">A pattern-based advisory practice focused on life transitions, decision timing, and sustainable direction.</p>
+        </div>
+        <div class="footer__col">
+          <h5>Navigate</h5>
+          <ul class="footer__links">
+            <li><a href="the-work.html">The Work</a></li>
+            <li><a href="ways-to-work.html">Ways to Work Together</a></li>
+            <li><a href="personal-forecast.html">Personal Forecast Session</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="report.html">$47 Timing Report</a></li>
+            <li><a href="begin.html">Begin</a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h5>Contact</h5>
+          <div class="footer__contact-item"><span>Email</span> accounts@humanbehaviorspecialists.com</div>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p>&copy; 2025 Human Behavior Specialists. All rights reserved.</p>
+        <p class="footer__disclaimer">This work is advisory and educational in nature and does not replace professional medical, legal, financial, or therapeutic services.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

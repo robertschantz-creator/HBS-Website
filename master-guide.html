@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HBS Master Implementation Guide</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap');
+    :root {
+      --violet: #6040A0; --gold: #C8903A; --cream: #F8F6F2;
+      --charcoal: #18181A; --soft: #62626A; --border: #DDD8EE;
+      --lavender: #EDE8F8; --white: #fff;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', sans-serif; color: var(--charcoal); background: var(--white); font-size: 14px; line-height: 1.7; }
+    @media print {
+      .no-print { display: none; }
+      body { font-size: 12px; }
+      .page-break { page-break-before: always; }
+    }
+    .cover {
+      background: linear-gradient(135deg, #3A2878 0%, #6040A0 100%);
+      color: white; padding: 80px 64px; min-height: 100vh;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .cover__eyebrow { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 24px; }
+    .cover h1 { font-family: 'Cormorant Garamond', serif; font-size: 56px; font-weight: 400; line-height: 1.15; color: white; margin-bottom: 24px; }
+    .cover__sub { font-size: 16px; color: rgba(255,255,255,0.65); max-width: 560px; line-height: 1.7; margin-bottom: 48px; }
+    .cover__meta { display: flex; gap: 40px; flex-wrap: wrap; }
+    .cover__meta-item label { display: block; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 4px; }
+    .cover__meta-item span { font-size: 13px; color: rgba(255,255,255,0.8); }
+    .cover__gold { color: #C8903A; }
+
+    .toc { padding: 64px; background: var(--cream); }
+    .toc h2 { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 400; margin-bottom: 32px; color: var(--charcoal); }
+    .toc__list { list-style: none; }
+    .toc__section { margin-bottom: 8px; }
+    .toc__section > a { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px dotted var(--border); font-size: 13px; color: var(--violet); text-decoration: none; font-weight: 500; }
+    .toc__section > a:hover { color: var(--gold); }
+    .toc__num { color: var(--gold); font-size: 11px; font-weight: 600; }
+
+    .section { padding: 64px; border-bottom: 2px solid var(--border); }
+    .section:nth-child(even) { background: var(--cream); }
+    .section-header { display: flex; align-items: baseline; gap: 16px; margin-bottom: 40px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
+    .section-num { font-family: 'Cormorant Garamond', serif; font-size: 48px; color: var(--border); font-weight: 300; line-height: 1; flex-shrink: 0; }
+    .section-header h2 { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 400; color: var(--charcoal); line-height: 1.2; }
+    h3 { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 500; color: var(--charcoal); margin: 32px 0 12px; }
+    h4 { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin: 24px 0 8px; }
+    p { margin-bottom: 14px; color: var(--soft); line-height: 1.8; }
+    p strong { color: var(--charcoal); font-weight: 600; }
+    ul, ol { margin: 12px 0 20px 20px; }
+    li { margin-bottom: 6px; color: var(--soft); line-height: 1.7; }
+    li strong { color: var(--charcoal); }
+    blockquote {
+      border-left: 3px solid var(--gold);
+      padding: 16px 24px;
+      margin: 24px 0;
+      background: var(--lavender);
+      border-radius: 0 4px 4px 0;
+    }
+    blockquote p { color: var(--charcoal); font-style: italic; margin: 0; font-size: 15px; line-height: 1.6; }
+    .callout {
+      background: var(--charcoal); color: white;
+      padding: 24px 28px; border-radius: 4px; margin: 24px 0;
+    }
+    .callout p { color: rgba(255,255,255,0.8); margin: 0; }
+    .callout strong { color: #C8903A; }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin: 20px 0; }
+    .box {
+      border: 1px solid var(--border); border-radius: 4px;
+      padding: 20px 24px; background: var(--white);
+    }
+    .box h4 { margin-top: 0; }
+    .box ul { margin-left: 16px; }
+    .tag {
+      display: inline-block;
+      background: var(--lavender); color: var(--violet);
+      font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 3px 10px; border-radius: 2px; font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .price-row {
+      display: flex; align-items: center; gap: 16px;
+      padding: 16px 20px;
+      border: 1px solid var(--border); border-radius: 4px;
+      margin-bottom: 12px; background: var(--white);
+    }
+    .price-row__price { font-family: 'Cormorant Garamond', serif; font-size: 24px; color: var(--violet); min-width: 80px; }
+    .price-row__name { font-weight: 600; font-size: 13px; color: var(--charcoal); margin-bottom: 2px; }
+    .price-row__desc { font-size: 12px; color: var(--soft); }
+    .price-row--featured { border-color: var(--violet); background: var(--lavender); }
+    .timeline { position: relative; padding-left: 40px; }
+    .timeline::before { content: ''; position: absolute; left: 12px; top: 0; bottom: 0; width: 1px; background: var(--border); }
+    .timeline-item { position: relative; margin-bottom: 28px; }
+    .timeline-item::before { content: ''; position: absolute; left: -34px; top: 6px; width: 12px; height: 12px; border-radius: 50%; background: var(--violet); border: 2px solid white; box-shadow: 0 0 0 2px var(--violet); }
+    .timeline-item h4 { margin-top: 0; }
+    .checklist { list-style: none; margin-left: 0; }
+    .checklist li { display: flex; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+    .checklist li:last-child { border-bottom: none; }
+    .checklist li::before { content: '☐'; color: var(--violet); flex-shrink: 0; font-size: 14px; }
+    .post-box {
+      border: 1px solid var(--border); border-radius: 4px;
+      padding: 24px; margin-bottom: 16px;
+      background: var(--white);
+    }
+    .post-box h4 { margin-top: 0; margin-bottom: 10px; }
+    .post-box p { margin: 0; font-size: 13px; color: var(--charcoal); line-height: 1.75; white-space: pre-line; }
+    .print-btn {
+      position: fixed; bottom: 32px; right: 32px;
+      background: var(--violet); color: white;
+      border: none; padding: 12px 24px;
+      border-radius: 4px; cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px; font-weight: 500;
+      letter-spacing: 0.06em;
+      box-shadow: 0 8px 24px rgba(96,64,160,0.3);
+      z-index: 100;
+    }
+    table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 13px; }
+    th { background: var(--charcoal); color: white; padding: 10px 14px; text-align: left; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; }
+    td { padding: 10px 14px; border-bottom: 1px solid var(--border); color: var(--soft); }
+    tr:nth-child(even) td { background: var(--cream); }
+  </style>
+</head>
+<body>
+
+<button class="print-btn no-print" onclick="window.print()">Print / Save as PDF</button>
+
+<!-- COVER -->
+<div class="cover">
+  <p class="cover__eyebrow">Master Implementation Guide</p>
+  <h1>Human Behavior<br>Specialists<br><span class="cover__gold">HBS – Intelligent Insights</span></h1>
+  <p class="cover__sub">A complete brand, website, content, offer, and GoHighLevel implementation guide. Built for Robert Schantz and his technical team.</p>
+  <div class="cover__meta">
+    <div class="cover__meta-item"><label>Company</label><span>Human Behavior Specialists</span></div>
+    <div class="cover__meta-item"><label>Tagline</label><span>HBS – Intelligent Insights</span></div>
+    <div class="cover__meta-item"><label>Positioning</label><span>Pattern Intelligence for Life Transitions</span></div>
+    <div class="cover__meta-item"><label>Website</label><span>humanbehaviorspecialists.com</span></div>
+    <div class="cover__meta-item"><label>Version</label><span>April 2026 — Build Ready</span></div>
+  </div>
+</div>
+
+<!-- TOC -->
+<div class="toc page-break">
+  <h2>Table of Contents</h2>
+  <ul class="toc__list">
+    <li class="toc__section"><a href="#s1"><span>01 — Brand Strategy &amp; Positioning</span><span class="toc__num">Core Identity</span></a></li>
+    <li class="toc__section"><a href="#s2"><span>02 — Website Architecture &amp; Page Copy</span><span class="toc__num">All Pages</span></a></li>
+    <li class="toc__section"><a href="#s3"><span>03 — The Full Offer Ladder</span><span class="toc__num">5 Tiers</span></a></li>
+    <li class="toc__section"><a href="#s4"><span>04 — Social Media System</span><span class="toc__num">Bios, Posts, Calendar</span></a></li>
+    <li class="toc__section"><a href="#s5"><span>05 — Client Journey &amp; Intake</span><span class="toc__num">Filters &amp; Flow</span></a></li>
+    <li class="toc__section"><a href="#s6"><span>06 — Email &amp; DM Templates</span><span class="toc__num">Outreach Copy</span></a></li>
+    <li class="toc__section"><a href="#s7"><span>07 — Pricing Philosophy &amp; Boundaries</span><span class="toc__num">Money Language</span></a></li>
+    <li class="toc__section"><a href="#s8"><span>08 — FAQ — Personal Forecast Session</span><span class="toc__num">10 Questions</span></a></li>
+    <li class="toc__section"><a href="#s9"><span>09 — Content System</span><span class="toc__num">5 Posts + 12-Month Calendar</span></a></li>
+    <li class="toc__section"><a href="#s10"><span>10 — 90-Day Launch Plan</span><span class="toc__num">Week by Week</span></a></li>
+    <li class="toc__section"><a href="#s11"><span>11 — GoHighLevel Build Checklist</span><span class="toc__num">For Your Tech Team</span></a></li>
+    <li class="toc__section"><a href="#s12"><span>12 — One-Page Personal Forecast PDF</span><span class="toc__num">Shareable Asset</span></a></li>
+  </ul>
+</div>
+
+<!-- S1: BRAND -->
+<div class="section page-break" id="s1">
+  <div class="section-header">
+    <div class="section-num">01</div>
+    <h2>Brand Strategy &amp; Positioning</h2>
+  </div>
+
+  <h3>The Core Decision</h3>
+  <p><strong>Keep the name: Human Behavior Specialists.</strong> Do not rename social accounts. The name has existing equity, is neutral, credible, and expandable. The evolution happens beneath the name.</p>
+
+  <div class="grid-2">
+    <div class="box">
+      <h4>Primary Brand Name</h4>
+      <p style="font-size:18px;font-family:'Cormorant Garamond',serif;color:var(--charcoal);margin:0;">Human Behavior Specialists</p>
+    </div>
+    <div class="box">
+      <h4>Brand Tagline</h4>
+      <p style="font-size:18px;font-family:'Cormorant Garamond',serif;color:var(--violet);margin:0;">HBS – Intelligent Insights</p>
+    </div>
+    <div class="box">
+      <h4>Positioning Line</h4>
+      <p style="font-size:15px;font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--charcoal);margin:0;">Pattern Intelligence for Life Transitions</p>
+    </div>
+    <div class="box">
+      <h4>Supporting Line</h4>
+      <p style="font-size:13px;color:var(--soft);margin:0;">Helping people understand timing, cycles, and direction — so decisions are made with clarity, not urgency.</p>
+    </div>
+  </div>
+
+  <h3>What HBS Is — and Is Not</h3>
+  <div class="grid-2">
+    <div class="box">
+      <h4>HBS Is</h4>
+      <ul>
+        <li>A pattern-based advisory practice</li>
+        <li>Focused on life cycles and timing</li>
+        <li>Reflective and structured</li>
+        <li>Complete in one session when appropriate</li>
+        <li>Advisory and educational in nature</li>
+        <li>Grounded in Pythagorean numerological methodology</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h4>HBS Is NOT</h4>
+      <ul>
+        <li>Motivational coaching</li>
+        <li>Accountability-based programs</li>
+        <li>Therapy or mental health treatment</li>
+        <li>Fortune-telling or prediction</li>
+        <li>A replacement for professional advice</li>
+        <li>A "numerology website" — numerology is the invisible framework</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Core Positioning Language</h3>
+  <blockquote><p>"People don't struggle because they are broken — they struggle because they are out of rhythm with their current phase."</p></blockquote>
+  <blockquote><p>"We don't rush clarity. We reveal context."</p></blockquote>
+  <blockquote><p>"The goal is not dependency. The goal is clarity that stands on its own."</p></blockquote>
+
+  <h3>Brand Voice Guidelines</h3>
+  <div class="grid-2">
+    <div class="box">
+      <h4>Always Use</h4>
+      <ul><li>Timing · Transitions · Life cycles</li><li>Orientation · Clarity · Direction</li><li>Pattern · Phase · Cycle</li><li>Advisory · Reflective · Grounded</li></ul>
+    </div>
+    <div class="box">
+      <h4>Never Use</h4>
+      <ul><li>"Numerology" in headlines or CTAs</li><li>Urgency language ("Act now!", "Limited spots!")</li><li>Transformation / Motivation / Coaching</li><li>Certainty / Prediction / Fortune</li></ul>
+    </div>
+  </div>
+
+  <h3>The 3-Lane Business Model</h3>
+  <div class="grid-2">
+    <div class="box"><h4>Lane 1 — Primary</h4><p><strong>Human Behavior Specialists</strong><br/>Pattern Intelligence advisory. 5-tier offer ladder. Long-term legacy arc.</p></div>
+    <div class="box"><h4>Lane 2 — Secondary (On Hold)</h4><p><strong>Real Estate Advisory for Life Transitions</strong><br/>Advisory lens on property decisions. Activate after HBS foundation is established.</p></div>
+  </div>
+</div>
+
+<!-- S2: WEBSITE -->
+<div class="section page-break" id="s2">
+  <div class="section-header">
+    <div class="section-num">02</div>
+    <h2>Website Architecture &amp; Page Copy</h2>
+  </div>
+
+  <h3>Navigation Structure</h3>
+  <table>
+    <tr><th>Nav Item</th><th>URL</th><th>Purpose</th></tr>
+    <tr><td>Home</td><td>/</td><td>Orientation — not explanation</td></tr>
+    <tr><td>The Work</td><td>/the-work</td><td>What this is, why patterns matter, how it differs</td></tr>
+    <tr><td>Ways to Work Together</td><td>/ways-to-work</td><td>Full 5-tier offer ladder, service containers</td></tr>
+    <tr><td>Personal Forecast</td><td>/personal-forecast</td><td>Lead-in page for the primary 1:1 session</td></tr>
+    <tr><td>About</td><td>/about</td><td>Authority + trust without resume-dumping</td></tr>
+    <tr><td>Begin</td><td>/begin</td><td>Contact form + path selection — no friction</td></tr>
+    <tr><td>$47 Report</td><td>/personal-year-report</td><td>Sales page for Timing Report</td></tr>
+    <tr><td>Free Guide</td><td>/free-guide</td><td>Lead magnet opt-in</td></tr>
+  </table>
+
+  <h3>Homepage Copy (SEO-Optimized)</h3>
+  <h4>Hero Section</h4>
+  <p><strong>Eyebrow:</strong> Human Behavior Specialists · Pattern Intelligence for Life Transitions</p>
+  <p><strong>H1:</strong> When Life Is Changing, Timing Matters.</p>
+  <p><strong>Lead:</strong> Most people don't struggle because they lack motivation or intelligence. They struggle because they're trying to make decisions without understanding the phase they're in. We help you see the pattern — and move from clarity.</p>
+  <p><strong>CTA 1 (Gold):</strong> Begin with a Personal Forecast</p>
+  <p><strong>CTA 2 (Outline):</strong> Learn About the Work</p>
+
+  <h4>What We Focus On (Section)</h4>
+  <ul>
+    <li>Life cycles and transitional phases</li>
+    <li>Recurring patterns and themes</li>
+    <li>Decision timing and momentum</li>
+    <li>Alignment between identity, work, and values</li>
+    <li>What is completing — and what is emerging</li>
+  </ul>
+
+  <h4>Who This Is For (Section)</h4>
+  <ul>
+    <li>Those who have achieved a level of success but feel growing misalignment</li>
+    <li>People standing at the edge of a transition</li>
+    <li>Anyone who wants clarity without being sold or pushed</li>
+    <li>Those who value depth, reflection, and wisdom over speed</li>
+  </ul>
+
+  <blockquote><p>"If you're looking for motivation, this may not be the right place. If you're looking for orientation — it usually is."</p></blockquote>
+
+  <h3>The Work Page — Key Copy Points</h3>
+  <ul>
+    <li><strong>Core premise:</strong> "This work is not about self-improvement. It's about self-orientation."</li>
+    <li><strong>Why patterns matter:</strong> When patterns are missed → frustration, burnout, stalled decisions. When understood → pressure eases, decisions stabilize.</li>
+    <li><strong>The framework:</strong> Pythagorean-based numerological pattern mapping — but never lead with the word "numerology."</li>
+    <li><strong>Key differentiator:</strong> Not motivating, not accountability, not therapy. Perspective + pattern recognition + timing intelligence.</li>
+    <li><strong>When most useful:</strong> Career/identity transitions · Sensing chapter ending · Questioning success definitions · Major decisions · Seeking clarity without pressure</li>
+  </ul>
+
+  <h3>About Page — Key Copy Points</h3>
+  <ul>
+    <li>Opens with: "Most of the meaningful transitions in life don't arrive with clear instructions."</li>
+    <li>Core truth: "People don't struggle because they are broken — they struggle because they are out of rhythm with their current phase."</li>
+    <li><strong>Credentials woven in quietly:</strong> Decades of behavioral observation · Leadership advisory roles · Applied behavioral frameworks (DiSC, Enneagram, PQ) · Pythagorean-based pattern mapping · Licensed Managing Broker · High-stakes decision advisory experience</li>
+    <li><strong>Scope disclaimer:</strong> "This work is advisory and educational in nature — not therapy, medical, legal, or financial advice."</li>
+  </ul>
+
+  <h3>Key Design Decisions</h3>
+  <ul>
+    <li><strong>Colors:</strong> Deep violet #6040A0 (primary) · Warm amber gold #C8903A (accent) · Cream #F8F6F2 (background) · Dark charcoal #18181A (text)</li>
+    <li><strong>Fonts:</strong> Cormorant Garamond (serif, headlines) · Inter (sans-serif, body)</li>
+    <li><strong>Tone:</strong> Clean, minimal, generous white space — no urgency design patterns, no countdown timers</li>
+    <li><strong>Logo:</strong> Existing HBS diamond heart logo maintained</li>
+  </ul>
+</div>
+
+<!-- S3: OFFER LADDER -->
+<div class="section page-break" id="s3">
+  <div class="section-header">
+    <div class="section-num">03</div>
+    <h2>The Full Offer Ladder</h2>
+  </div>
+
+  <p>Five tiers, each complete on its own. No pressure to ascend. People self-select upward through curiosity, not sales calls.</p>
+
+  <div class="price-row">
+    <div class="price-row__price">Free</div>
+    <div><div class="price-row__name">Free Timing Guide — "3 Signs You're in a Transition Phase"</div><div class="price-row__desc">5-page PDF · Email opt-in required · Auto-delivered · Feeds the database · Tags: HBS-Timing-Letter</div></div>
+  </div>
+  <div class="price-row price-row--featured">
+    <div class="price-row__price">$47</div>
+    <div><div class="price-row__name">Personal Year Timing Report ⭐ Most Popular</div><div class="price-row__desc">12–18 page personalized PDF · Delivered within 48 hours · Start manual, automate after 20 sales · Tags: HBS-Report-Buyer · Upsell: Group Session at checkout</div></div>
+  </div>
+  <div class="price-row">
+    <div class="price-row__price">$97/mo</div>
+    <div><div class="price-row__name">Monthly Group Interpretation Session</div><div class="price-row__desc">90-min live Zoom · General pattern teaching + Q&A · No individual deep dives · Available to report buyers only · Tags: HBS-Group-Buyer</div></div>
+  </div>
+  <div class="price-row">
+    <div class="price-row__price">$497–$750</div>
+    <div><div class="price-row__name">Personal Forecast Session (1:1)</div><div class="price-row__desc">Private one-on-one advisory conversation · Complete pattern mapping · Available to report or group buyers first · No discovery calls — direct booking only · Tags: HBS-1on1-Client</div></div>
+  </div>
+  <div class="price-row">
+    <div class="price-row__price">Invite Only</div>
+    <div><div class="price-row__name">Next-Chapter Orientation / Small Cohort (Future)</div><div class="price-row__desc">2–3 session series or small group · 6–10 people max · Only after 25–50 Personal Forecast Sessions completed · Do NOT build this first</div></div>
+  </div>
+
+  <h3>The $47 Report — Full Product Spec</h3>
+  <h4>Product Name</h4>
+  <p>The Personal Year Timing Report</p>
+  <h4>Subtitle</h4>
+  <p>A personalized guide to understanding your current life cycle and what this year is designed to teach you.</p>
+  <h4>8 Sections Inside</h4>
+  <ol>
+    <li>Your Personal Year Number</li>
+    <li>What This Year Is Designed For</li>
+    <li>What to Focus On</li>
+    <li>What to Avoid</li>
+    <li>Decision Timing Guidance</li>
+    <li>Relationship &amp; Work Energy Overview</li>
+    <li>End-of-Year Transition Outlook</li>
+    <li>How to Use This Report</li>
+  </ol>
+  <h4>Sales Page Headlines (Pick One)</h4>
+  <ul>
+    <li>"Understand What This Year Is Trying to Teach You."</li>
+    <li>"If You're in Transition, Your Timing Matters."</li>
+    <li>"This Is Not a Horoscope. It's a Timing Blueprint."</li>
+  </ul>
+  <h4>Fulfillment</h4>
+  <p><strong>Phase 1 (First 20 buyers):</strong> Manual. Robert generates PDF from template, delivers within 48 hours.<br/><strong>Phase 2 (After validation):</strong> Semi-automated via GHL + PDF template merge system.</p>
+
+  <h3>Validation Goal</h3>
+  <div class="callout"><p>The goal is NOT 1,000 sales. The goal is <strong>20 sales</strong>. That validates demand, creates 20 warm prospects, and justifies automation investment. Start small. Test. Expand.</p></div>
+</div>
+
+<!-- S4: SOCIAL -->
+<div class="section page-break" id="s4">
+  <div class="section-header">
+    <div class="section-num">04</div>
+    <h2>Social Media System</h2>
+  </div>
+
+  <h3>Platform Bios</h3>
+  <h4>LinkedIn Headline</h4>
+  <p>Pattern Intelligence for Life Transitions | Human Behavior Specialists | HBS – Intelligent Insights</p>
+
+  <h4>LinkedIn About (Opening)</h4>
+  <p>I help people understand where they are in their life cycle — and make aligned decisions during periods of transition.<br/><br/>My work isn't coaching in the traditional sense. It's advisory. Pattern-based. Focused on timing, cycles, and sustainable direction.<br/><br/>If something in your life no longer fits — your work, your direction, your sense of purpose — that's often not a sign that something is wrong. It's a sign that a cycle is completing.<br/><br/>I help people recognize that. And move from clarity, not pressure.</p>
+
+  <h4>Instagram Bio</h4>
+  <pre style="font-family:inherit;font-size:13px;color:var(--charcoal);background:var(--lavender);padding:16px;border-radius:4px;line-height:1.8;">
+Human Behavior Specialists
+Clarity · Timing · Direction
+Pattern intelligence for life transitions
+HBS – Intelligent Insights
+🔗 Link in bio</pre>
+
+  <h4>X / Twitter Bio</h4>
+  <p>Pattern intelligence for life transitions. Helping people make decisions from clarity, not urgency. | HBS – Intelligent Insights</p>
+
+  <h4>Facebook Bio</h4>
+  <p>Human Behavior Specialists helps people understand timing, cycles, and life transitions — so decisions are made from clarity rather than pressure. Pattern-based advisory practice. HBS – Intelligent Insights.</p>
+
+  <h3>Pinned Post (Use on LinkedIn + Facebook)</h3>
+  <div class="post-box">
+    <h4>Option 1 — Quiet Observation (Recommended)</h4>
+    <p>Lately, I've noticed that many people aren't stuck — they're just standing in a transition.
+
+When a chapter is ending, clarity often disappears before direction appears. That's normal. It doesn't mean something is wrong.
+
+I've created a Personal Forecast Session for moments like this — a calm, reflective conversation designed to help you understand where you are in your life cycle, what's completing, and what's beginning to take shape.
+
+This isn't about prediction or being told what to do. It's about context, timing, and clarity — so decisions don't have to be forced.
+
+If this resonates: 👉 [Link to Personal Forecast page]</p>
+  </div>
+
+  <h3>5 Evergreen Anchor Posts</h3>
+  <p><em>Post one every 4–7 days. No hashtag overload. Let silence work. Don't explain in comments.</em></p>
+
+  <div class="post-box">
+    <h4>Post 1 — Transitions (Foundational · Pin this)</h4>
+    <p>Most people don't change because they suddenly know what they want.
+
+They change because something quietly stops fitting.
+
+That moment — when the old way no longer works but the new way isn't clear yet — is not confusion. It's transition.
+
+Clarity often disappears before direction appears. That doesn't mean something is wrong.
+
+It means a chapter is completing.</p>
+  </div>
+
+  <div class="post-box">
+    <h4>Post 2 — Timing (Authority Signal)</h4>
+    <p>Not every phase of life is meant for action.
+
+Some phases are meant for:
+· understanding
+· consolidation
+· integration
+· letting go
+
+When we try to force movement during a reflective phase, even good decisions feel heavy.
+
+Timing matters more than effort — and recognizing timing is often the difference between strain and alignment.</p>
+  </div>
+
+  <div class="post-box">
+    <h4>Post 3 — Decisions (Trust Builder)</h4>
+    <p>When people say they're "stuck," what they usually mean is this:
+
+They're trying to make a decision without context.
+
+Without understanding the phase they're in, decisions feel urgent, pressured, or overwhelming.
+
+Context doesn't tell you what to choose. It tells you how to choose — and whether now is the moment to act or wait.</p>
+  </div>
+
+  <div class="post-box">
+    <h4>Post 4 — Success &amp; Misalignment (Depth)</h4>
+    <p>One of the most misunderstood moments in life is this:
+
+You've done everything right — and yet something still feels off.
+
+That doesn't mean you failed. It often means you've outgrown the structure that once supported you.
+
+Success doesn't exempt us from transition. In many cases, it initiates it.</p>
+  </div>
+
+  <div class="post-box">
+    <h4>Post 5 — Clarity (Brand Essence · Alternate Pin)</h4>
+    <p>Clarity rarely arrives through urgency.
+
+It arrives when pressure is removed long enough for perspective to surface.
+
+You don't need to reinvent yourself. You don't need to force the next step.
+
+You need to understand the moment you're standing in — and let the next step reveal itself naturally.
+
+That is the work we do.</p>
+  </div>
+</div>
+
+<!-- S5: INTAKE -->
+<div class="section page-break" id="s5">
+  <div class="section-header">
+    <div class="section-num">05</div>
+    <h2>Client Journey &amp; Intake</h2>
+  </div>
+
+  <h3>The Customer Journey</h3>
+  <div class="timeline">
+    <div class="timeline-item"><h4>Touch 1 — Discovery</h4><p>Social post, referral, or search. They land on website or social profile.</p></div>
+    <div class="timeline-item"><h4>Touch 2 — Free Guide</h4><p>Download "3 Signs You're in a Transition Phase." Email captured. Tag: HBS-Timing-Letter.</p></div>
+    <div class="timeline-item"><h4>Touch 3 — Monthly Timing Letter</h4><p>One email per month. A reflection, a timing observation, a soft offer. Builds trust without pushing.</p></div>
+    <div class="timeline-item"><h4>Touch 4 — $47 Report</h4><p>They buy when ready. Self-selected. No sales call. Tag: HBS-Report-Buyer.</p></div>
+    <div class="timeline-item"><h4>Touch 5 — Group Session ($97)</h4><p>Offered to report buyers. Optional. Scales naturally.</p></div>
+    <div class="timeline-item"><h4>Touch 6 — Personal Forecast ($497–$750)</h4><p>Offered to report or group buyers. Direct booking. No discovery call.</p></div>
+    <div class="timeline-item"><h4>Touch 7 — Next Chapter (Invite Only)</h4><p>Offered to existing 1:1 clients. Selective. No public marketing.</p></div>
+  </div>
+
+  <h3>Personal Forecast Session — Intake Questions</h3>
+  <p>These questions filter without sounding like a filter. Include this opening statement verbatim:</p>
+  <blockquote><p>"This work is reflective and advisory in nature. The questions below are designed to help determine whether a Personal Forecast Session is the right fit at this time. There are no 'right' answers — only honest ones."</p></blockquote>
+
+  <ol>
+    <li><strong>What prompted you to seek clarity at this moment?</strong> (Open field)</li>
+    <li><strong>Which of the following best describes your current experience?</strong><br/>A. A quiet sense that something is shifting<br/>B. A specific decision I'm navigating<br/>C. A sense that a chapter is ending<br/>D. Questioning my direction or priorities<br/>E. Something else</li>
+    <li><strong>What feels most unsettled or unclear right now?</strong> (Open field)</li>
+    <li><strong>How do you typically approach decisions during uncertainty?</strong> (Open field) — Listen for: reflection vs urgency vs avoidance</li>
+    <li><strong>What are you hoping to gain from this session?</strong> (Open field) — Red flags: "answers," "certainty," "tell me what to do"</li>
+    <li><strong>This work focuses on understanding timing, cycles, and patterns — not predicting outcomes or telling you what to do. How does that land with you?</strong> — This is the strongest filter question.</li>
+    <li><strong>What are you most looking for right now?</strong><br/>A. To understand the phase I'm in<br/>B. To slow down and get perspective<br/>C. To make a more informed decision<br/>D. To understand what's completing in my life</li>
+    <li><strong>Are you open to reflection without immediate resolution?</strong> (Yes/No)</li>
+    <li><strong>Have you worked with reflective, advisory, or insight-based work before?</strong> (Optional)</li>
+    <li><strong>Is there anything else important to share?</strong> (Open field)</li>
+  </ol>
+
+  <h4>Reading Responses</h4>
+  <div class="grid-2">
+    <div class="box">
+      <h4>Green Flags</h4>
+      <ul><li>Thoughtful, measured responses</li><li>Language about timing, reflection, patterns</li><li>Curiosity without urgency</li><li>"I'm not sure what's next but something's shifting"</li></ul>
+    </div>
+    <div class="box">
+      <h4>Red Flags (Decline Gracefully)</h4>
+      <ul><li>"I need answers now"</li><li>"I want to know exactly what to do"</li><li>Crisis language or emergency framing</li><li>Expectations of certainty or prediction</li></ul>
+    </div>
+  </div>
+
+  <h4>Decline Language (Keep Handy)</h4>
+  <blockquote><p>"Thank you for your thoughtful responses. Based on what you shared, it may not be the right moment for this particular work. I encourage you to seek support that better matches your current needs." (No explanation required.)</p></blockquote>
+
+  <h3>Intake Questions — Closing Statement</h3>
+  <blockquote><p>"This session is designed to provide clarity, context, and orientation. It is complete on its own and does not require ongoing engagement. If this resonates, you are likely a good fit."</p></blockquote>
+</div>
+
+<!-- S6: EMAIL TEMPLATES -->
+<div class="section page-break" id="s6">
+  <div class="section-header">
+    <div class="section-num">06</div>
+    <h2>Email &amp; DM Templates</h2>
+  </div>
+
+  <h3>Monthly Timing Letter — Template Structure</h3>
+  <p>Send once per month. One email. No selling every month. Soft offer every 2–3 months.</p>
+  <div class="box">
+    <h4>Structure</h4>
+    <ul>
+      <li><strong>Subject line:</strong> A timing observation (e.g., "What this month is asking of you")</li>
+      <li><strong>Opening:</strong> 2–3 sentences — a pattern observation or reflection</li>
+      <li><strong>Body:</strong> One insight. One question for the reader to sit with.</li>
+      <li><strong>Closing:</strong> Soft and clean — "If this resonates, the timing report may help you go deeper: [link]"</li>
+      <li><strong>No:</strong> Multiple CTAs · Long copy · Urgency language</li>
+    </ul>
+  </div>
+
+  <h3>Soft Announcement Email (Send to Existing Database)</h3>
+  <div class="post-box">
+    <h4>Subject: Something I've been building quietly</h4>
+    <p>Hi [First Name],
+
+Over the past several months, I've been quietly repositioning the work I do at Human Behavior Specialists.
+
+Not what I do. How I offer it.
+
+I've always worked with people during periods of change. Career crossroads. Identity shifts. Moments where something feels like it's completing but the next chapter isn't yet clear.
+
+What I've learned: the most helpful thing I can offer isn't advice about what to do. It's perspective on where you are — and what the timing of your life is actually asking of you.
+
+I'm now offering Personal Forecast Sessions — one-on-one advisory conversations focused on timing, cycles, and grounded clarity during transition.
+
+There's no pressure here. If you sense this might be relevant — for you or someone you know — you can learn more at the link below.
+
+If not, the next monthly timing letter arrives soon.
+
+Either way, I appreciate you being here.
+
+[Robert]
+
+→ Learn about the Personal Forecast Session: [link]</p>
+  </div>
+
+  <h3>Soft DM Invitation (LinkedIn / Instagram)</h3>
+  <div class="post-box">
+    <h4>Short Version</h4>
+    <p>Hi [Name] — I've been following your work and thought of you when I put this together. I've just launched a Personal Forecast Session through HBS — a calm, one-conversation advisory focused on timing and life transitions. No pitch — just thought it might resonate given where you've been lately. You can see what it is here: [link]. Either way, hope things are moving in the right direction.</p>
+  </div>
+
+  <h3>Post-Purchase Email Sequence ($47 Report)</h3>
+  <h4>Email 1 — Immediate</h4>
+  <div class="box"><p><strong>Subject:</strong> Your Personal Year Timing Report<br/><strong>Body:</strong> Confirmation + timeline (48 hours) + what to expect + invitation to join Timing Letter</p></div>
+  <h4>Email 2 — On Delivery</h4>
+  <div class="box"><p><strong>Subject:</strong> Your Timing Report Is Ready<br/><strong>Body:</strong> PDF attached or link · Suggestion to journal with it · Soft mention: "If you'd like deeper interpretation, the Personal Forecast Session is available to report buyers." No pressure.</p></div>
+  <h4>Email 3 — Day 7 Follow-Up</h4>
+  <div class="box"><p><strong>Subject:</strong> A question about your report<br/><strong>Body:</strong> "Has anything in the report resonated or surprised you? I'd love to hear." Soft CTA to group session if they respond positively.</p></div>
+</div>
+
+<!-- S7: PRICING -->
+<div class="section page-break" id="s7">
+  <div class="section-header">
+    <div class="section-num">07</div>
+    <h2>Pricing Philosophy &amp; Boundaries</h2>
+  </div>
+
+  <blockquote><p>"This work is not priced to encourage volume or urgency. It is priced to support presence, clarity, and sustainability — for both the client and the practitioner."</p></blockquote>
+
+  <h3>What Clients Are Paying For</h3>
+  <p>Not paying for: certainty, prediction, or instruction.</p>
+  <p>Paying for: context · perspective · pattern recognition · timing insight · a grounded, uninterrupted space to reflect.</p>
+
+  <h3>Engagement Boundaries</h3>
+  <ul>
+    <li>All sessions scheduled in advance — not on urgent or emergency basis</li>
+    <li>No on-call support or between-session communication</li>
+    <li>Payment required in full at time of booking</li>
+    <li>Sessions are reserved specifically — preparation is involved</li>
+    <li>Late cancellations may not be refunded (define your window: 24 or 48 hours)</li>
+    <li>Ongoing work offered selectively, not by default</li>
+  </ul>
+
+  <h3>Scope of Work Disclaimer</h3>
+  <p>This work is advisory and educational in nature. It does not replace therapy, medical care, legal counsel, or financial advice. Decisions remain entirely the responsibility of the client.</p>
+
+  <h3>The Value Reframe</h3>
+  <blockquote><p>"Clarity often saves time, energy, and resources long before any action is taken. The value of this work is not measured by duration — but by what becomes clear afterward."</p></blockquote>
+</div>
+
+<!-- S8: FAQ -->
+<div class="section page-break" id="s8">
+  <div class="section-header">
+    <div class="section-num">08</div>
+    <h2>FAQ — Personal Forecast Session</h2>
+  </div>
+  <p>Use on the website, in email sequences, and as a pre-booking filter. Short, grounded, clear.</p>
+
+  <h3>Q: What exactly is a Personal Forecast Session?</h3>
+  <p>A one-on-one advisory conversation designed to help you understand where you are in your life cycle, especially during periods of transition. It focuses on timing, patterns, and context — so decisions can be made with greater clarity and less pressure.</p>
+
+  <h3>Q: Is this coaching or therapy?</h3>
+  <p>No. This work is advisory and reflective in nature. It is not therapy, counseling, or ongoing coaching, and it does not involve accountability or treatment. The session is complete on its own.</p>
+
+  <h3>Q: Is this predictive or fortune-telling?</h3>
+  <p>No. The session does not aim to predict specific outcomes or tell you what will happen. It helps illuminate timing, cycles, and themes that provide context for decision-making. The goal is clarity — not certainty.</p>
+
+  <h3>Q: Do I need to be in crisis to do this?</h3>
+  <p>Not at all. Many people come to this work simply because something feels like it's shifting — even if life appears stable on the surface. The session is often most helpful before decisions are forced.</p>
+
+  <h3>Q: What kinds of topics can we explore?</h3>
+  <p>Career and direction · Identity shifts · Leadership transitions · Life chapter changes · Pacing, timing, and priorities. You don't need a specific question prepared.</p>
+
+  <h3>Q: Is this a one-time session or ongoing?</h3>
+  <p>A Personal Forecast Session is a one-time engagement. Some people return at later transition points, but there is no expectation or requirement to continue.</p>
+
+  <h3>Q: What happens after the session?</h3>
+  <p>Most people leave with greater clarity, reduced urgency, a clearer sense of what is completing or emerging, and confidence in their own next steps. No follow-up obligation.</p>
+
+  <h3>Q: How do I know if this is right for me?</h3>
+  <p>If you value reflection, timing, and thoughtful perspective — and are open to clarity without being told what to do — this work is often a good fit. If you're seeking immediate answers or certainty, it may not be the right moment.</p>
+
+  <h3>Q: Is this a replacement for financial, legal, or medical advice?</h3>
+  <p>No. This work is advisory and educational in nature and is meant to complement — not replace — professional services.</p>
+
+  <h3>Q: How do I begin?</h3>
+  <p>Start with the $47 Personal Year Timing Report, or book a Personal Forecast Session directly through the Begin page. The report is the lowest-friction starting point.</p>
+</div>
+
+<!-- S9: CONTENT -->
+<div class="section page-break" id="s9">
+  <div class="section-header">
+    <div class="section-num">09</div>
+    <h2>Content System</h2>
+  </div>
+
+  <h3>Posting Rules (Non-Negotiable)</h3>
+  <ul>
+    <li>Do NOT post daily</li>
+    <li>Do NOT educate endlessly or teach in every post</li>
+    <li>Do NOT explain your work repeatedly</li>
+    <li>Post only when something feels true — not on a forced schedule</li>
+    <li><strong>Authority compounds through consistency of perspective, not frequency</strong></li>
+    <li>Internal check before every post: "Would I still post this if no one responded?" If yes → post. If no → don't.</li>
+  </ul>
+
+  <h3>12-Month Content Calendar</h3>
+  <table>
+    <tr><th>Quarter</th><th>Theme</th><th>Content Focus</th><th>Sample Prompts</th></tr>
+    <tr><td>Q1 (Jan–Mar)</td><td>Transitions</td><td>Endings, thresholds, pauses, uncertainty as information</td><td>"This is often what happens right before a transition…" · "Not all confusion means something is wrong"</td></tr>
+    <tr><td>Q2 (Apr–Jun)</td><td>Timing</td><td>Pace, waiting vs acting, rhythm, forcing vs aligning</td><td>"Some phases are meant for movement. Others are not." · "Timing matters more than effort"</td></tr>
+    <tr><td>Q3 (Jul–Sep)</td><td>Identity &amp; Success</td><td>Outgrowing definitions, success initiating change, mid-chapter discomfort</td><td>"Sometimes success is what triggers the next transition" · "Outgrowing a role doesn't mean you failed"</td></tr>
+    <tr><td>Q4 (Oct–Dec)</td><td>Integration &amp; Legacy</td><td>Meaning, simplification, sustainability, what's worth keeping</td><td>"The next chapter isn't about doing more" · "Integration often comes before clarity"</td></tr>
+  </table>
+
+  <h3>Recommended Posting Rhythm</h3>
+  <ul>
+    <li><strong>Weekly (optional):</strong> 1 short reflection post (2–6 sentences) — skip if nothing feels true</li>
+    <li><strong>Monthly (anchor):</strong> 1 deeper post that becomes library content</li>
+    <li><strong>Quarterly:</strong> One theme repeated from different angles — depth over variety</li>
+    <li><strong>Monthly Timing Letter:</strong> 1 email — same rhythm as posting</li>
+  </ul>
+
+  <h3>One-Page Personal Forecast PDF — Copy</h3>
+  <p><em>Design as a minimal, white-background PDF. One muted color. Serif font. No icons. Feels like a pause, not a pitch.</em></p>
+  <div class="box">
+    <h4>Title</h4>
+    <p>Personal Forecast Session<br/><em>Clarity for moments of transition</em></p>
+    <h4>When Something Is Shifting, Context Matters</h4>
+    <p>Most transitions don't announce themselves loudly. A Personal Forecast Session exists to provide orientation during those moments — not answers to everything, but context, so you can move forward with greater steadiness.</p>
+    <h4>What This Session Is</h4>
+    <ul><li>A one-on-one advisory conversation</li><li>Focused on life cycles, timing, and what's completing or emerging</li><li>Pattern-based insight — not prediction</li><li>Complete on its own, with no pressure to continue</li></ul>
+    <h4>Who This Is For</h4>
+    <ul><li>Those feeling a pull toward change they can't yet name</li><li>Anyone questioning direction, pace, or priorities</li><li>People standing at a personal or professional crossroads</li><li>Those who want clarity without being pushed toward an answer</li></ul>
+    <h4>To Begin</h4>
+    <p>humanbehaviorspecialists.com/personal-forecast<br/>accounts@humanbehaviorspecialists.com · </p>
+    <p style="font-size:11px;color:var(--soft);margin-top:16px;">This work is advisory and educational in nature and does not replace professional medical, legal, or financial advice. Human Behavior Specialists · HBS – Intelligent Insights</p>
+  </div>
+</div>
+
+<!-- S10: 90-DAY LAUNCH -->
+<div class="section page-break" id="s10">
+  <div class="section-header">
+    <div class="section-num">10</div>
+    <h2>90-Day Launch Plan</h2>
+  </div>
+
+  <div class="callout"><p><strong>The strategy in one sentence:</strong> Build one low-ticket offer ($47 Personal Year Report), use it to grow your list, then introduce scalable interpretation options. No overbuilding. No guessing.</p></div>
+
+  <h3>Phase 1 — Days 1–30: Build &amp; Launch</h3>
+  <div class="timeline">
+    <div class="timeline-item"><h4>Week 1 — Offer &amp; Site</h4>
+      <ul>
+        <li>Finalize $47 report template (12–18 pages)</li>
+        <li>Give GHL team this document — begin website build</li>
+        <li>Set up Stripe payment in GoHighLevel</li>
+        <li>Update all social bios to new positioning</li>
+      </ul>
+    </div>
+    <div class="timeline-item"><h4>Week 2 — GHL Pages Live</h4>
+      <ul>
+        <li>Report sales page live (/personal-year-report)</li>
+        <li>Checkout + thank you page live</li>
+        <li>Email automation sequence active (2 emails)</li>
+        <li>Free guide landing page live (/free-guide)</li>
+      </ul>
+    </div>
+    <div class="timeline-item"><h4>Week 3 — Soft Launch to Database</h4>
+      <ul>
+        <li>Send announcement email to existing database</li>
+        <li>Post soft announcement on LinkedIn + Facebook (Option 1 from Section 4)</li>
+        <li>Pin announcement post on all profiles</li>
+        <li>Begin fulfilling reports manually as orders come in</li>
+      </ul>
+    </div>
+    <div class="timeline-item"><h4>Week 4 — First Content Cycle</h4>
+      <ul>
+        <li>Post Evergreen Post #1 (Transitions)</li>
+        <li>Send Month 1 Timing Letter to email list</li>
+        <li>Track: orders received, email open rate, questions asked</li>
+        <li><strong>Target: 10+ reports sold</strong></li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Phase 2 — Days 31–60: Build List + Light Upsell</h3>
+  <div class="timeline">
+    <div class="timeline-item"><h4>Day 31–40 — Nurture</h4>
+      <ul>
+        <li>Continue evergreen posting (Posts 2 + 3)</li>
+        <li>Follow up with report buyers — "Did anything resonate?"</li>
+        <li>Add group session offer to thank-you email</li>
+      </ul>
+    </div>
+    <div class="timeline-item"><h4>Day 41–50 — Group Session Launch</h4>
+      <ul>
+        <li>Announce first Monthly Group Interpretation Session ($97) to report buyers only</li>
+        <li>Set up Zoom + GHL registration page</li>
+        <li>Target: 5–10 group session registrations</li>
+      </ul>
+    </div>
+    <div class="timeline-item"><h4>Day 51–60 — Month 2 Timing Letter</h4>
+      <ul>
+        <li>Send Month 2 Timing Letter</li>
+        <li>Soft mention of Personal Forecast Session for the first time</li>
+        <li>Continue posting Posts 4 + 5</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Phase 3 — Days 61–90: Controlled Ascension</h3>
+  <div class="timeline">
+    <div class="timeline-item"><h4>Day 61–75 — Introduce 1:1</h4>
+      <ul>
+        <li>Open Personal Forecast Session booking to report + group buyers only</li>
+        <li>Set up booking page in GHL (Calendly or GHL calendar)</li>
+        <li>No public marketing yet — warm list only</li>
+        <li>Send intake questions to those who book</li>
+      </ul>
+    </div>
+    <div class="timeline-item"><h4>Day 76–90 — Assess &amp; Decide</h4>
+      <ul>
+        <li>Review metrics: reports sold, group buyers, 1:1 sessions completed</li>
+        <li>If 20+ reports sold → begin automating PDF delivery</li>
+        <li>If 5+ 1:1 sessions completed → refine positioning language</li>
+        <li>Plan Month 4 content calendar</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Validation Metrics</h3>
+  <table>
+    <tr><th>Metric</th><th>90-Day Target</th><th>Notes</th></tr>
+    <tr><td>Reports sold ($47)</td><td>20–30</td><td>Validates demand before automating</td></tr>
+    <tr><td>Email list size</td><td>100+ subscribers</td><td>Free guide + existing database</td></tr>
+    <tr><td>Email open rate</td><td>30%+</td><td>Indicates list quality</td></tr>
+    <tr><td>Group session buyers ($97)</td><td>5–10</td><td>Validates scalable model</td></tr>
+    <tr><td>Personal Forecast sessions ($497–750)</td><td>2–5</td><td>From warm buyers only</td></tr>
+  </table>
+</div>
+
+<!-- S11: GHL CHECKLIST -->
+<div class="section page-break" id="s11">
+  <div class="section-header">
+    <div class="section-num">11</div>
+    <h2>GoHighLevel Build Checklist</h2>
+  </div>
+  <p><strong>For the GHL technical team.</strong> Build exactly what is listed. No interpretation required. Robert will review before launch.</p>
+
+  <h3>Website Pages to Build</h3>
+  <ul class="checklist">
+    <li>Home page — /</li>
+    <li>The Work — /the-work</li>
+    <li>Ways to Work Together — /ways-to-work</li>
+    <li>Personal Forecast Session — /personal-forecast</li>
+    <li>About — /about (include Robert's headshot photo)</li>
+    <li>Begin — /begin (contact form + path selection)</li>
+    <li>$47 Report Sales Page — /personal-year-report</li>
+    <li>Free Guide Opt-In — /free-guide</li>
+    <li>Thank You (Report) — /thank-you-report</li>
+    <li>Thank You (Free Guide) — /thank-you-guide</li>
+    <li>FAQ — /faq (can be section on Personal Forecast page)</li>
+  </ul>
+
+  <h3>Forms to Build in GHL</h3>
+  <ul class="checklist">
+    <li>Free Guide Opt-In: First name + Email → Tag: HBS-Timing-Letter → Auto-deliver guide PDF</li>
+    <li>Report Purchase: Name + Email + Date of Birth + Payment ($47 via Stripe) → Tag: HBS-Report-Buyer → Trigger email sequence</li>
+    <li>Contact / Begin Form: First name + Last name + Email + Phone (optional) + Interest dropdown + Message → Notify Robert by email + SMS (Twilio)</li>
+    <li>Personal Forecast Intake: 10 questions (see Section 05) → Sends to Robert for review before confirming booking</li>
+  </ul>
+
+  <h3>Email Automations to Build</h3>
+  <ul class="checklist">
+    <li>Free Guide sequence: Email 1 (immediate) — guide delivery + welcome to Timing Letter</li>
+    <li>Report purchase sequence: Email 1 (immediate) — confirmation + timeline · Email 2 (Day 2) — report delivery + soft upsell · Email 3 (Day 7) — follow-up question</li>
+    <li>Monthly Timing Letter: Manual send, once per month, to HBS-Timing-Letter tag</li>
+    <li>Contact form notification: Instant email + SMS to Robert ( via Twilio)</li>
+  </ul>
+
+  <h3>CRM Tags to Create</h3>
+  <ul class="checklist">
+    <li>HBS-Timing-Letter (free list subscribers)</li>
+    <li>HBS-Report-Buyer ($47 purchasers)</li>
+    <li>HBS-Group-Buyer ($97 group session)</li>
+    <li>HBS-1on1-Client (Personal Forecast buyers)</li>
+    <li>HBS-Inquiry (contact form submissions)</li>
+    <li>HBS-Existing-Database (Robert's imported existing contacts)</li>
+  </ul>
+
+  <h3>Stripe / Payment Setup</h3>
+  <ul class="checklist">
+    <li>Connect Stripe to GHL account</li>
+    <li>Create product: Personal Year Timing Report — $47 one-time</li>
+    <li>Create product: Monthly Group Session — $97 one-time (per month)</li>
+    <li>Pricing for Personal Forecast Session — provided on inquiry (no public price yet)</li>
+    <li>Add order bump option on $47 checkout: "Add Group Session access — $97"</li>
+  </ul>
+
+  <h3>Domain &amp; DNS</h3>
+  <ul class="checklist">
+    <li>Point humanbehaviorspecialists.com to GoHighLevel hosting</li>
+    <li>Ensure SSL certificate is active</li>
+    <li>Set up Mailgun sending domain (already connected)</li>
+    <li>Confirm Twilio SMS number is active for notifications</li>
+    <li>Test all form submissions before launch</li>
+    <li>Test all email automations before launch</li>
+    <li>Test Stripe payment flow end-to-end before launch</li>
+  </ul>
+
+  <h3>Design Notes for GHL Team</h3>
+  <ul>
+    <li><strong>Primary color:</strong> #6040A0 (deep violet)</li>
+    <li><strong>Accent color:</strong> #C8903A (warm gold)</li>
+    <li><strong>Background:</strong> #F8F6F2 (warm cream) and #FFFFFF (white)</li>
+    <li><strong>Secondary background:</strong> #EDE8F8 (soft lavender)</li>
+    <li><strong>Text color:</strong> #18181A (dark charcoal)</li>
+    <li><strong>Headline font:</strong> Cormorant Garamond (Google Font) — serif</li>
+    <li><strong>Body font:</strong> Inter (Google Font) — sans-serif</li>
+    <li><strong>Tone:</strong> Clean, minimal, generous white space. No countdown timers. No urgency design patterns.</li>
+    <li><strong>Reference files:</strong> Complete HTML/CSS site built at hbs-website/ folder — use as design reference for every page</li>
+  </ul>
+
+  <h3>Pre-Launch QA Checklist</h3>
+  <ul class="checklist">
+    <li>All nav links work on desktop and mobile</li>
+    <li>Logo displays correctly on all pages</li>
+    <li>Robert's photo loads correctly on About page</li>
+    <li>Free guide form captures email and delivers PDF</li>
+    <li>$47 report payment processes through Stripe</li>
+    <li>Thank you pages load after purchase/opt-in</li>
+    <li>All email automations fire correctly</li>
+    <li>Robert receives SMS notification on contact form submission</li>
+    <li>Site is mobile responsive</li>
+    <li>Page load speed acceptable (under 3 seconds)</li>
+    <li>All CTAs link to correct pages</li>
+    <li>Footer disclaimer appears on all pages</li>
+  </ul>
+</div>
+
+<!-- S12: ONE-PAGE PDF -->
+<div class="section page-break" id="s12">
+  <div class="section-header">
+    <div class="section-num">12</div>
+    <h2>Additional Assets &amp; Notes</h2>
+  </div>
+
+  <h3>Real Estate Advisory (On Hold)</h3>
+  <p>The real estate advisory repositioning is fully developed and stored. It will be activated after the HBS foundation is established (post 90-day launch). Key positioning when activated:</p>
+  <blockquote><p>"Real Estate Advisory for Life Transitions — helping property owners evaluate timing, simplify complexity, and make decisions that align with their next chapter. This isn't about transactions. It's about transitions."</p></blockquote>
+  <p>Do not activate until: $47 report is validated · Personal Forecast sessions are running · Email list is established.</p>
+
+  <h3>On the Name: Human Behavior Specialists</h3>
+  <p><strong>Do not rename social accounts.</strong> The name has existing equity and is neutral enough to expand into any direction. "HBS" becomes the natural shorthand. "HBS – Intelligent Insights" is the positioning tagline. Over time people will use "HBS" casually — that's the goal.</p>
+  <p>If a full rename ever happens, the logical evolution would be: <strong>HBS Insights</strong> or <strong>HBS Advisory</strong> — both preserve the existing social handle abbreviations.</p>
+
+  <h3>On Scaling (AI-Era Positioning)</h3>
+  <p>HBS is positioned correctly for the AI era. As AI commoditizes information, the demand for interpretation, discernment, and human judgment increases. HBS doesn't sell information — it sells pattern interpretation + timing intelligence, which AI cannot replicate.</p>
+  <p><strong>Do not scale prematurely.</strong> Build depth first. The scaling path is: validated low-ticket → group interpretation → small cohort (6–10 people, invitation only, after 25–50 personal forecast sessions).</p>
+
+  <h3>Final Checklist Before Going Live</h3>
+  <ul class="checklist">
+    <li>Robert's headshot saved to images/robert-schantz.jpg</li>
+    <li>GHL website build complete and reviewed</li>
+    <li>$47 report PDF template built (12–18 pages)</li>
+    <li>All social bios updated</li>
+    <li>Evergreen Post 1 drafted and ready to schedule</li>
+    <li>Announcement email written and ready to send</li>
+    <li>Monthly Timing Letter Month 1 drafted</li>
+    <li>Intake questions live in GHL form</li>
+    <li>Stripe payment tested end-to-end</li>
+    <li>Domain pointed to GoHighLevel</li>
+  </ul>
+
+  <div style="margin-top:48px;padding:32px;background:var(--charcoal);border-radius:4px;text-align:center;">
+    <p style="font-family:'Cormorant Garamond',serif;font-size:22px;color:white;font-style:italic;margin-bottom:8px;">"This is not a launch. This is a foundation."</p>
+    <p style="color:rgba(255,255,255,0.45);font-size:12px;margin:0;">Human Behavior Specialists · HBS – Intelligent Insights · humanbehaviorspecialists.com</p>
+  </div>
+</div>
+
+</body>
+</html>

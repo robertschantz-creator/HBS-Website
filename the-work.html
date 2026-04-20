@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Work | HBS – Intelligent Insights</title>
+  <meta name="description" content="Pattern Intelligence for Life Transitions. Understanding life cycles, decision timing, and sustainable direction." />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .page-hero {
+      padding: 160px 0 96px;
+      background: linear-gradient(135deg, var(--violet-dark) 0%, var(--violet) 100%);
+      color: var(--white);
+      text-align: center;
+    }
+    .page-hero .eyebrow { color: var(--gold-light); }
+    .page-hero h1 { color: var(--white); font-weight: 300; margin-bottom: 20px; }
+    .page-hero .lead { color: rgba(255,255,255,0.78); max-width: 580px; margin: 0 auto; }
+
+    .work-intro { padding: var(--section-pad) 0; background: var(--white); }
+    .work-intro__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .work-intro__statement {
+      font-family: var(--font-serif);
+      font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+      font-weight: 300;
+      font-style: italic;
+      color: var(--charcoal);
+      line-height: 1.45;
+      border-left: 3px solid var(--gold);
+      padding-left: 28px;
+      margin-bottom: 32px;
+    }
+    .work-intro__content p { color: var(--charcoal-soft); font-size: 0.95rem; line-height: 1.85; }
+
+    .why-patterns { background: var(--lavender-bg); padding: var(--section-pad) 0; }
+    .why-patterns__header { text-align: center; max-width: 600px; margin: 0 auto 64px; }
+    .why-patterns__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px; }
+    .pattern-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 36px 32px;
+    }
+    .pattern-card__icon {
+      width: 40px; height: 40px;
+      background: var(--lavender-bg);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 20px;
+      color: var(--violet);
+      font-family: var(--font-serif);
+      font-size: 1.2rem;
+    }
+    .pattern-card h4 { font-family: var(--font-serif); font-size: 1.2rem; margin-bottom: 12px; color: var(--charcoal); }
+    .pattern-card p { font-size: 0.9rem; color: var(--charcoal-soft); line-height: 1.75; margin: 0; }
+
+    .what-we-focus { padding: var(--section-pad) 0; background: var(--white); }
+    .focus-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+    .focus-list { list-style: none; margin: 24px 0 32px; }
+    .focus-list li {
+      display: flex; gap: 16px;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.95rem;
+      color: var(--charcoal-mid);
+      line-height: 1.6;
+    }
+    .focus-list li:last-child { border-bottom: none; }
+    .focus-list li .num {
+      font-family: var(--font-serif);
+      font-size: 1.4rem;
+      color: var(--border);
+      line-height: 1;
+      min-width: 28px;
+    }
+
+    .how-different { background: var(--lavender-bg); padding: var(--section-pad) 0; }
+    .different-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+    .different-col h3 { font-size: 1.2rem; margin-bottom: 24px; }
+    .different-col--no h3 { color: var(--charcoal-soft); }
+    .different-col--yes h3 { color: var(--violet); }
+    .different-list { list-style: none; }
+    .different-list li {
+      display: flex; gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.92rem;
+      color: var(--charcoal-mid);
+    }
+    .different-list li:last-child { border-bottom: none; }
+    .different-list--no li::before { content: '✕'; color: #C0A0A0; font-size: 0.8rem; margin-top: 2px; }
+    .different-list--yes li::before { content: '✓'; color: var(--violet); font-size: 0.8rem; margin-top: 2px; font-weight: 600; }
+
+    .when-useful { background: var(--white); padding: var(--section-pad) 0; }
+    .useful-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .useful-card {
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 32px 28px;
+      position: relative;
+    }
+    .useful-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--violet), var(--violet-light));
+      border-radius: 4px 4px 0 0;
+    }
+    .useful-card h4 { font-family: var(--font-serif); font-size: 1.1rem; color: var(--charcoal); margin-bottom: 12px; }
+    .useful-card p { font-size: 0.88rem; color: var(--charcoal-soft); line-height: 1.7; margin: 0; }
+
+    .work-not { background: var(--cream); padding: 80px 0; }
+    .work-not__inner { max-width: 720px; margin: 0 auto; }
+    .work-not__box {
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 48px;
+      background: var(--white);
+    }
+    .work-not__cols { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 32px; }
+    .work-not__col h5 {
+      font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase;
+      font-weight: 600; margin-bottom: 16px;
+    }
+    .work-not__col--is h5 { color: var(--violet); }
+    .work-not__col--not h5 { color: var(--charcoal-soft); }
+    .work-not__col ul { list-style: none; }
+    .work-not__col ul li {
+      font-size: 0.9rem; color: var(--charcoal-mid);
+      padding: 9px 0; border-bottom: 1px solid var(--border);
+      display: flex; gap: 10px;
+    }
+    .work-not__col ul li:last-child { border-bottom: none; }
+    .work-not__col--is ul li::before { content: '—'; color: var(--gold); flex-shrink: 0; }
+    .work-not__col--not ul li::before { content: '—'; color: var(--border); flex-shrink: 0; }
+
+    @media (max-width: 900px) {
+      .work-intro__grid, .focus-grid, .different-grid { grid-template-columns: 1fr; gap: 40px; }
+      .why-patterns__grid, .useful-grid { grid-template-columns: 1fr; }
+      .work-not__cols { grid-template-columns: 1fr; }
+      .work-not__box { padding: 32px 24px; }
+    }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-nav">Skip to main content</a>
+
+  <nav class="nav" role="navigation">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo">
+        <svg width="40" height="40" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M22 8 L38 24 L22 40 L6 24 Z" fill="#6040A0"/>
+          <path d="M58 8 L74 24 L58 40 L42 24 Z" fill="#8060C0"/>
+          <path d="M40 42 L56 58 L40 74 L24 58 Z" fill="#A080D8"/>
+          <text x="22" y="29" text-anchor="middle" fill="white" font-family="Arial" font-size="14" font-weight="bold">H</text>
+          <text x="58" y="29" text-anchor="middle" fill="white" font-family="Arial" font-size="14" font-weight="bold">S</text>
+          <text x="40" y="63" text-anchor="middle" fill="white" font-family="Arial" font-size="14" font-weight="bold">B</text>
+        </svg>
+        <div class="nav__logo-text">
+          <span class="nav__logo-name">Human Behavior Specialists</span>
+          <span class="nav__logo-tag">HBS – Intelligent Insights</span>
+        </div>
+      </a>
+      <ul class="nav__links">
+        <li><a href="the-work.html">The Work</a></li>
+        <li><a href="ways-to-work.html">Ways to Work Together</a></li>
+        <li><a href="personal-forecast.html">Personal Forecast</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="begin.html">Contact</a></li>
+      </ul>
+      <a href="begin.html" class="btn btn-primary nav__cta">Begin</a>
+      <button class="nav__toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="container">
+      <span class="eyebrow">Human Behavior Specialists</span>
+      <h1>The Work</h1>
+      <p class="lead">A different kind of advisory practice focused on cycles, timing, and sustainable direction.</p>
+      <span class="page-hero__sub">Pattern Intelligence for Life Transitions</span>
+    </div>
+  </section>
+
+  <!-- INTRO -->
+  <section class="work-intro">
+    <div class="container">
+      <div class="work-intro__grid">
+        <div class="fade-in">
+          <p class="work-intro__statement">"This work is not about self-improvement. It's about self-orientation."</p>
+          <p class="work-intro__statement" style="font-size:1.3rem;">"We don't rush clarity. We reveal context."</p>
+        </div>
+        <div class="work-intro__content fade-in">
+          <span class="eyebrow">What This Work Really Is</span>
+          <h2 style="margin-bottom:20px;">Understanding the Phase You're In</h2>
+          <p>Most people don't struggle because they lack drive, intelligence, or discipline. They struggle because they are trying to make decisions without understanding the phase they're in.</p>
+          <p>Human Behavior Specialists exists to help people recognize patterns, timing, and life cycles — so decisions are made from clarity rather than urgency.</p>
+          <p>Once the structure of a cycle is visible, the next step tends to reveal itself — often quietly, and without force.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY PATTERNS MATTER -->
+  <section class="why-patterns">
+    <div class="container">
+      <div class="why-patterns__header fade-in">
+        <span class="eyebrow">The Foundation</span>
+        <h2>Why Patterns Matter</h2>
+        <p class="lead">Every life unfolds in cycles — periods for building, expanding, consolidating, and letting go. When these patterns are misunderstood, even good decisions feel heavy.</p>
+      </div>
+      <div class="why-patterns__grid">
+        <div class="pattern-card fade-in">
+          <div class="pattern-card__icon">↻</div>
+          <h4>When Patterns Are Missed</h4>
+          <p>Repeated frustration, stalled momentum, burnout, and decisions that feel right briefly — then collapse. The issue isn't willpower. It's timing.</p>
+        </div>
+        <div class="pattern-card fade-in">
+          <div class="pattern-card__icon">◎</div>
+          <h4>When Patterns Are Understood</h4>
+          <p>Pressure eases. Clarity increases. Decisions stabilize. Direction becomes sustainable — not because everything changed, but because the context is now visible.</p>
+        </div>
+        <div class="pattern-card fade-in">
+          <div class="pattern-card__icon">∿</div>
+          <h4>The Rhythm Beneath the Surface</h4>
+          <p>Pythagorean-based numerological pattern mapping reveals the invisible structure of timing — the cycle you're in, what it's designed for, and what it's asking of you.</p>
+        </div>
+        <div class="pattern-card fade-in">
+          <div class="pattern-card__icon">→</div>
+          <h4>Structure Becomes Direction</h4>
+          <p>Once the pattern is recognized, the next step reveals itself. This is not prediction. It is perspective — and perspective changes everything.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT WE FOCUS ON -->
+  <section class="what-we-focus">
+    <div class="container">
+      <div class="focus-grid">
+        <div class="fade-in">
+          <span class="eyebrow">What We Examine</span>
+          <h2>What This Work Focuses On</h2>
+          <p class="lead">Rather than personality traits or surface behaviors, this work looks at the larger pattern a person is living inside.</p>
+          <ul class="focus-list">
+            <li><span class="num">01</span> Life cycles and transitional phases</li>
+            <li><span class="num">02</span> Recurring personal and professional themes</li>
+            <li><span class="num">03</span> Decision timing and natural momentum</li>
+            <li><span class="num">04</span> Alignment between identity, work, and values</li>
+            <li><span class="num">05</span> What is naturally completing</li>
+            <li><span class="num">06</span> What is beginning to take shape</li>
+          </ul>
+          <a href="ways-to-work.html" class="btn btn-primary">See How We Work Together</a>
+        </div>
+        <div class="fade-in">
+          <span class="eyebrow">The Outcome</span>
+          <h2>What Becomes Possible</h2>
+          <p class="lead">When the structure beneath experience is made visible, clarity tends to follow naturally.</p>
+          <ul class="focus-list">
+            <li><span class="num">→</span> Stop repeating cycles that no longer fit</li>
+            <li><span class="num">→</span> Recognize what is naturally closing</li>
+            <li><span class="num">→</span> Understand what is ready to be built</li>
+            <li><span class="num">→</span> Make decisions that hold over time</li>
+            <li><span class="num">→</span> Move from alignment rather than pressure</li>
+            <li><span class="num">→</span> Replace urgency with grounded direction</li>
+          </ul>
+          <blockquote style="font-family:var(--font-serif);font-style:italic;font-size:1.1rem;color:var(--charcoal-soft);border-left:3px solid var(--gold);padding-left:20px;margin-top:32px;line-height:1.6;">
+            "Clarity replaces urgency. Direction replaces force."
+          </blockquote>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT'S DIFFERENT -->
+  <section class="how-different">
+    <div class="container">
+      <div style="text-align:center;max-width:560px;margin:0 auto 56px;" class="fade-in">
+        <span class="eyebrow">Distinctions That Matter</span>
+        <h2>How This Is Different</h2>
+        <p class="lead">This work is not coaching in the traditional sense. Understanding what it is — and what it isn't — helps the right people self-select in.</p>
+      </div>
+      <div class="different-grid">
+        <div class="different-col different-col--no fade-in">
+          <h3>We Are Not Here To</h3>
+          <ul class="different-list different-list--no">
+            <li>Motivate or push you toward goals</li>
+            <li>Hold you accountable week to week</li>
+            <li>Tell you what you should do</li>
+            <li>Provide ongoing open-ended support</li>
+            <li>Predict specific outcomes</li>
+            <li>Fix what's broken</li>
+          </ul>
+        </div>
+        <div class="different-col different-col--yes fade-in">
+          <h3>We Provide</h3>
+          <ul class="different-list different-list--yes">
+            <li>Perspective and pattern recognition</li>
+            <li>Timing intelligence and cycle awareness</li>
+            <li>Grounded context for decision-making</li>
+            <li>A calm space for reflection without urgency</li>
+            <li>Clarity that stands on its own</li>
+            <li>Orientation — not instruction</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHEN MOST USEFUL -->
+  <section class="when-useful">
+    <div class="container">
+      <div style="text-align:center;max-width:540px;margin:0 auto 56px;" class="fade-in">
+        <span class="eyebrow">Ideal Moments</span>
+        <h2>When This Work Is Most Valuable</h2>
+      </div>
+      <div class="useful-grid">
+        <div class="useful-card fade-in">
+          <h4>Career or Identity Transition</h4>
+          <p>Navigating a shift in role, direction, or professional identity — especially when the next chapter isn't yet clear.</p>
+        </div>
+        <div class="useful-card fade-in">
+          <h4>Sensing a Chapter Is Ending</h4>
+          <p>Something that once felt right no longer does. There's a pull toward change without clarity on how or when.</p>
+        </div>
+        <div class="useful-card fade-in">
+          <h4>Questioning Definitions of Success</h4>
+          <p>You've achieved — and yet something feels misaligned. This work helps distinguish what to keep from what to release.</p>
+        </div>
+        <div class="useful-card fade-in">
+          <h4>Entering New Responsibility</h4>
+          <p>A new phase of leadership, legacy, or purpose. The old map no longer applies and a new orientation is needed.</p>
+        </div>
+        <div class="useful-card fade-in">
+          <h4>Major Life Decisions</h4>
+          <p>Financial, relational, professional, or personal decisions that carry long-term weight — where timing matters as much as choice.</p>
+        </div>
+        <div class="useful-card fade-in">
+          <h4>Seeking Clarity Without Pressure</h4>
+          <p>You're not looking for someone to tell you what to do. You want to understand clearly — and decide from that place.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- IS / IS NOT -->
+  <section class="work-not">
+    <div class="container">
+      <div class="work-not__inner fade-in">
+        <div class="work-not__box">
+          <span class="eyebrow">Clarity of Scope</span>
+          <h2 style="font-size:1.8rem;">What This Work Is — and Is Not</h2>
+          <div class="work-not__cols">
+            <div class="work-not__col work-not__col--is">
+              <h5>This Work Is</h5>
+              <ul>
+                <li>Advisory and reflective</li>
+                <li>Pattern-based and structured</li>
+                <li>Designed for long-term clarity</li>
+                <li>Complete in one session when appropriate</li>
+                <li>Grounded in timing intelligence</li>
+              </ul>
+            </div>
+            <div class="work-not__col work-not__col--not">
+              <h5>This Work Is Not</h5>
+              <ul>
+                <li>Therapy or mental health treatment</li>
+                <li>Crisis intervention</li>
+                <li>Motivational coaching</li>
+                <li>A replacement for professional advice</li>
+                <li>Predictive certainty about outcomes</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-section__inner fade-in">
+        <span class="eyebrow">Ready to Begin</span>
+        <div class="cta-section__divider"></div>
+        <h2>Explore Ways to Work Together</h2>
+        <p class="lead">Four clear paths — each designed to provide orientation, context, and grounded insight. No pressure. No ongoing obligation by default.</p>
+        <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+          <a href="ways-to-work.html" class="btn btn-primary">See All Sessions</a>
+          <a href="personal-forecast.html" class="btn btn-outline">Start with a Personal Forecast</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div>
+          <div class="footer__brand-logo">
+            <svg width="32" height="32" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M22 8 L38 24 L22 40 L6 24 Z" fill="#6040A0"/>
+              <path d="M58 8 L74 24 L58 40 L42 24 Z" fill="#8060C0"/>
+              <path d="M40 42 L56 58 L40 74 L24 58 Z" fill="#A080D8"/>
+              <text x="22" y="29" text-anchor="middle" fill="white" font-family="Arial" font-size="14" font-weight="bold">H</text>
+              <text x="58" y="29" text-anchor="middle" fill="white" font-family="Arial" font-size="14" font-weight="bold">S</text>
+              <text x="40" y="63" text-anchor="middle" fill="white" font-family="Arial" font-size="14" font-weight="bold">B</text>
+            </svg>
+            <div>
+              <span class="footer__brand-name">Human Behavior Specialists</span>
+              <span class="footer__brand-tag">HBS – Intelligent Insights</span>
+            </div>
+          </div>
+          <p class="footer__desc">A pattern-based advisory practice focused on life transitions, decision timing, and sustainable direction.</p>
+          <div class="footer__social">
+            <a href="#" aria-label="Facebook">f</a>
+            <a href="#" aria-label="Instagram">in</a>
+            <a href="#" aria-label="LinkedIn">Li</a>
+            <a href="#" aria-label="Threads">Th</a>
+          </div>
+        </div>
+        <div class="footer__col">
+          <h5>Navigate</h5>
+          <ul class="footer__links">
+            <li><a href="the-work.html">The Work</a></li>
+            <li><a href="ways-to-work.html">Ways to Work Together</a></li>
+            <li><a href="personal-forecast.html">Personal Forecast Session</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="report.html">$47 Timing Report</a></li>
+            <li><a href="begin.html">Begin</a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h5>Contact</h5>
+          <div class="footer__contact-item"><span>Email</span> accounts@humanbehaviorspecialists.com</div>
+          <div style="margin-top:24px;">
+            <h5>Quick Start</h5>
+            <a href="report.html" class="btn btn-gold" style="font-size:0.75rem;padding:10px 20px;margin-top:12px;display:inline-block;">Get Your $47 Timing Report</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p>&copy; 2025 Human Behavior Specialists. All rights reserved.</p>
+        <p class="footer__disclaimer">This work is advisory and educational in nature and does not replace professional medical, legal, financial, or therapeutic services.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

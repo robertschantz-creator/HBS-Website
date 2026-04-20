@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Personal Forecast Session | HBS – Intelligent Insights</title>
+  <meta name="description" content="A calm, one-on-one advisory conversation to help you understand where you are in your life cycle — what's completing, what's emerging, and how timing is influencing your decisions." />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .page-hero {
+      padding: 160px 0 96px;
+      background: linear-gradient(135deg, var(--violet-dark) 0%, var(--violet) 100%);
+      color: var(--white);
+      text-align: center;
+    }
+    .page-hero .eyebrow { color: var(--gold-light); }
+    .page-hero h1 { color: var(--white); font-weight: 300; margin-bottom: 20px; }
+    .page-hero .lead { color: rgba(255,255,255,0.78); max-width: 580px; margin: 0 auto 36px; }
+    .page-hero__actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+    .forecast-intro { background: var(--white); padding: var(--section-pad) 0; }
+    .forecast-intro__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .forecast-intro__quote {
+      font-family: var(--font-serif);
+      font-size: clamp(1.5rem, 2.2vw, 2rem);
+      font-style: italic;
+      font-weight: 300;
+      color: var(--charcoal);
+      line-height: 1.5;
+      border-left: 3px solid var(--gold);
+      padding-left: 28px;
+    }
+    .forecast-intro__content p { font-size: 0.93rem; color: var(--charcoal-soft); line-height: 1.85; }
+
+    .for-whom { background: var(--lavender-bg); padding: var(--section-pad) 0; }
+    .whom-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 48px; }
+    .whom-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 28px 24px;
+    }
+    .whom-card h4 { font-family: var(--font-serif); font-size: 1.05rem; color: var(--charcoal); margin-bottom: 10px; }
+    .whom-card p { font-size: 0.87rem; color: var(--charcoal-soft); line-height: 1.65; margin: 0; }
+
+    .what-happens { background: var(--white); padding: var(--section-pad) 0; }
+    .steps-timeline { max-width: 700px; margin: 48px auto 0; }
+    .timeline-step {
+      display: grid;
+      grid-template-columns: 56px 1fr;
+      gap: 24px;
+      padding-bottom: 40px;
+      position: relative;
+    }
+    .timeline-step:not(:last-child)::before {
+      content: '';
+      position: absolute;
+      left: 27px; top: 56px; bottom: 0;
+      width: 1px;
+      background: var(--border);
+    }
+    .timeline-step__num {
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      background: var(--violet);
+      color: var(--white);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-serif);
+      font-size: 1.3rem;
+      flex-shrink: 0;
+      position: relative;
+      z-index: 1;
+    }
+    .timeline-step__content { padding-top: 14px; }
+    .timeline-step__content h4 { font-family: var(--font-serif); font-size: 1.15rem; color: var(--charcoal); margin-bottom: 8px; }
+    .timeline-step__content p { font-size: 0.9rem; color: var(--charcoal-soft); line-height: 1.75; margin: 0; }
+
+    .is-not { background: var(--cream); padding: var(--section-pad) 0; }
+    .is-not__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; max-width: 800px; margin: 48px auto 0; }
+    .is-not__col { border: 1px solid var(--border); border-radius: 4px; padding: 36px 32px; background: var(--white); }
+    .is-not__col h4 {
+      font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase;
+      font-weight: 600; margin-bottom: 20px;
+    }
+    .is-not__col--is h4 { color: var(--violet); }
+    .is-not__col--not h4 { color: var(--charcoal-soft); }
+    .is-not__col ul { list-style: none; }
+    .is-not__col ul li {
+      display: flex; gap: 10px;
+      font-size: 0.9rem; color: var(--charcoal-mid);
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .is-not__col ul li:last-child { border-bottom: none; }
+    .is-not__col--is ul li::before { content: '✓'; color: var(--violet); font-weight: 600; flex-shrink: 0; }
+    .is-not__col--not ul li::before { content: '✕'; color: #C0A0A0; flex-shrink: 0; }
+
+    .faq-section { background: var(--white); padding: var(--section-pad) 0; }
+    .faq-list { max-width: 720px; margin: 48px auto 0; }
+    .faq-item { border-bottom: 1px solid var(--border); }
+    .faq-item:first-child { border-top: 1px solid var(--border); }
+    .faq-question {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 22px 0; cursor: pointer;
+      font-family: var(--font-serif);
+      font-size: 1.05rem;
+      color: var(--charcoal);
+      gap: 16px;
+    }
+    .faq-question::after {
+      content: '+';
+      font-size: 1.4rem;
+      color: var(--violet);
+      flex-shrink: 0;
+      transition: transform 0.2s;
+      font-weight: 300;
+    }
+    .faq-item.open .faq-question::after { transform: rotate(45deg); }
+    .faq-answer {
+      display: none;
+      padding: 0 0 24px;
+      font-size: 0.9rem;
+      color: var(--charcoal-soft);
+      line-height: 1.8;
+    }
+    .faq-item.open .faq-answer { display: block; }
+
+    .begin-cta { background: linear-gradient(135deg, var(--violet-dark) 0%, var(--violet) 100%); padding: 120px 0; text-align: center; }
+    .begin-cta h2 { color: var(--white); margin-bottom: 16px; }
+    .begin-cta .lead { color: rgba(255,255,255,0.75); margin-bottom: 48px; max-width: 520px; margin-left: auto; margin-right: auto; }
+    .begin-cta__note { color: rgba(255,255,255,0.4); font-size: 0.78rem; margin-top: 20px; }
+
+    @media (max-width: 900px) {
+      .forecast-intro__grid { grid-template-columns: 1fr; gap: 40px; }
+      .whom-grid { grid-template-columns: 1fr; }
+      .is-not__grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-nav">Skip to main content</a>
+
+  <nav class="nav" role="navigation">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo">
+        <svg width="40" height="40" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M22 8 L38 24 L22 40 L6 24 Z" fill="#6040A0"/>
+          <path d="M58 8 L74 24 L58 40 L42 24 Z" fill="#8060C0"/>
+          <path d="M40 42 L56 58 L40 74 L24 58 Z" fill="#A080D8"/>
+          <text x="22" y="29" text-anchor="middle" fill="white" font-family="Arial" font-size="14" font-weight="bold">H</text>
+          <text x="58" y="29" text-anchor="middle" fill="white" font-family="Arial" font-size="14" font-weight="bold">S</text>
+          <text x="40" y="63" text-anchor="middle" fill="white" font-family="Arial" font-size="14" font-weight="bold">B</text>
+        </svg>
+        <div class="nav__logo-text">
+          <span class="nav__logo-name">Human Behavior Specialists</span>
+          <span class="nav__logo-tag">HBS – Intelligent Insights</span>
+        </div>
+      </a>
+      <ul class="nav__links">
+        <li><a href="the-work.html">The Work</a></li>
+        <li><a href="ways-to-work.html">Ways to Work Together</a></li>
+        <li><a href="personal-forecast.html">Personal Forecast</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="begin.html">Contact</a></li>
+      </ul>
+      <a href="begin.html" class="btn btn-primary nav__cta">Begin</a>
+      <button class="nav__toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="page-hero">
+    <div class="container">
+      <span class="eyebrow">A Calm Place to Begin</span>
+      <span class="page-hero__sub">Pattern Intelligence for Life Transitions</span>
+      <h1>Personal Forecast Session</h1>
+      <p class="lead">A one-on-one advisory conversation designed to help you understand where you are in your life cycle — what's completing, what's emerging, and why now feels the way it does.</p>
+      <div class="page-hero__actions">
+        <a href="begin.html" class="btn btn-gold">Book Your Session</a>
+        <a href="report.html" class="btn btn-outline-white">Start with the $47 Report First</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTRO -->
+  <section class="forecast-intro">
+    <div class="container">
+      <div class="forecast-intro__grid">
+        <div class="fade-in">
+          <p class="forecast-intro__quote">"Most transitions don't announce themselves loudly. They arrive quietly — as restlessness, uncertainty, or the sense that something is no longer aligned, even if life looks fine from the outside."</p>
+        </div>
+        <div class="fade-in">
+          <span class="eyebrow">What This Session Is</span>
+          <h2 style="margin-bottom:20px;">Orientation, Not Prediction</h2>
+          <p>A Personal Forecast Session exists to provide orientation during moments of quiet transition. Not answers to everything. Not a plan you must follow.</p>
+          <p>Just context — so you can understand where you are and move forward with greater steadiness and clarity.</p>
+          <p>This is not prediction. It is perspective. The intention is to reduce unnecessary pressure and bring clarity to what you're already sensing.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOR WHOM -->
+  <section class="for-whom">
+    <div class="container">
+      <div style="text-align:center;max-width:560px;margin:0 auto;" class="fade-in">
+        <span class="eyebrow">Is This for You?</span>
+        <h2>This Session Is Often Helpful When...</h2>
+        <p class="lead">You do not need to be in crisis. You do not need to know what you want next. You only need to be willing to pause and look more closely.</p>
+      </div>
+      <div class="whom-grid">
+        <div class="whom-card fade-in">
+          <h4>You feel a pull toward change</h4>
+          <p>But you can't yet name it clearly. Something is moving but the direction isn't visible yet.</p>
+        </div>
+        <div class="whom-card fade-in">
+          <h4>You're questioning direction</h4>
+          <p>Pace, priorities, what's next — the questions are there but the answers aren't coming through effort alone.</p>
+        </div>
+        <div class="whom-card fade-in">
+          <h4>You're at a crossroads</h4>
+          <p>Personal or professional. A decision is forming and you want clarity without being pushed toward a particular answer.</p>
+        </div>
+        <div class="whom-card fade-in">
+          <h4>You sense a chapter is ending</h4>
+          <p>Something that once fit no longer does. The discomfort is real but the next step isn't yet clear.</p>
+        </div>
+        <div class="whom-card fade-in">
+          <h4>You've achieved — but feel misaligned</h4>
+          <p>Everything looks right on the outside. Inside, something no longer fits. This is not failure. It's transition.</p>
+        </div>
+        <div class="whom-card fade-in">
+          <h4>You want clarity without pressure</h4>
+          <p>No agenda, no urgency, no one pushing you toward a predetermined solution. Just honest, grounded perspective.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT HAPPENS -->
+  <section class="what-happens">
+    <div class="container">
+      <div style="text-align:center;max-width:540px;margin:0 auto;" class="fade-in">
+        <span class="eyebrow">The Session</span>
+        <h2>What Happens in a Session</h2>
+        <p class="lead">Each Personal Forecast Session is structured yet reflective. There is no pressure, no agenda to push through, and no expectation of a particular outcome.</p>
+      </div>
+      <div class="steps-timeline fade-in">
+        <div class="timeline-step">
+          <div class="timeline-step__num">1</div>
+          <div class="timeline-step__content">
+            <h4>You Complete a Short Intake</h4>
+            <p>Before the session, you'll answer a few reflective questions. These help orient the conversation and allow for thoughtful preparation — so the time together is focused and grounded.</p>
+          </div>
+        </div>
+        <div class="timeline-step">
+          <div class="timeline-step__num">2</div>
+          <div class="timeline-step__content">
+            <h4>The Session Begins with Context</h4>
+            <p>Using your date of birth and the patterns that govern your current cycle, we establish where you are — what phase you're in, what it's designed for, and how it's influencing your experience right now.</p>
+          </div>
+        </div>
+        <div class="timeline-step">
+          <div class="timeline-step__num">3</div>
+          <div class="timeline-step__content">
+            <h4>We Explore What's Present</h4>
+            <p>The conversation is reflective, not prescriptive. We look at what's completing, what's emerging, and what timing suggests about the decisions or questions you're carrying.</p>
+          </div>
+        </div>
+        <div class="timeline-step">
+          <div class="timeline-step__num">4</div>
+          <div class="timeline-step__content">
+            <h4>Clarity Lands in Its Own Time</h4>
+            <p>You leave with context — not a to-do list. Many people find that a single session provides enough insight to stop forcing a decision, confirm a direction, or recognize what's no longer aligned.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- IS / IS NOT -->
+  <section class="is-not">
+    <div class="container">
+      <div style="text-align:center;" class="fade-in">
+        <span class="eyebrow">Important Clarity</span>
+        <h2>What This Session Is — and Is Not</h2>
+      </div>
+      <div class="is-not__grid">
+        <div class="is-not__col is-not__col--is fade-in">
+          <h4>This Session Is</h4>
+          <ul>
+            <li>Advisory and reflective</li>
+            <li>Pattern-based and structured</li>
+            <li>Designed for clarity</li>
+            <li>Complete on its own</li>
+            <li>Conducted at a calm, unhurried pace</li>
+          </ul>
+        </div>
+        <div class="is-not__col is-not__col--not fade-in">
+          <h4>This Session Is Not</h4>
+          <ul>
+            <li>Therapy or mental health treatment</li>
+            <li>Coaching with ongoing accountability</li>
+            <li>A commitment to continued work</li>
+            <li>Fortune-telling or predictive certainty</li>
+            <li>A replacement for professional advice</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq-section">
+    <div class="container">
+      <div style="text-align:center;max-width:540px;margin:0 auto;" class="fade-in">
+        <span class="eyebrow">Common Questions</span>
+        <h2>Frequently Asked</h2>
+      </div>
+      <div class="faq-list fade-in">
+        <div class="faq-item">
+          <div class="faq-question">What exactly is a Personal Forecast Session?</div>
+          <div class="faq-answer">A one-on-one advisory conversation designed to help you understand where you are in your life cycle, especially during periods of transition. It focuses on timing, patterns, and context — so decisions can be made with greater clarity and less pressure.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">Is this coaching or therapy?</div>
+          <div class="faq-answer">No. This work is advisory and reflective in nature. It is not therapy, counseling, or ongoing coaching, and it does not involve accountability or treatment. The session is complete on its own.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">Is this predictive or fortune-telling?</div>
+          <div class="faq-answer">No. The session does not aim to predict specific outcomes or tell you what will happen. It helps illuminate timing, cycles, and themes that provide context for decision-making. The goal is clarity — not certainty.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">Do I need to be at a crisis point to do this?</div>
+          <div class="faq-answer">Not at all. Many people come to this work simply because something feels like it's shifting — even if life appears stable on the surface. The session is often most helpful before decisions are forced.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">Is this a one-time session or ongoing work?</div>
+          <div class="faq-answer">A Personal Forecast Session is a one-time engagement. Some people choose to return at later transition points, but there is no expectation or requirement to continue beyond the session itself.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">What happens after the session?</div>
+          <div class="faq-answer">Most people leave with greater clarity, reduced urgency, a clearer sense of what is completing or emerging, and confidence in their own next steps. There is no follow-up obligation — though additional sessions are available if you wish to go deeper.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">How do I know if this is right for me?</div>
+          <div class="faq-answer">If you value reflection, timing, and thoughtful perspective — and are open to clarity without being told what to do — this work is often a good fit. If you're seeking immediate answers, direction, or certainty, it may not be the right moment.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BEGIN CTA -->
+  <section class="begin-cta">
+    <div class="container">
+      <div class="fade-in">
+        <span class="eyebrow" style="color:var(--gold-light);">When You're Ready</span>
+        <h2>If You Feel Drawn to This Session, Trust That.</h2>
+        <p class="lead">A Personal Forecast Session is often the simplest way to bring context to a moment of transition — and to understand what wants your attention now.</p>
+        <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+          <a href="begin.html" class="btn btn-gold">Book Your Personal Forecast Session</a>
+          <a href="report.html" class="btn btn-outline-white">Start with the $47 Report</a>
+        </div>
+        <p class="begin-cta__note">You don't need to rush the next step. You need to understand the ground you're standing on. That's where we begin.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div>
+          <div class="footer__brand-logo">
+            <svg width="32" height="32" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M22 8 L38 24 L22 40 L6 24 Z" fill="#6040A0"/>
+              <path d="M58 8 L74 24 L58 40 L42 24 Z" fill="#8060C0"/>
+              <path d="M40 42 L56 58 L40 74 L24 58 Z" fill="#A080D8"/>
+              <text x="22" y="29" text-anchor="middle" fill="white" font-family="Arial" font-size="14" font-weight="bold">H</text>
+              <text x="58" y="29" text-anchor="middle" fill="white" font-family="Arial" font-size="14" font-weight="bold">S</text>
+              <text x="40" y="63" text-anchor="middle" fill="white" font-family="Arial" font-size="14" font-weight="bold">B</text>
+            </svg>
+            <div>
+              <span class="footer__brand-name">Human Behavior Specialists</span>
+              <span class="footer__brand-tag">HBS – Intelligent Insights</span>
+            </div>
+          </div>
+          <p class="footer__desc">A pattern-based advisory practice focused on life transitions, decision timing, and sustainable direction.</p>
+          <div class="footer__social">
+            <a href="#" aria-label="Facebook">f</a>
+            <a href="#" aria-label="Instagram">in</a>
+            <a href="#" aria-label="LinkedIn">Li</a>
+            <a href="#" aria-label="Threads">Th</a>
+          </div>
+        </div>
+        <div class="footer__col">
+          <h5>Navigate</h5>
+          <ul class="footer__links">
+            <li><a href="the-work.html">The Work</a></li>
+            <li><a href="ways-to-work.html">Ways to Work Together</a></li>
+            <li><a href="personal-forecast.html">Personal Forecast Session</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="report.html">$47 Timing Report</a></li>
+            <li><a href="begin.html">Begin</a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h5>Contact</h5>
+          <div class="footer__contact-item"><span>Email</span> accounts@humanbehaviorspecialists.com</div>
+          <div style="margin-top:24px;">
+            <h5>Quick Start</h5>
+            <a href="report.html" class="btn btn-gold" style="font-size:0.75rem;padding:10px 20px;margin-top:12px;display:inline-block;">Get Your $47 Timing Report</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p>&copy; 2025 Human Behavior Specialists. All rights reserved.</p>
+        <p class="footer__disclaimer">This work is advisory and educational in nature and does not replace professional medical, legal, financial, or therapeutic services.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script>
+    document.querySelectorAll('.faq-question').forEach(q => {
+      q.addEventListener('click', () => {
+        const item = q.parentElement;
+        const wasOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+        if (!wasOpen) item.classList.add('open');
+      });
+    });
+  </script>
+</body>
+</html>
