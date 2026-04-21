@@ -32,6 +32,8 @@ def _instagram_url(first: str, last: str) -> str:
 
 
 def _dre_verify_url(license_number: str) -> str:
+    if not license_number:
+        return ""
     return (
         "https://www2.dre.ca.gov/PublicASP/pplinfo.asp"
         f"?License_id={quote_plus(license_number)}"

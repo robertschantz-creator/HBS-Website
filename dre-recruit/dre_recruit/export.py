@@ -45,14 +45,14 @@ def _prepare(df: pd.DataFrame) -> pd.DataFrame:
     return df[EXPORT_COLUMNS]
 
 
-def write_csvs(df: pd.DataFrame, out_dir: Path) -> list[Path]:
+def write_csvs(df: pd.DataFrame, out_dir: Path, prefix: str = "san_diego") -> list[Path]:
     out_dir.mkdir(parents=True, exist_ok=True)
     df = _prepare(df)
 
     buckets = {
-        "san_diego_unaffiliated.csv": df[df["affiliation_status"] == "UNAFFILIATED"],
-        "san_diego_affiliated.csv":   df[df["affiliation_status"] == "AFFILIATED"],
-        "san_diego_brokers.csv":      df[df["affiliation_status"] == "BROKER"],
+        f"{prefix}_unaffiliated.csv": df[df["affiliation_status"] == "UNAFFILIATED"],
+        f"{prefix}_affiliated.csv":   df[df["affiliation_status"] == "AFFILIATED"],
+        f"{prefix}_brokers.csv":      df[df["affiliation_status"] == "BROKER"],
     }
     written: list[Path] = []
     for name, part in buckets.items():
