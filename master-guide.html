@@ -829,6 +829,7 @@ Either way, I appreciate you being here.
     <li>The Work — /the-work</li>
     <li>Ways to Work Together — /ways-to-work</li>
     <li>Personal Forecast Session — /personal-forecast</li>
+    <li>Behavioral Style — /behavioral-style (DISC framework + career application; routes to Personal Forecast)</li>
     <li>About — /about (include Robert's headshot photo)</li>
     <li>Begin — /begin (contact form + path selection)</li>
     <li>$47 Report Sales Page — /personal-year-report</li>
@@ -842,8 +843,9 @@ Either way, I appreciate you being here.
   <ul class="checklist">
     <li>Free Guide Opt-In: First name + Email → Tag: HBS-Timing-Letter → Auto-deliver guide PDF</li>
     <li>Report Purchase: Name + Email + Date of Birth + Payment ($47 via Stripe) → Tag: HBS-Report-Buyer → Trigger email sequence</li>
-    <li>Contact / Begin Form: First name + Last name + Email + Phone (optional) + Interest dropdown + Message → Notify Robert by email + SMS (Twilio)</li>
+    <li>Contact / Begin Form: First name + Last name + Email + Phone (optional) + Interest dropdown + Message → Notify Robert by email + SMS (Twilio). Add "Career transition" as one of the Interest dropdown options.</li>
     <li>Personal Forecast Intake: 10 questions (see Section 05) → Sends to Robert for review before confirming booking</li>
+    <li>(Optional Phase 2) Behavioral Self-Assessment: 12-question DISC-style intake on /behavioral-style → Tag: HBS-Behavior-Read → Routes user to Personal Forecast booking</li>
   </ul>
 
   <h3>Email Automations to Build</h3>
@@ -852,6 +854,7 @@ Either way, I appreciate you being here.
     <li>Report purchase sequence: Email 1 (immediate) — confirmation + timeline · Email 2 (Day 2) — report delivery + soft upsell · Email 3 (Day 7) — follow-up question</li>
     <li>Monthly Timing Letter: Manual send, once per month, to HBS-Timing-Letter tag</li>
     <li>Contact form notification: Instant email + SMS to Robert ( via Twilio)</li>
+    <li>(Phase 2) Behavioral Style sequence: Triggered when user completes the optional self-assessment on /behavioral-style → 3-email educational series ending in Personal Forecast offer</li>
   </ul>
 
   <h3>CRM Tags to Create</h3>
@@ -862,6 +865,8 @@ Either way, I appreciate you being here.
     <li>HBS-1on1-Client (Personal Forecast buyers)</li>
     <li>HBS-Inquiry (contact form submissions)</li>
     <li>HBS-Existing-Database (Robert's imported existing contacts)</li>
+    <li>HBS-Behavior-Read (completed behavioral self-assessment, Phase 2)</li>
+    <li>HBS-Career-Transition (selected "Career transition" on Begin form)</li>
   </ul>
 
   <h3>Stripe / Payment Setup</h3>
@@ -899,7 +904,7 @@ Either way, I appreciate you being here.
 
   <h3>Pre-Launch QA Checklist</h3>
   <ul class="checklist">
-    <li>All nav links work on desktop and mobile</li>
+    <li>All nav links work on desktop and mobile (including Behavioral Style)</li>
     <li>Logo displays correctly on all pages</li>
     <li>Robert's photo loads correctly on About page</li>
     <li>Free guide form captures email and delivers PDF</li>
@@ -911,7 +916,11 @@ Either way, I appreciate you being here.
     <li>Page load speed acceptable (under 3 seconds)</li>
     <li>All CTAs link to correct pages</li>
     <li>Footer disclaimer appears on all pages</li>
+    <li>Behavioral Style page renders correctly: DISC quadrant graphic shows 2&times;2 on desktop and stacks on mobile (&lt;600px); all card content readable; CTAs route to Personal Forecast and $47 Report</li>
   </ul>
+
+  <h3>Behavior + Timing — Positioning Note for the Build Team</h3>
+  <p>HBS now positions on a dual frame: <strong>Behavior + Timing</strong>. <strong>Behavior</strong> is read using the DISC framework (how the client moves, decides, communicates). <strong>Timing</strong> is read using the existing cycle / numerology methodology. The site explicitly distinguishes this from personality typing — <strong>do not remove</strong> the existing &ldquo;Not a personality quiz&rdquo; lines on the home and report pages. The Behavioral Style page (/behavioral-style) educates and routes career-transition visitors into the existing Personal Forecast Session. <strong>No new paid tier is being added in v1</strong> — the existing offer ladder (Free → $47 → $97 → $497–$750 → invite-only) is unchanged. If a behavioral self-assessment form is added in Phase 2, it should tag users HBS-Behavior-Read and route them into a 3-email educational sequence that ends in a Personal Forecast offer.</p>
 </div>
 
 <!-- S12: ONE-PAGE PDF -->

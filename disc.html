@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Behavioral Style | HBS – Intelligent Insights</title>
+  <meta name="description" content="How your natural behavior shapes the career moves that fit you. The HBS framework reads behavior alongside timing — not personality typing." />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .page-hero {
+      padding: 160px 0 96px;
+      background: linear-gradient(135deg, var(--violet-dark) 0%, var(--violet) 100%);
+      color: var(--white);
+      text-align: center;
+    }
+    .page-hero .eyebrow { color: var(--gold-light); }
+    .page-hero h1 { color: var(--white); font-weight: 300; margin-bottom: 20px; }
+    .page-hero .lead { color: rgba(255,255,255,0.78); max-width: 640px; margin: 0 auto; }
+    .page-hero__sub { display:block; margin-top:24px; font-size:0.7rem; letter-spacing:0.18em; text-transform:uppercase; color:rgba(255,255,255,0.45); }
+
+    .hook-block { text-align: center; max-width: 720px; margin: 0 auto; }
+    .hook-block h2 { font-style: italic; }
+
+    .quadrant-wrap {
+      max-width: 520px;
+      margin: 56px auto 56px;
+    }
+    .disc-quadrant {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      aspect-ratio: 1 / 1;
+      border-radius: 6px;
+      overflow: hidden;
+      box-shadow: 0 18px 48px rgba(96, 64, 160, 0.18);
+    }
+    .disc-quadrant__cell {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      color: var(--white);
+      text-align: center;
+    }
+    .disc-quadrant__letter {
+      font-family: var(--font-serif);
+      font-size: clamp(3.5rem, 9vw, 5.5rem);
+      font-weight: 300;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .disc-quadrant__name {
+      font-size: 0.7rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      font-weight: 600;
+      opacity: 0.92;
+    }
+    .disc-quadrant__cell--d { background: var(--violet-dark); }
+    .disc-quadrant__cell--i { background: var(--gold); }
+    .disc-quadrant__cell--s {
+      background: var(--gold-light);
+      color: var(--charcoal);
+    }
+    .disc-quadrant__cell--c { background: var(--violet-light); }
+
+    .sections__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 16px; }
+    .section-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 28px 22px;
+      text-align: center;
+    }
+    .section-card__num {
+      font-family: var(--font-serif);
+      font-size: 2.4rem;
+      color: var(--violet);
+      font-weight: 300;
+      line-height: 1;
+      margin-bottom: 12px;
+    }
+    .section-card h4 { font-family: var(--font-serif); font-size: 1.05rem; color: var(--charcoal); margin-bottom: 10px; line-height: 1.3; }
+    .section-card p { font-size: 0.85rem; color: var(--charcoal-soft); line-height: 1.65; margin: 0; }
+
+    .lens-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 56px;
+      align-items: start;
+      margin-top: 48px;
+    }
+    .lens-grid h3 {
+      font-family: var(--font-serif);
+      font-size: 1.4rem;
+      font-weight: 400;
+      color: var(--charcoal);
+      margin-bottom: 14px;
+    }
+    .lens-grid p {
+      font-size: 0.95rem;
+      color: var(--charcoal-soft);
+      line-height: 1.85;
+      margin-bottom: 14px;
+    }
+    .lens-quote {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 1.15rem;
+      color: var(--charcoal);
+      border-left: 3px solid var(--gold);
+      padding: 8px 0 8px 24px;
+      max-width: 760px;
+      margin: 56px auto 0;
+      line-height: 1.55;
+    }
+
+    .career-block { max-width: 760px; margin: 0 auto; }
+
+    .quick-look {
+      max-width: 720px;
+      margin: 56px auto 0;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 32px;
+      align-items: center;
+    }
+    .quick-look__text {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 28px 28px;
+      border-left: 3px solid var(--gold);
+      font-size: 0.95rem;
+      color: var(--charcoal-soft);
+      line-height: 1.7;
+      font-style: italic;
+    }
+
+    .disc-cta-dark {
+      background: linear-gradient(135deg, var(--violet-dark) 0%, var(--violet) 100%);
+      padding: 120px 0;
+      text-align: center;
+      color: var(--white);
+    }
+    .disc-cta-dark h2 { color: var(--white); margin-bottom: 16px; font-weight: 300; }
+    .disc-cta-dark .lead { color: rgba(255,255,255,0.78); max-width: 560px; margin: 0 auto 40px; }
+    .disc-cta-dark__buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+    @media (max-width: 900px) {
+      .lens-grid { grid-template-columns: 1fr; gap: 32px; }
+      .sections__grid { grid-template-columns: repeat(2, 1fr); }
+      .quick-look { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      .sections__grid { grid-template-columns: 1fr; }
+      .quadrant-wrap { max-width: 360px; }
+    }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-nav">Skip to main content</a>
+
+  <nav class="nav" role="navigation">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo">
+        <svg width="40" height="40" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M22 8 L38 24 L22 40 L6 24 Z" fill="#6040A0"/>
+          <path d="M58 8 L74 24 L58 40 L42 24 Z" fill="#8060C0"/>
+          <path d="M40 42 L56 58 L40 74 L24 58 Z" fill="#A080D8"/>
+          <text x="22" y="29" text-anchor="middle" fill="white" font-family="Arial" font-size="14" font-weight="bold">H</text>
+          <text x="58" y="29" text-anchor="middle" fill="white" font-family="Arial" font-size="14" font-weight="bold">S</text>
+          <text x="40" y="63" text-anchor="middle" fill="white" font-family="Arial" font-size="14" font-weight="bold">B</text>
+        </svg>
+        <div class="nav__logo-text">
+          <span class="nav__logo-name">Human Behavior Specialists</span>
+          <span class="nav__logo-tag">HBS – Intelligent Insights</span>
+        </div>
+      </a>
+      <ul class="nav__links">
+        <li><a href="the-work.html">The Work</a></li>
+        <li><a href="ways-to-work.html">Ways to Work Together</a></li>
+        <li><a href="personal-forecast.html">Personal Forecast</a></li>
+        <li><a href="disc.html">Behavioral Style</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="begin.html">Contact</a></li>
+      </ul>
+      <a href="begin.html" class="btn btn-primary nav__cta">Begin</a>
+      <button class="nav__toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero" id="main-content">
+    <div class="container">
+      <span class="eyebrow">Behavior + Timing</span>
+      <h1>Understanding Your Behavioral Style</h1>
+      <p class="lead">Behavior is the invisible engine behind every career move. Most people are not stuck. They are running a behavioral style in an environment that does not match it — at a moment in their cycle that asks for something else.</p>
+      <span class="page-hero__sub">Pattern Intelligence for Life Transitions</span>
+    </div>
+  </section>
+
+  <!-- THE HOOK -->
+  <section class="section section--lavender">
+    <div class="container">
+      <div class="hook-block fade-in">
+        <span class="eyebrow">The Premise</span>
+        <h2>Behavior is the invisible engine behind career success.</h2>
+        <p class="lead">Your career trajectory is not just about what you know. It is about how you behave — how you decide, how you communicate, how you move under pressure. We read that behavior alongside the cycle you are in, so the next move fits both who you are and where you are.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- DISC QUADRANT -->
+  <section class="section">
+    <div class="container">
+      <div style="text-align:center;max-width:620px;margin:0 auto 16px;" class="fade-in">
+        <span class="eyebrow">The Four Styles</span>
+        <h2>The DISC Behavioral Model</h2>
+        <p class="lead">Four observable patterns of behavior. None better than the others. Each carries a natural pace, a natural focus, and a natural professional environment.</p>
+      </div>
+
+      <div class="quadrant-wrap fade-in">
+        <div class="disc-quadrant" role="img" aria-label="DISC quadrant: D Dominance, i Influence, S Steadiness, C Conscientiousness">
+          <div class="disc-quadrant__cell disc-quadrant__cell--d">
+            <span class="disc-quadrant__letter">D</span>
+            <span class="disc-quadrant__name">Dominance</span>
+          </div>
+          <div class="disc-quadrant__cell disc-quadrant__cell--i">
+            <span class="disc-quadrant__letter">i</span>
+            <span class="disc-quadrant__name">Influence</span>
+          </div>
+          <div class="disc-quadrant__cell disc-quadrant__cell--c">
+            <span class="disc-quadrant__letter">C</span>
+            <span class="disc-quadrant__name">Conscientiousness</span>
+          </div>
+          <div class="disc-quadrant__cell disc-quadrant__cell--s">
+            <span class="disc-quadrant__letter">S</span>
+            <span class="disc-quadrant__name">Steadiness</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sections__grid">
+        <div class="section-card fade-in">
+          <div class="section-card__num">D</div>
+          <h4>Dominance</h4>
+          <p>Results-oriented, direct, decisive. Moves fast under pressure. Thrives on challenge, autonomy, and clear outcomes.</p>
+        </div>
+        <div class="section-card fade-in">
+          <div class="section-card__num">i</div>
+          <h4>Influence</h4>
+          <p>People-oriented, expressive, optimistic. Moves through relationships and energy. Thrives on collaboration, visibility, and momentum.</p>
+        </div>
+        <div class="section-card fade-in">
+          <div class="section-card__num">S</div>
+          <h4>Steadiness</h4>
+          <p>Pace-oriented, calm, deliberate. Moves with consistency and care. Thrives on stability, trust, and meaningful contribution.</p>
+        </div>
+        <div class="section-card fade-in">
+          <div class="section-card__num">C</div>
+          <h4>Conscientiousness</h4>
+          <p>Quality-oriented, analytical, precise. Moves with rigor and accuracy. Thrives on standards, expertise, and well-defined systems.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW WE READ THIS -->
+  <section class="section section--lavender">
+    <div class="container">
+      <div style="text-align:center;max-width:720px;margin:0 auto;" class="fade-in">
+        <span class="eyebrow">The HBS Lens</span>
+        <h2>Behavior is the <em>how</em>. Timing is the <em>when</em>. Together they show what fits <em>now</em>.</h2>
+      </div>
+
+      <div class="lens-grid fade-in">
+        <div>
+          <h3>Behavior — How you operate today</h3>
+          <p>DISC describes how you naturally behave in the present — visible, observable, real. Direct or expressive? Steady or precise? Behavior is not identity. It can shift across roles, environments, and pressures. We read it as a current-state signal, not a fixed label.</p>
+        </div>
+        <div>
+          <h3>Timing — Where you are in the cycle</h3>
+          <p>Your timing read describes the phase of life you are in — what is naturally completing, what is beginning to take shape, what this chapter is designed for. The Personal Year Timing Report is the entry point. It gives the cycle context that behavior alone cannot.</p>
+        </div>
+      </div>
+
+      <p class="lens-quote fade-in">"This is not personality typing. We do not label who you are. We read how you behave — and we pair it with the pattern you are living inside."</p>
+    </div>
+  </section>
+
+  <!-- CAREER MOVES & ENHANCEMENT -->
+  <section class="section">
+    <div class="container">
+      <div class="career-block fade-in">
+        <span class="eyebrow">Where This Becomes Useful</span>
+        <h2>Career Moves &amp; Professional Direction</h2>
+        <p class="lead">Career changes are the most common reason people arrive here. Behavior + timing makes the next move clearer.</p>
+        <ul class="philosophy__list">
+          <li><strong>Cultural fit.</strong>&nbsp; Naming the environments where your natural pace and focus do their best work — and the ones that quietly drain them.</li>
+          <li><strong>Leadership communication.</strong>&nbsp; How to adapt your behavioral style to influence the bosses, peers, and teams you actually work with.</li>
+          <li><strong>Interview clarity.</strong>&nbsp; Using your behavioral strengths — not a script — to stand out in a hiring process that rewards self-knowledge.</li>
+          <li><strong>Career-cycle alignment.</strong>&nbsp; Pairing your behavioral read with where you are in your cycle, so the next move fits both.</li>
+        </ul>
+      </div>
+
+      <div class="quick-look fade-in">
+        <p class="quick-look__text">Curious about your style? In a Personal Forecast Session, we read your behavior and your current cycle together — and clarify what your next career move is asking for.</p>
+        <a href="personal-forecast.html" class="btn btn-primary" style="white-space:nowrap;">Begin with a Personal Forecast</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLOSING CTA -->
+  <section class="disc-cta-dark">
+    <div class="container">
+      <div class="fade-in">
+        <span class="eyebrow" style="color:var(--gold-light);">Read Together. Once.</span>
+        <h2>Behavior + Timing.</h2>
+        <p class="lead">Each session is designed to stand on its own. No subscription. No discovery call required.</p>
+        <div class="disc-cta-dark__buttons">
+          <a href="report.html" class="btn btn-gold">Start with the $47 Timing Report</a>
+          <a href="personal-forecast.html" class="btn btn-outline-white">Book a Personal Forecast</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div>
+          <div class="footer__brand-logo">
+            <svg width="32" height="32" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M22 8 L38 24 L22 40 L6 24 Z" fill="#6040A0"/>
+              <path d="M58 8 L74 24 L58 40 L42 24 Z" fill="#8060C0"/>
+              <path d="M40 42 L56 58 L40 74 L24 58 Z" fill="#A080D8"/>
+              <text x="22" y="29" text-anchor="middle" fill="white" font-family="Arial" font-size="14" font-weight="bold">H</text>
+              <text x="58" y="29" text-anchor="middle" fill="white" font-family="Arial" font-size="14" font-weight="bold">S</text>
+              <text x="40" y="63" text-anchor="middle" fill="white" font-family="Arial" font-size="14" font-weight="bold">B</text>
+            </svg>
+            <div>
+              <span class="footer__brand-name">Human Behavior Specialists</span>
+              <span class="footer__brand-tag">HBS – Intelligent Insights</span>
+            </div>
+          </div>
+          <p class="footer__desc">A pattern-based advisory practice focused on life transitions, decision timing, and sustainable direction.</p>
+          <div class="footer__social">
+            <a href="https://www.facebook.com/HumanBehaviorSpecialistsRS" target="_blank" rel="noopener" aria-label="Facebook">f</a>
+            <a href="https://www.instagram.com/humanbehaviorspecialists/" target="_blank" rel="noopener" aria-label="Instagram">ig</a>
+            <a href="https://www.linkedin.com/company/human-behavior-specialists/" target="_blank" rel="noopener" aria-label="LinkedIn">in</a>
+            <a href="https://www.threads.com/@humanbehaviorspecialists" target="_blank" rel="noopener" aria-label="Threads">Th</a>
+            <a href="https://x.com/HumanBehaviorSp" target="_blank" rel="noopener" aria-label="X">X</a>
+            <a href="https://bsky.app/profile/hbspecialists.bsky.social" target="_blank" rel="noopener" aria-label="Bluesky">Bs</a>
+          </div>
+        </div>
+        <div class="footer__col">
+          <h5>Navigate</h5>
+          <ul class="footer__links">
+            <li><a href="the-work.html">The Work</a></li>
+            <li><a href="ways-to-work.html">Ways to Work Together</a></li>
+            <li><a href="personal-forecast.html">Personal Forecast Session</a></li>
+            <li><a href="disc.html">Behavioral Style</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="report.html">$47 Timing Report</a></li>
+            <li><a href="begin.html">Begin</a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h5>Contact</h5>
+          <div class="footer__contact-item"><span>Email</span> accounts@humanbehaviorspecialists.com</div>
+          <div style="margin-top:24px;">
+            <h5>Quick Start</h5>
+            <a href="report.html" class="btn btn-gold" style="font-size:0.75rem;padding:10px 20px;margin-top:12px;display:inline-block;">Get Your $47 Timing Report</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p>&copy; 2025 Human Behavior Specialists. All rights reserved.</p>
+        <p class="footer__disclaimer">This work is advisory and educational in nature and does not replace professional medical, legal, financial, or therapeutic services.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
