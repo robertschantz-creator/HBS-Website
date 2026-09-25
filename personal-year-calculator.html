@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Free Personal Year Calculator | Human Behavior Specialists</title>
+  <meta name="description" content="Calculate your Personal Year number free using Pythagorean numerology. Enter your birth date and find out what phase you're in — and what it means for your decisions this year." />
+  <link rel="stylesheet" href="css/style.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Personal Year Calculator",
+    "description": "Free Pythagorean numerology calculator that determines your Personal Year number based on your birth date.",
+    "url": "https://humanbehaviorspecialists.com/personal-year-calculator",
+    "applicationCategory": "LifestyleApplication",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
+  <style>
+    .calc-card {
+      background: var(--dark-card);
+      border-radius: 12px;
+      padding: 48px;
+      box-shadow: 0 4px 32px rgba(0,0,0,0.10);
+      max-width: 560px;
+      margin: 0 auto;
+    }
+    .calc-field {
+      margin-bottom: 24px;
+    }
+    .calc-field label {
+      display: block;
+      font-weight: 600;
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--charcoal);
+      margin-bottom: 8px;
+    }
+    .calc-field select,
+    .calc-field input[type="number"] {
+      width: 100%;
+      padding: 14px 16px;
+      border: 2px solid var(--border);
+      border-radius: 6px;
+      font-family: var(--font-sans);
+      font-size: 1rem;
+      color: var(--charcoal);
+      background: var(--dark-card);
+      transition: border-color 0.2s;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+    .calc-field select:focus,
+    .calc-field input[type="number"]:focus {
+      outline: none;
+      border-color: var(--violet);
+    }
+    .calc-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .calc-btn {
+      width: 100%;
+      padding: 18px;
+      background: var(--gold);
+      color: var(--charcoal);
+      border: none;
+      border-radius: 6px;
+      font-family: var(--font-sans);
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.1s;
+      margin-top: 8px;
+    }
+    .calc-btn:hover { opacity: 0.88; }
+    .calc-btn:active { transform: scale(0.99); }
+
+    .result-box {
+      display: none;
+      margin-top: 40px;
+      padding: 36px;
+      background: var(--lavender-bg);
+      border-radius: 10px;
+      border-left: 4px solid var(--violet);
+      animation: fadeUp 0.35s ease;
+    }
+    .result-box.visible { display: block; }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .result-year-badge {
+      font-family: var(--font-serif);
+      font-size: 4rem;
+      font-weight: 700;
+      color: var(--violet);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .result-label {
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--charcoal-soft);
+      margin-bottom: 20px;
+    }
+    .result-title {
+      font-family: var(--font-serif);
+      font-size: 1.4rem;
+      color: var(--charcoal);
+      margin-bottom: 12px;
+    }
+    .result-desc {
+      font-size: 1rem;
+      line-height: 1.8;
+      color: var(--charcoal);
+    }
+    .result-themes {
+      margin-top: 20px;
+      padding: 16px 20px;
+      background: var(--dark-card);
+      border-radius: 6px;
+    }
+    .result-themes h4 {
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--charcoal-soft);
+      margin-bottom: 10px;
+    }
+    .result-themes ul {
+      padding-left: 20px;
+      line-height: 2;
+      color: var(--charcoal);
+    }
+    .result-cta {
+      margin-top: 28px;
+      text-align: center;
+    }
+    .error-msg {
+      color: #c0392b;
+      font-size: 0.88rem;
+      margin-top: 8px;
+      display: none;
+    }
+    @media (max-width: 600px) {
+      .calc-card { padding: 28px 20px; }
+      .calc-row { grid-template-columns: 1fr; }
+      .result-year-badge { font-size: 3rem; }
+    }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-nav">Skip to main content</a>
+
+  <nav class="nav" role="navigation">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo">
+        <img src="images/hbs-logo.svg" width="40" height="40" alt="" aria-hidden="true" />
+        <div class="nav__logo-text">
+          <span class="nav__logo-name">Human Behavior Specialists</span>
+          <span class="nav__logo-tag">Pattern Intelligence for Life Transitions</span>
+        </div>
+      </a>
+      <ul class="nav__links">
+        <li><a href="the-work.html">The Work</a></li>
+        <li><a href="ways-to-work.html">Work Together</a></li>
+        <li><a href="personal-forecast.html">Personal Forecast</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="begin.html">Contact</a></li>
+      </ul>
+      <a href="begin.html" class="btn btn-primary nav__cta">Begin</a>
+      <button class="nav__toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <main id="main-content">
+
+    <section class="hero" style="min-height:360px;">
+      <div class="hero__bg"></div>
+      <div class="container">
+        <div class="hero__content">
+          <span class="eyebrow hero__eyebrow">Free Tool</span>
+          <h1><em>Personal Year Calculator</em><strong>What Phase Are You In Right Now?</strong></h1>
+          <p class="hero__lead">Enter your birth date and find out your Personal Year number — and what it means for your decisions in 2025 and 2026.</p>
+        </div>
+      </div>
+    </section>
+
+    <section style="padding:72px 0;background:var(--cream);">
+      <div class="container">
+
+        <div class="calc-card">
+          <h2 style="font-family:var(--font-serif);font-size:1.5rem;margin-bottom:8px;text-align:center;">Enter Your Birth Date</h2>
+          <p style="text-align:center;color:var(--charcoal-soft);font-size:0.9rem;margin-bottom:32px;">We use Pythagorean numerology. We don't store your data.</p>
+
+          <div class="calc-field">
+            <label for="birth-month">Birth Month</label>
+            <select id="birth-month">
+              <option value="">Select month…</option>
+              <option value="1">January</option>
+              <option value="2">February</option>
+              <option value="3">March</option>
+              <option value="4">April</option>
+              <option value="5">May</option>
+              <option value="6">June</option>
+              <option value="7">July</option>
+              <option value="8">August</option>
+              <option value="9">September</option>
+              <option value="10">October</option>
+              <option value="11">November</option>
+              <option value="12">December</option>
+            </select>
+          </div>
+
+          <div class="calc-row">
+            <div class="calc-field">
+              <label for="birth-day">Birth Day</label>
+              <input type="number" id="birth-day" min="1" max="31" placeholder="e.g. 15" />
+            </div>
+            <div class="calc-field">
+              <label for="calc-year">Calculate for Year</label>
+              <select id="calc-year">
+                <option value="2025">2025</option>
+                <option value="2026">2026</option>
+                <option value="2024">2024</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="error-msg" id="error-msg">Please enter a valid birth month and day.</div>
+
+          <button class="calc-btn" onclick="calculatePersonalYear()">Calculate My Personal Year →</button>
+
+          <div class="result-box" id="result-box">
+            <div style="display:flex;align-items:flex-end;gap:16px;margin-bottom:16px;">
+              <div class="result-year-badge" id="result-number">–</div>
+              <div class="result-label">Your Personal Year for <span id="result-year-label">2025</span></div>
+            </div>
+            <div class="result-title" id="result-title"></div>
+            <div class="result-desc" id="result-desc"></div>
+            <div class="result-themes" id="result-themes"></div>
+            <div id="result-focus"></div>
+            <div class="result-cta">
+              <p style="font-size:0.88rem;color:var(--charcoal-soft);margin-bottom:16px;">Want a full 18–22 page analysis of what this year means for you specifically?</p>
+              <a href="report.html" class="btn btn-gold" style="display:inline-block;">Get Your Full Report — $47</a>
+              <p style="margin-top:10px;font-size:0.78rem;color:var(--charcoal-soft);">Personalized PDF · Delivered within 48 hours</p>
+            </div>
+          </div>
+        </div>
+
+        <div style="max-width:560px;margin:56px auto 0;">
+          <h3 style="font-family:var(--font-serif);font-size:1.2rem;margin-bottom:20px;text-align:center;">How This Calculator Works</h3>
+          <p style="color:var(--charcoal);line-height:1.8;">This calculator uses the Pythagorean numerology method. Your Personal Year is calculated by adding your birth month + birth day + the current calendar year, then reducing to a single digit. The Personal Year runs January 1 through December 31 — it begins at the start of the calendar year, not on your birthday.</p>
+          <p style="margin-top:16px;color:var(--charcoal);line-height:1.8;">The result gives you the overarching theme and energy of the year: what it's asking of you, what kinds of moves are supported, and what to approach with patience. It's one of the most practical tools in Pythagorean numerology for real-world timing decisions.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <section style="padding:72px 0;">
+      <div class="container" style="max-width:760px;">
+        <h2 style="font-family:var(--font-serif);font-size:1.75rem;margin-bottom:32px;text-align:center;">Quick Reference: All 9 Personal Years</h2>
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          <div style="display:grid;grid-template-columns:56px 1fr;gap:16px;align-items:start;padding:20px;background:var(--cream);border-radius:6px;">
+            <div style="font-family:var(--font-serif);font-size:1.8rem;font-weight:700;color:var(--violet);line-height:1;">1</div>
+            <div><strong>New Beginnings.</strong> Best year to launch, start fresh, or commit to a new direction. Energy is initiating and forward-moving. Plant seeds now — they grow in the years ahead.</div>
+          </div>
+          <div style="display:grid;grid-template-columns:56px 1fr;gap:16px;align-items:start;padding:20px;background:var(--cream);border-radius:6px;">
+            <div style="font-family:var(--font-serif);font-size:1.8rem;font-weight:700;color:var(--violet);line-height:1;">2</div>
+            <div><strong>Patience and Partnership.</strong> A year for cooperation, relationship, and quiet development. Forcing big moves tends to backfire. Build alliances; let things develop at their own pace.</div>
+          </div>
+          <div style="display:grid;grid-template-columns:56px 1fr;gap:16px;align-items:start;padding:20px;background:var(--cream);border-radius:6px;">
+            <div style="font-family:var(--font-serif);font-size:1.8rem;font-weight:700;color:var(--violet);line-height:1;">3</div>
+            <div><strong>Expression and Creativity.</strong> Ideas come out, social connections expand, and communication is highlighted. Watch for scattered focus — not every idea needs to be acted on this year.</div>
+          </div>
+          <div style="display:grid;grid-template-columns:56px 1fr;gap:16px;align-items:start;padding:20px;background:var(--cream);border-radius:6px;">
+            <div style="font-family:var(--font-serif);font-size:1.8rem;font-weight:700;color:var(--violet);line-height:1;">4</div>
+            <div><strong>Foundation and Structure.</strong> The year to build. Hard work, systems, discipline. It feels slower than you want — but what gets built here lasts. Not for expanding outward; for deepening what already exists.</div>
+          </div>
+          <div style="display:grid;grid-template-columns:56px 1fr;gap:16px;align-items:start;padding:20px;background:var(--cream);border-radius:6px;">
+            <div style="font-family:var(--font-serif);font-size:1.8rem;font-weight:700;color:var(--violet);line-height:1;">5</div>
+            <div><strong>Change and Freedom.</strong> Pivots, disruption, unexpected shifts. The 5 year rewards movement and risk. Life changes whether you plan it or not — better to work with it than resist it.</div>
+          </div>
+          <div style="display:grid;grid-template-columns:56px 1fr;gap:16px;align-items:start;padding:20px;background:var(--cream);border-radius:6px;">
+            <div style="font-family:var(--font-serif);font-size:1.8rem;font-weight:700;color:var(--violet);line-height:1;">6</div>
+            <div><strong>Responsibility and Home.</strong> Family, relationships, service, and community come to the foreground. Often brings significant relationship decisions — both personal and professional.</div>
+          </div>
+          <div style="display:grid;grid-template-columns:56px 1fr;gap:16px;align-items:start;padding:20px;background:var(--cream);border-radius:6px;">
+            <div style="font-family:var(--font-serif);font-size:1.8rem;font-weight:700;color:var(--violet);line-height:1;">7</div>
+            <div><strong>Reflection and Inner Work.</strong> Go inward. Research, analyze, and get clear. The 7 year is not for pushing outward — it's for understanding yourself well enough that the next moves are better aimed.</div>
+          </div>
+          <div style="display:grid;grid-template-columns:56px 1fr;gap:16px;align-items:start;padding:20px;background:var(--cream);border-radius:6px;">
+            <div style="font-family:var(--font-serif);font-size:1.8rem;font-weight:700;color:var(--violet);line-height:1;">8</div>
+            <div><strong>Authority and Abundance.</strong> Career momentum, financial focus, leadership. The 8 year harvests what the previous 7 years built. Results tend to show up — often larger than expected.</div>
+          </div>
+          <div style="display:grid;grid-template-columns:56px 1fr;gap:16px;align-items:start;padding:20px;background:var(--cream);border-radius:6px;">
+            <div style="font-family:var(--font-serif);font-size:1.8rem;font-weight:700;color:var(--violet);line-height:1;">9</div>
+            <div><strong>Completion and Release.</strong> Endings, closure, letting go. Things that no longer belong fall away. Don't start new things in a 9 year — finish what needs finishing so the 1 year can begin clean.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section style="background:var(--dark-surface);padding:72px 0;">
+      <div class="container" style="max-width:700px;text-align:center;">
+        <span class="eyebrow" style="color:var(--gold);margin-bottom:16px;display:block;">Want More Than the Number?</span>
+        <h2 style="font-family:var(--font-serif);font-size:2rem;color:var(--white);margin-bottom:16px;">Your Full Personal Year Timing Report</h2>
+        <p style="color:rgba(255,255,255,0.65);font-size:1rem;line-height:1.8;margin-bottom:32px;">
+          The calculator gives you the number. The report gives you the full picture — 18–22 pages on what your year means for career, finances, relationships, and key decisions. Personalized to you, delivered as a PDF within 48 hours.
+        </p>
+        <a href="report.html" class="btn btn-gold">Get Your Timing Report — $47</a>
+        <p style="margin-top:16px;font-size:0.78rem;color:rgba(255,255,255,0.35);">Or <a href="personal-forecast.html" style="color:var(--gold);">book a Personal Forecast Session</a> for a live, in-depth reading.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div>
+          <div class="footer__brand-logo">
+            <img src="images/hbs-logo.svg" width="32" height="32" alt="" aria-hidden="true" />
+            <div>
+              <span class="footer__brand-name">Human Behavior Specialists</span>
+              <span class="footer__brand-tag">Pattern Intelligence for Life Transitions</span>
+            </div>
+          </div>
+          <p class="footer__desc">A pattern-based advisory practice focused on life transitions, decision timing, and sustainable direction.</p>
+          <div class="footer__social">
+            <a href="https://www.facebook.com/HumanBehaviorSpecialistsRS" aria-label="Facebook" target="_blank" rel="noopener">f</a>
+            <a href="https://www.instagram.com/humanbehaviorspecialists/" aria-label="Instagram" target="_blank" rel="noopener">in</a>
+            <a href="https://www.linkedin.com/company/77058778/" aria-label="LinkedIn" target="_blank" rel="noopener">Li</a>
+            <a href="https://www.youtube.com/@TimingCodeHBS" aria-label="YouTube — Timing Code HBS" target="_blank" rel="noopener" style="color:var(--gold);font-weight:600;font-size:0.8rem;">▶ YouTube</a>
+          </div>
+        </div>
+        <div class="footer__col">
+          <h5>Navigate</h5>
+          <ul class="footer__links">
+            <li><a href="the-work.html">The Work</a></li>
+            <li><a href="ways-to-work.html">Work Together</a></li>
+            <li><a href="personal-forecast.html">Personal Forecast Session</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="report.html">$47 Timing Report</a></li>
+            <li><a href="begin.html">Begin</a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h5>Contact</h5>
+          <div class="footer__contact-item"><span>Email</span> accounts@humanbehaviorspecialists.com</div>
+          <div style="margin-top:24px;">
+            <h5>Quick Start</h5>
+            <a href="report.html" class="btn btn-gold" style="font-size:0.75rem;padding:10px 20px;margin-top:12px;display:inline-block;">Get Your $47 Timing Report</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p>&copy; 2026 Human Behavior Specialists. All rights reserved.</p>
+        <p class="footer__disclaimer">This work is advisory and educational in nature and does not replace professional medical, legal, financial, or therapeutic services.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script>
+    const yearData = {
+      1: {
+        title: "Personal Year 1 — New Beginnings",
+        desc: "You are in the first year of a new 9-year cycle. The energy this year is initiating, forward-moving, and aligned with fresh identity. This is one of the strongest years for launching something new — a career, a business, a relationship, a commitment to a new direction. The seeds you plant this year grow throughout the next 8 years.",
+        themes: ["Starting something new", "Stepping into a new identity", "Independent action and self-reliance", "Setting the foundation for the next cycle"],
+        focus: "Move. Start. Commit. The window is open."
+      },
+      2: {
+        title: "Personal Year 2 — Patience and Partnership",
+        desc: "The 2 year asks you to slow down and cooperate. It is a year of partnership, relationship, and quiet development. Forcing big moves tends to backfire in a 2 year — the energy is subtle, not aggressive. This is a year to build alliances, deepen relationships, and let things develop at their own pace.",
+        themes: ["Cooperation and collaboration", "Relationships coming to the foreground", "Patience with process", "Sensitivity and emotional depth"],
+        focus: "Be patient. Build relationships. What you invest in people this year pays off in the years ahead."
+      },
+      3: {
+        title: "Personal Year 3 — Expression and Creativity",
+        desc: "The 3 year opens up communication, creativity, and social connection. Ideas that have been building tend to come out. This is a year for expression — writing, speaking, creating, connecting. The risk is scattered focus. Not every idea needs to be launched this year, but expressing yourself is important.",
+        themes: ["Creative output and communication", "Social expansion and new connections", "Joy, play, and self-expression", "Watch for scattered focus"],
+        focus: "Express yourself. Create. Connect. Don't let the abundance of ideas stop you from finishing anything."
+      },
+      4: {
+        title: "Personal Year 4 — Foundation and Structure",
+        desc: "The 4 year is the year of building. Hard work, discipline, systems, and structure are what this year calls for. It often feels slower than you'd like — but what gets built in a 4 year lasts. This is not the year to expand aggressively. It is the year to deepen, systematize, and strengthen what already exists.",
+        themes: ["Hard work and discipline", "Building systems and structure", "Financial responsibility", "Creating the foundation the next 5 years will stand on"],
+        focus: "Build. Don't rush the process. The work you do this year becomes the foundation for everything that follows."
+      },
+      5: {
+        title: "Personal Year 5 — Change and Freedom",
+        desc: "The 5 year is the year of change. Pivots, unexpected developments, disruption, and freedom are all in play. Life shifts in a 5 year — sometimes by choice, sometimes not. This year rewards risk-taking and movement. Resisting change in a 5 year tends to make it arrive anyway, just with more friction.",
+        themes: ["Major life pivots and unexpected change", "Risk-taking and bold moves", "Freedom and variety", "Disruption of old routines and patterns"],
+        focus: "Move with the change. Take the risk that's been sitting on the shelf. The 5 year rewards action."
+      },
+      6: {
+        title: "Personal Year 6 — Responsibility and Home",
+        desc: "The 6 year brings relationships, home, family, and service to the foreground. This is a year of responsibility — taking on more, caring for others, deepening commitments. Often brings significant relationship decisions, both personal and professional. The 6 year is also when issues in close relationships surface and need to be addressed.",
+        themes: ["Family and home coming first", "Deepening personal and professional commitments", "Service and contribution to others", "Significant relationship decisions"],
+        focus: "Show up for the people and responsibilities that matter most. This year is about depth, not breadth."
+      },
+      7: {
+        title: "Personal Year 7 — Reflection and Inner Work",
+        desc: "The 7 year is the most introspective year of the cycle. Research, analysis, reflection, and inner development are what this year supports. This is not a year for aggressive external moves — it is a year for going inward, getting clear, and understanding yourself and your situation at a deeper level. The clarity you gain this year makes the 8 year more powerful.",
+        themes: ["Solitude and introspection", "Research, study, and analysis", "Spiritual and philosophical development", "Getting clear before the next major push"],
+        focus: "Go inward. Study. Understand. The 7 year builds the internal clarity the 8 year runs on."
+      },
+      8: {
+        title: "Personal Year 8 — Authority and Abundance",
+        desc: "The 8 year harvests what the previous 7 years have built. Career momentum, financial focus, leadership, and authority are all highlighted. This is a year for bold, decisive moves in business and finance. Results tend to show up in an 8 year — often larger and faster than expected. The 8 year rewards ambition.",
+        themes: ["Career momentum and financial focus", "Leadership and authority", "Harvesting past effort", "High output and decisive action"],
+        focus: "Go big. Act decisively. The 8 year is when the work you've done pays off — but only if you move."
+      },
+      9: {
+        title: "Personal Year 9 — Completion and Release",
+        desc: "The 9 year is the final year of the 9-year cycle. Its energy is completion, release, and clearing. Things that no longer fit your life — relationships, careers, habits, beliefs — tend to fall away in a 9 year. Often multiple things end at once. This is not collapse; it is preparation. The freer you are when the 1 year begins, the more fully you can use it.",
+        themes: ["Endings and closure on multiple fronts", "Releasing what no longer belongs", "Completing long-standing commitments", "Preparing for the new cycle"],
+        focus: "Let go. Close what needs closing. The 9 year clears the space for what's coming — don't try to rebuild yet."
+      }
+    };
+
+    function reduceToSingleDigit(n) {
+      while (n > 9) {
+        n = String(n).split('').reduce((a, b) => a + parseInt(b), 0);
+      }
+      return n;
+    }
+
+    function calculatePersonalYear() {
+      const monthEl = document.getElementById('birth-month');
+      const dayEl = document.getElementById('birth-day');
+      const yearEl = document.getElementById('calc-year');
+      const errorEl = document.getElementById('error-msg');
+      const resultBox = document.getElementById('result-box');
+
+      const month = parseInt(monthEl.value);
+      const day = parseInt(dayEl.value);
+      const year = parseInt(yearEl.value);
+
+      errorEl.style.display = 'none';
+
+      if (!month || !day || day < 1 || day > 31) {
+        errorEl.style.display = 'block';
+        resultBox.classList.remove('visible');
+        return;
+      }
+
+      const mReduced = reduceToSingleDigit(month);
+      const dReduced = reduceToSingleDigit(day);
+      const yReduced = reduceToSingleDigit(
+        String(year).split('').reduce((a, b) => a + parseInt(b), 0)
+      );
+      const personalYear = reduceToSingleDigit(mReduced + dReduced + yReduced);
+
+      const data = yearData[personalYear];
+
+      document.getElementById('result-number').textContent = personalYear;
+      document.getElementById('result-year-label').textContent = year;
+      document.getElementById('result-title').textContent = data.title;
+      document.getElementById('result-desc').textContent = data.desc;
+      document.getElementById('result-themes').innerHTML =
+        '<h4>Key themes this year</h4><ul>' +
+        data.themes.map(t => '<li>' + t + '</li>').join('') +
+        '</ul>';
+      document.getElementById('result-focus').innerHTML =
+        '<div style="margin-top:16px;padding:16px 20px;background:var(--dark-card);border-radius:6px;border-left:3px solid var(--gold);">' +
+        '<strong style="font-size:0.8rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--charcoal-soft);">Bottom line</strong>' +
+        '<p style="margin-top:6px;font-weight:600;color:var(--charcoal);">' + data.focus + '</p>' +
+        '</div>';
+
+      resultBox.classList.remove('visible');
+      void resultBox.offsetWidth;
+      resultBox.classList.add('visible');
+      resultBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    document.getElementById('birth-day').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') calculatePersonalYear();
+    });
+  </script>
+</body>
+</html>

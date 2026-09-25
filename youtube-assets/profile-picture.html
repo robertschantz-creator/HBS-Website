@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #1a1a1a; display: flex; align-items: center; justify-content: center; min-height: 100vh; }
+    .wrap { display: flex; flex-direction: column; align-items: center; gap: 24px; }
+    .label { color: #888; font-family: Arial; font-size: 14px; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="label">Profile Picture — 800×800px — Save as PNG</div>
+    <svg width="800" height="800" viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:#1A1228"/>
+          <stop offset="100%" style="stop-color:#2D1F4A"/>
+        </linearGradient>
+        <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:#E8C46A"/>
+          <stop offset="100%" style="stop-color:#C9A84C"/>
+        </linearGradient>
+      </defs>
+
+      <!-- Background -->
+      <rect width="800" height="800" fill="url(#bg)" rx="80"/>
+
+      <!-- Subtle grid lines -->
+      <line x1="400" y1="60" x2="400" y2="740" stroke="#5B4B8A" stroke-width="1" opacity="0.3"/>
+      <line x1="60" y1="400" x2="740" y2="400" stroke="#5B4B8A" stroke-width="1" opacity="0.3"/>
+
+      <!-- Outer ring -->
+      <circle cx="400" cy="400" r="300" fill="none" stroke="#5B4B8A" stroke-width="2" opacity="0.5"/>
+
+      <!-- Clock tick marks -->
+      <g opacity="0.6">
+        <!-- 12 tick marks around the clock -->
+        <line x1="400" y1="120" x2="400" y2="148" stroke="url(#gold)" stroke-width="4" stroke-linecap="round"/>
+        <line x1="550" y1="136" x2="540" y2="161" stroke="#7B6BA8" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="664" y1="250" x2="643" y2="261" stroke="#7B6BA8" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="680" y1="400" x2="652" y2="400" stroke="url(#gold)" stroke-width="4" stroke-linecap="round"/>
+        <line x1="664" y1="550" x2="643" y2="539" stroke="#7B6BA8" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="550" y1="664" x2="540" y2="639" stroke="#7B6BA8" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="400" y1="680" x2="400" y2="652" stroke="url(#gold)" stroke-width="4" stroke-linecap="round"/>
+        <line x1="250" y1="664" x2="260" y2="639" stroke="#7B6BA8" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="136" y1="550" x2="157" y2="539" stroke="#7B6BA8" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="120" y1="400" x2="148" y2="400" stroke="url(#gold)" stroke-width="4" stroke-linecap="round"/>
+        <line x1="136" y1="250" x2="157" y2="261" stroke="#7B6BA8" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="250" y1="136" x2="260" y2="161" stroke="#7B6BA8" stroke-width="2.5" stroke-linecap="round"/>
+      </g>
+
+      <!-- Three diamonds (HBS motif, adapted) -->
+      <!-- Diamond 1 - top left -->
+      <polygon points="310,280 356,234 402,280 356,326" fill="#5B4B8A" opacity="0.9"/>
+      <!-- Diamond 2 - top right -->
+      <polygon points="398,280 444,234 490,280 444,326" fill="#7B6BA8" opacity="0.9"/>
+      <!-- Diamond 3 - bottom center -->
+      <polygon points="354,340 400,294 446,340 400,386" fill="#9B8FC8" opacity="0.9"/>
+
+      <!-- Clock hands pointing to significant positions -->
+      <!-- Hour hand (pointing to ~1 o'clock = Personal Year 1 new beginnings) -->
+      <line x1="400" y1="400" x2="460" y2="240" stroke="url(#gold)" stroke-width="8" stroke-linecap="round" opacity="0.9"/>
+      <!-- Minute hand (pointing to 12) -->
+      <line x1="400" y1="400" x2="400" y2="200" stroke="white" stroke-width="5" stroke-linecap="round" opacity="0.7"/>
+      <!-- Center dot -->
+      <circle cx="400" cy="400" r="12" fill="url(#gold)"/>
+      <circle cx="400" cy="400" r="5" fill="#1A1228"/>
+
+      <!-- "TC" text below center -->
+      <text x="400" y="490" text-anchor="middle" font-family="Georgia, serif" font-size="72" font-weight="bold" fill="white" letter-spacing="8" opacity="0.95">TC</text>
+
+      <!-- Tagline -->
+      <text x="400" y="540" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" fill="#C9A84C" letter-spacing="4" opacity="0.9">TIMING CODE</text>
+
+      <!-- Bottom line -->
+      <line x1="270" y1="562" x2="530" y2="562" stroke="#5B4B8A" stroke-width="1" opacity="0.6"/>
+
+      <!-- HBS -->
+      <text x="400" y="590" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" fill="#9B8FC8" letter-spacing="6" opacity="0.8">HBS</text>
+    </svg>
+    <div class="label">Right-click → Save image / Screenshot at 800px wide</div>
+  </div>
+</body>
+</html>

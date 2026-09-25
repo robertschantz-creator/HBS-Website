@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Begin | HBS – Intelligent Insights</title>
+  <title>Begin | Pattern Intelligence for Life Transitions</title>
   <meta name="description" content="Begin your work with Human Behavior Specialists. Choose the session that fits where you are, or start with the $47 Personal Year Timing Report." />
   <link rel="stylesheet" href="css/style.css" />
   <style>
@@ -17,7 +17,7 @@
     .begin-hero h1 { color: var(--white); font-weight: 300; margin-bottom: 16px; }
     .begin-hero .lead { color: rgba(255,255,255,0.75); max-width: 520px; margin: 0 auto; }
 
-    .choose { background: var(--white); padding: var(--section-pad) 0; }
+    .choose { background: var(--dark-card); padding: var(--section-pad) 0; }
     .choose__header { text-align: center; max-width: 560px; margin: 0 auto 64px; }
     .choose__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 48px; }
     .choose-card {
@@ -69,7 +69,7 @@
     .contact-form-info__item {
       display: flex; gap: 16px; align-items: flex-start;
       border: 1px solid var(--border); border-radius: 4px;
-      padding: 18px 20px; background: var(--white);
+      padding: 18px 20px; background: var(--dark-card);
     }
     .contact-form-info__item-icon {
       width: 36px; height: 36px; min-width: 36px;
@@ -81,7 +81,7 @@
     .contact-form-info__item p { font-size: 0.83rem; color: var(--charcoal-soft); margin: 0; }
 
     .contact-form {
-      background: var(--white);
+      background: var(--dark-card);
       border: 1px solid var(--border);
       border-radius: 4px;
       padding: 48px 40px;
@@ -111,7 +111,7 @@
     .form-group input:focus,
     .form-group select:focus,
     .form-group textarea:focus {
-      border-color: var(--violet); background: var(--white);
+      border-color: var(--violet); background: var(--dark-card);
     }
     .form-group input::placeholder,
     .form-group textarea::placeholder { color: var(--charcoal-soft); }
@@ -122,7 +122,7 @@
       line-height: 1.65; margin-top: 16px; font-style: italic;
     }
 
-    .what-next { background: var(--white); padding: var(--section-pad) 0; }
+    .what-next { background: var(--dark-card); padding: var(--section-pad) 0; }
     .what-next__header { text-align: center; max-width: 520px; margin: 0 auto 56px; }
     .next-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
     .next-step {
@@ -153,22 +153,15 @@
   <nav class="nav" role="navigation">
     <div class="nav__inner">
       <a href="index.html" class="nav__logo">
-        <svg width="40" height="40" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <path d="M22 8 L38 24 L22 40 L6 24 Z" fill="#6040A0"/>
-          <path d="M58 8 L74 24 L58 40 L42 24 Z" fill="#8060C0"/>
-          <path d="M40 42 L56 58 L40 74 L24 58 Z" fill="#A080D8"/>
-          <text x="22" y="29" text-anchor="middle" fill="white" font-family="Arial" font-size="14" font-weight="bold">H</text>
-          <text x="58" y="29" text-anchor="middle" fill="white" font-family="Arial" font-size="14" font-weight="bold">S</text>
-          <text x="40" y="63" text-anchor="middle" fill="white" font-family="Arial" font-size="14" font-weight="bold">B</text>
-        </svg>
+        <img src="images/hbs-logo.svg" width="40" height="40" alt="" aria-hidden="true" />
         <div class="nav__logo-text">
           <span class="nav__logo-name">Human Behavior Specialists</span>
-          <span class="nav__logo-tag">HBS – Intelligent Insights</span>
+          <span class="nav__logo-tag">Pattern Intelligence for Life Transitions</span>
         </div>
       </a>
       <ul class="nav__links">
         <li><a href="the-work.html">The Work</a></li>
-        <li><a href="ways-to-work.html">Ways to Work Together</a></li>
+        <li><a href="ways-to-work.html">Work Together</a></li>
         <li><a href="personal-forecast.html">Personal Forecast</a></li>
         <li><a href="about.html">About</a></li>
         <li><a href="begin.html">Contact</a></li>
@@ -326,32 +319,27 @@
       <div class="footer__grid">
         <div>
           <div class="footer__brand-logo">
-            <svg width="32" height="32" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <path d="M22 8 L38 24 L22 40 L6 24 Z" fill="#6040A0"/>
-              <path d="M58 8 L74 24 L58 40 L42 24 Z" fill="#8060C0"/>
-              <path d="M40 42 L56 58 L40 74 L24 58 Z" fill="#A080D8"/>
-              <text x="22" y="29" text-anchor="middle" fill="white" font-family="Arial" font-size="14" font-weight="bold">H</text>
-              <text x="58" y="29" text-anchor="middle" fill="white" font-family="Arial" font-size="14" font-weight="bold">S</text>
-              <text x="40" y="63" text-anchor="middle" fill="white" font-family="Arial" font-size="14" font-weight="bold">B</text>
-            </svg>
+            <img src="images/hbs-logo.svg" width="32" height="32" alt="" aria-hidden="true" />
             <div>
               <span class="footer__brand-name">Human Behavior Specialists</span>
-              <span class="footer__brand-tag">HBS – Intelligent Insights</span>
+              <span class="footer__brand-tag">Pattern Intelligence for Life Transitions</span>
             </div>
           </div>
           <p class="footer__desc">A pattern-based advisory practice focused on life transitions, decision timing, and sustainable direction.</p>
           <div class="footer__social">
-            <a href="#" aria-label="Facebook">f</a>
-            <a href="#" aria-label="Instagram">in</a>
-            <a href="#" aria-label="LinkedIn">Li</a>
-            <a href="#" aria-label="Threads">Th</a>
+            <a href="https://www.facebook.com/HumanBehaviorSpecialistsRS" aria-label="Facebook" target="_blank" rel="noopener">f</a>
+            <a href="https://www.instagram.com/humanbehaviorspecialists/" aria-label="Instagram" target="_blank" rel="noopener">in</a>
+            <a href="https://www.linkedin.com/company/77058778/" aria-label="LinkedIn" target="_blank" rel="noopener">Li</a>
+            <a href="https://www.threads.com/@humanbehaviorspecialists" aria-label="Threads" target="_blank" rel="noopener">Th</a>
+            <a href="https://x.com/HumanBehaviorSp" aria-label="X (Twitter)" target="_blank" rel="noopener">𝕏</a>
+            <a href="https://www.youtube.com/@TimingCodeHBS" aria-label="YouTube — Timing Code HBS" target="_blank" rel="noopener" style="color:var(--gold);font-weight:600;font-size:0.8rem;letter-spacing:0.04em;">▶ YouTube</a>
           </div>
         </div>
         <div class="footer__col">
           <h5>Navigate</h5>
           <ul class="footer__links">
             <li><a href="the-work.html">The Work</a></li>
-            <li><a href="ways-to-work.html">Ways to Work Together</a></li>
+            <li><a href="ways-to-work.html">Work Together</a></li>
             <li><a href="personal-forecast.html">Personal Forecast Session</a></li>
             <li><a href="about.html">About</a></li>
             <li><a href="report.html">$47 Timing Report</a></li>
@@ -364,7 +352,7 @@
         </div>
       </div>
       <div class="footer__bottom">
-        <p>&copy; 2025 Human Behavior Specialists. All rights reserved.</p>
+        <p>&copy; 2026 Human Behavior Specialists. All rights reserved.</p>
         <p class="footer__disclaimer">This work is advisory and educational in nature and does not replace professional medical, legal, financial, or therapeutic services.</p>
       </div>
     </div>

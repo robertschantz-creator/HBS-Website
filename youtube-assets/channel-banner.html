@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #111; display: flex; align-items: center; justify-content: center; min-height: 100vh; flex-direction: column; gap: 16px; padding: 20px; }
+    .label { color: #888; font-family: Arial; font-size: 13px; }
+  </style>
+</head>
+<body>
+  <div class="label">Channel Banner — 2560×1440px — Safe zone: center 1546px wide</div>
+  <svg width="2560" height="1440" viewBox="0 0 2560 1440" xmlns="http://www.w3.org/2000/svg" style="max-width:100%;height:auto;">
+    <defs>
+      <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" style="stop-color:#0D0A1A"/>
+        <stop offset="50%" style="stop-color:#1A1228"/>
+        <stop offset="100%" style="stop-color:#0F0B1E"/>
+      </linearGradient>
+      <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" style="stop-color:#E8C46A"/>
+        <stop offset="100%" style="stop-color:#C9A84C"/>
+      </linearGradient>
+      <radialGradient id="centerGlow" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" style="stop-color:#5B4B8A" stop-opacity="0.35"/>
+        <stop offset="100%" style="stop-color:#0D0A1A" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+
+    <!-- Background -->
+    <rect width="2560" height="1440" fill="url(#bgGrad)"/>
+
+    <!-- Center glow -->
+    <ellipse cx="1280" cy="720" rx="900" ry="500" fill="url(#centerGlow)"/>
+
+    <!-- Subtle grid lines -->
+    <line x1="0" y1="360" x2="2560" y2="360" stroke="#5B4B8A" stroke-width="1" opacity="0.12"/>
+    <line x1="0" y1="720" x2="2560" y2="720" stroke="#5B4B8A" stroke-width="1" opacity="0.12"/>
+    <line x1="0" y1="1080" x2="2560" y2="1080" stroke="#5B4B8A" stroke-width="1" opacity="0.12"/>
+    <line x1="640" y1="0" x2="640" y2="1440" stroke="#5B4B8A" stroke-width="1" opacity="0.08"/>
+    <line x1="1280" y1="0" x2="1280" y2="1440" stroke="#5B4B8A" stroke-width="1" opacity="0.1"/>
+    <line x1="1920" y1="0" x2="1920" y2="1440" stroke="#5B4B8A" stroke-width="1" opacity="0.08"/>
+
+    <!-- Decorative large clock — right edge (decorative only, outside safe zone) -->
+    <circle cx="2300" cy="720" r="520" fill="none" stroke="#5B4B8A" stroke-width="2" opacity="0.18"/>
+    <g opacity="0.18" stroke="#C9A84C" stroke-linecap="round">
+      <line x1="2300" y1="215" x2="2300" y2="248" stroke-width="6"/>
+      <line x1="2300" y1="1192" x2="2300" y2="1225" stroke-width="6"/>
+      <line x1="1793" y1="720" x2="1826" y2="720" stroke-width="6"/>
+      <line x1="2774" y1="720" x2="2807" y2="720" stroke-width="6"/>
+    </g>
+    <line x1="2300" y1="720" x2="2420" y2="430" stroke="#C9A84C" stroke-width="5" stroke-linecap="round" opacity="0.2"/>
+    <line x1="2300" y1="720" x2="2300" y2="300" stroke="white" stroke-width="3" stroke-linecap="round" opacity="0.15"/>
+
+    <!-- Decorative diamonds — left edge -->
+    <polygon points="220,580 320,480 420,580 320,680" fill="#5B4B8A" opacity="0.3"/>
+    <polygon points="380,580 480,480 580,580 480,680" fill="#7B6BA8" opacity="0.2"/>
+    <polygon points="300,670 400,570 500,670 400,770" fill="#9B8FC8" opacity="0.12"/>
+
+    <!-- Gold top/bottom accent -->
+    <rect x="0" y="0" width="2560" height="4" fill="url(#goldGrad)" opacity="0.8"/>
+    <rect x="0" y="1436" width="2560" height="4" fill="url(#goldGrad)" opacity="0.5"/>
+
+    <!-- ============================================
+         SAFE ZONE: x=507 to x=2053, y=509 to y=931
+         All key text is CENTERED at x=1280
+         ============================================ -->
+
+    <!-- Left gold vertical accent (inside safe zone) -->
+    <rect x="560" y="480" width="3" height="480" fill="url(#goldGrad)" opacity="0.5"/>
+
+    <!-- Main title — centered -->
+    <text x="1280" y="680" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="148" font-weight="bold" fill="white" letter-spacing="20" opacity="0.97">TIMING CODE</text>
+
+    <!-- Gold divider line under title — centered -->
+    <rect x="680" y="710" width="1200" height="3" fill="url(#goldGrad)" opacity="0.8"/>
+
+    <!-- Tagline — centered -->
+    <text x="1280" y="782" text-anchor="middle" font-family="Arial, sans-serif" font-size="40" fill="#C9A84C" letter-spacing="8" opacity="0.9" font-weight="300">PATTERN INTELLIGENCE FOR LIFE TRANSITIONS</text>
+
+    <!-- Secondary line — centered -->
+    <text x="1280" y="838" text-anchor="middle" font-family="Arial, sans-serif" font-size="32" fill="#9B8FC8" letter-spacing="4" opacity="0.75">by Human Behavior Specialists</text>
+
+    <!-- Handle — bottom right, inside safe zone -->
+    <text x="2020" y="1380" text-anchor="end" font-family="Arial, sans-serif" font-size="32" fill="#7B6BA8" letter-spacing="3" opacity="0.6">@TimingCodeHBS</text>
+  </svg>
+  <div class="label">Safe zone (visible on all devices): center 1546×423px strip</div>
+</body>
+</html>
