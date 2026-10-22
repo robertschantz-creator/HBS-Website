@@ -827,23 +827,33 @@ Either way, I appreciate you being here.
   <ul class="checklist">
     <li>Home page — /</li>
     <li>The Work — /the-work</li>
-    <li>Ways to Work Together — /ways-to-work</li>
+    <li>Behavioral Style — /behavioral-style (DISC framework + career/relationships/where-to-live application; routes to Personal Forecast)</li>
+    <li>Work Together (sessions) — /work-together</li>
     <li>Personal Forecast Session — /personal-forecast</li>
     <li>About — /about (include Robert's headshot photo)</li>
+    <li>Blog — /blog (post index + category filter; posts generated from Substack via substack-to-blog.py)</li>
     <li>Begin — /begin (contact form + path selection)</li>
-    <li>$47 Report Sales Page — /personal-year-report</li>
+    <li>$47 Timing Report Sales Page — /personal-year-report</li>
+    <li>$67 Full Numerology Report — /full-numerology-report (with $9 Address Report upsell checkbox)</li>
+    <li>$19.95 Address Report — /address-report (standalone + $9 upsell)</li>
+    <li>Free Personal Year Calculator — /personal-year-calculator (lead magnet)</li>
     <li>Free Guide Opt-In — /free-guide</li>
     <li>Thank You (Report) — /thank-you-report</li>
     <li>Thank You (Free Guide) — /thank-you-guide</li>
     <li>FAQ — /faq (can be section on Personal Forecast page)</li>
+    <li>AEO Q&amp;A pages — /what-is-personal-year, /what-is-life-path-number, /why-do-i-feel-stuck, /why-is-everything-ending, /right-time-to-change-careers, /should-i-start-a-business (all with FAQPage schema markup)</li>
   </ul>
 
   <h3>Forms to Build in GHL</h3>
   <ul class="checklist">
     <li>Free Guide Opt-In: First name + Email → Tag: HBS-Timing-Letter → Auto-deliver guide PDF</li>
-    <li>Report Purchase: Name + Email + Date of Birth + Payment ($47 via Stripe) → Tag: HBS-Report-Buyer → Trigger email sequence</li>
-    <li>Contact / Begin Form: First name + Last name + Email + Phone (optional) + Interest dropdown + Message → Notify Robert by email + SMS (Twilio)</li>
+    <li>Personal Year Calculator: Name + DOB + Email → Tag: HBS-Calculator-Lead → return calculated Personal Year on-page + email with report upsell</li>
+    <li>Report Purchase ($47): Name + Email + DOB + Payment via Stripe → Tag: HBS-Report-Buyer → trigger email sequence</li>
+    <li>Full Numerology Report ($67): Name + Email + DOB + Birth name + optional $9 Address Report add-on → Tag: HBS-Full-Report-Buyer</li>
+    <li>Address Report ($19.95 or $9 add-on): Name + Email + Current street + city + state → Tag: HBS-Address-Report</li>
+    <li>Contact / Begin Form: First name + Last name + Email + Phone (optional) + Interest dropdown (include "Career transition" + "Relationship" + "Where to live") + Message → Notify Robert by email + SMS</li>
     <li>Personal Forecast Intake: 10 questions (see Section 05) → Sends to Robert for review before confirming booking</li>
+    <li>(Optional Phase 2) Behavioral Self-Assessment: 12-question DISC-style intake on /behavioral-style → Tag: HBS-Behavior-Read → routes user to Personal Forecast booking</li>
   </ul>
 
   <h3>Email Automations to Build</h3>
@@ -857,10 +867,15 @@ Either way, I appreciate you being here.
   <h3>CRM Tags to Create</h3>
   <ul class="checklist">
     <li>HBS-Timing-Letter (free list subscribers)</li>
+    <li>HBS-Calculator-Lead (free Personal Year calculator users)</li>
     <li>HBS-Report-Buyer ($47 purchasers)</li>
+    <li>HBS-Full-Report-Buyer ($67 full numerology report purchasers)</li>
+    <li>HBS-Address-Report ($19.95 standalone or $9 add-on purchasers)</li>
     <li>HBS-Group-Buyer ($97 group session)</li>
     <li>HBS-1on1-Client (Personal Forecast buyers)</li>
     <li>HBS-Inquiry (contact form submissions)</li>
+    <li>HBS-Career-Transition (selected "Career transition" on Begin form)</li>
+    <li>HBS-Behavior-Read (completed behavioral self-assessment, Phase 2)</li>
     <li>HBS-Existing-Database (Robert's imported existing contacts)</li>
   </ul>
 
@@ -886,32 +901,46 @@ Either way, I appreciate you being here.
 
   <h3>Design Notes for GHL Team</h3>
   <ul>
-    <li><strong>Primary color:</strong> #6040A0 (deep violet)</li>
-    <li><strong>Accent color:</strong> #C8903A (warm gold)</li>
-    <li><strong>Background:</strong> #F8F6F2 (warm cream) and #FFFFFF (white)</li>
-    <li><strong>Secondary background:</strong> #EDE8F8 (soft lavender)</li>
-    <li><strong>Text color:</strong> #18181A (dark charcoal)</li>
-    <li><strong>Headline font:</strong> Cormorant Garamond (Google Font) — serif</li>
-    <li><strong>Body font:</strong> Inter (Google Font) — sans-serif</li>
-    <li><strong>Tone:</strong> Clean, minimal, generous white space. No countdown timers. No urgency design patterns.</li>
-    <li><strong>Reference files:</strong> Complete HTML/CSS site built at hbs-website/ folder — use as design reference for every page</li>
+    <li><strong>Theme:</strong> Dark mode (near-black background, violet surfaces, gold accents) — this is a redesign from the earlier light theme described in previous versions of this doc.</li>
+    <li><strong>Primary background:</strong> #0D0A1A (near-black)</li>
+    <li><strong>Surface backgrounds:</strong> #150F24 and #1E1535 (dark violet surfaces)</li>
+    <li><strong>Primary violet:</strong> #6040A0 (buttons, accents)</li>
+    <li><strong>Light violet:</strong> #8060C0 (hover states, left-border accents)</li>
+    <li><strong>Gold accent:</strong> #C9A84C (CTAs, eyebrow text)</li>
+    <li><strong>Light gold / gold-warm:</strong> #E8C46A / #F0D9B0 (highlights, hover)</li>
+    <li><strong>Text on dark:</strong> rgba(255,255,255,0.92) primary / 0.65 secondary / 0.40 tertiary</li>
+    <li><strong>Border:</strong> rgba(91,75,138,0.3)</li>
+    <li><strong>Headline font:</strong> Playfair Display (Google Font) — serif, weights 400/500/600/700</li>
+    <li><strong>Body font:</strong> Inter (Google Font) — sans-serif, weights 300/400/500/600</li>
+    <li><strong>Tone:</strong> Clean, minimal, generous white space. No countdown timers. No urgency design patterns. StoryBrand "guide-not-hero" voice — second-person "you" direct address throughout.</li>
+    <li><strong>Tagline:</strong> "Guidance for Career, Relationships &amp; Where to Live" — appears in logo tagline on every page, in page-hero subtitles, and in page titles.</li>
+    <li><strong>Reference files:</strong> Complete HTML/CSS site built in the hbs-website repo — use as design reference for every page. Live preview deployed on GitHub Pages.</li>
   </ul>
 
   <h3>Pre-Launch QA Checklist</h3>
   <ul class="checklist">
-    <li>All nav links work on desktop and mobile</li>
+    <li>All nav links work on desktop and mobile (including Behavioral Style and Blog)</li>
     <li>Logo displays correctly on all pages</li>
     <li>Robert's photo loads correctly on About page</li>
     <li>Free guide form captures email and delivers PDF</li>
     <li>$47 report payment processes through Stripe</li>
+    <li>$67 full numerology report payment processes through Stripe (with optional $9 Address Report add-on)</li>
+    <li>$19.95 Address Report payment processes through Stripe</li>
+    <li>Personal Year Calculator returns the correct value and triggers email capture</li>
     <li>Thank you pages load after purchase/opt-in</li>
     <li>All email automations fire correctly</li>
     <li>Robert receives SMS notification on contact form submission</li>
-    <li>Site is mobile responsive</li>
+    <li>Site is mobile responsive (dark theme contrast works on small screens)</li>
     <li>Page load speed acceptable (under 3 seconds)</li>
     <li>All CTAs link to correct pages</li>
     <li>Footer disclaimer appears on all pages</li>
+    <li>Behavioral Style page renders correctly: DISC quadrant graphic shows 2&times;2 on desktop and stacks on mobile (&lt;600px); all card content readable; CTAs route to Personal Forecast and $47 Report</li>
+    <li>Blog posts render with FAQPage / Article schema markup for AEO</li>
+    <li>All six Q&amp;A pages render with "direct answer" box visible above the fold</li>
   </ul>
+
+  <h3>Behavior + Timing — Positioning Note for the Build Team</h3>
+  <p>HBS now positions on a dual frame: <strong>Behavior + Timing</strong>. <strong>Behavior</strong> is read using the DISC framework (how the client moves, decides, communicates). <strong>Timing</strong> is read using the existing Pythagorean numerology methodology. The site explicitly distinguishes this from personality typing — <strong>do not remove</strong> the existing &ldquo;Not a personality quiz&rdquo; lines on the home and report pages. The Behavioral Style page (/behavioral-style) educates and routes visitors into the existing Personal Forecast Session. The Career Moves &amp; Enhancement lens on /work-together applies the same dual frame to career transitions specifically. <strong>No new paid tier is being added in v1</strong> — the existing offer ladder (Free → $47 → $97 → $497–$750 → invite-only) is unchanged. If a behavioral self-assessment form is added in Phase 2, it should tag users HBS-Behavior-Read and route them into a 3-email educational sequence that ends in a Personal Forecast offer.</p>
 </div>
 
 <!-- S12: ONE-PAGE PDF -->
