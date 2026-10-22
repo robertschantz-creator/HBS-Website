@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog | Human Behavior Specialists — Timing, Transitions &amp; Direction</title>
+  <meta name="description" content="Practical guidance on career transitions, relationship timing, when to move, and how to navigate change — from a pattern-based advisory perspective." />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .blog-hero {
+      padding: 140px 0 80px;
+      background: linear-gradient(135deg, var(--violet-dark) 0%, var(--violet) 100%);
+      text-align: center;
+      color: var(--white);
+    }
+    .blog-hero .eyebrow { color: var(--gold-light); }
+    .blog-hero h1 { color: var(--white); font-weight: 300; margin-bottom: 16px; }
+    .blog-hero .lead { color: rgba(255,255,255,0.75); max-width: 520px; margin: 0 auto; }
+
+    .blog-categories {
+      background: var(--dark-card);
+      border-bottom: 1px solid var(--border);
+      padding: 20px 0;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .blog-categories__inner {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .cat-chip {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 7px 16px;
+      border-radius: 40px;
+      border: 1px solid var(--border);
+      color: var(--charcoal-soft);
+      cursor: pointer;
+      transition: all 0.2s;
+      background: transparent;
+      text-decoration: none;
+    }
+    .cat-chip:hover, .cat-chip.active {
+      border-color: var(--gold);
+      color: var(--gold);
+      background: rgba(201,168,76,0.08);
+    }
+    .cat-chip.active { background: rgba(201,168,76,0.12); }
+
+    .blog-grid-section { background: var(--dark-bg); padding: var(--section-pad) 0; }
+
+    .featured-post {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+      margin-bottom: 48px;
+      background: var(--dark-card);
+    }
+    .featured-post__img {
+      background: linear-gradient(135deg, var(--violet-dark), var(--violet));
+      min-height: 320px;
+      display: flex;
+      align-items: flex-end;
+      padding: 32px;
+      position: relative;
+    }
+    .featured-post__img-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      font-weight: 600;
+    }
+    .featured-post__content {
+      padding: 48px 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .featured-post__content .post-meta {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    .featured-post__content h2 {
+      font-size: clamp(1.4rem, 2vw, 1.9rem);
+      line-height: 1.3;
+      margin-bottom: 16px;
+      color: var(--on-dark);
+    }
+    .featured-post__content p {
+      font-size: 0.92rem;
+      color: var(--charcoal-soft);
+      line-height: 1.8;
+      margin-bottom: 24px;
+    }
+
+    .post-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .post-card {
+      background: var(--dark-card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: border-color 0.2s;
+      text-decoration: none;
+    }
+    .post-card:hover { border-color: var(--gold); }
+    .post-card__top {
+      background: linear-gradient(135deg, var(--violet-dark) 0%, #3a2870 100%);
+      padding: 28px 24px 24px;
+      min-height: 100px;
+      display: flex;
+      align-items: flex-end;
+    }
+    .post-card__body { padding: 24px; flex: 1; display: flex; flex-direction: column; }
+    .post-meta {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .post-cat {
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--gold);
+      background: rgba(201,168,76,0.1);
+      padding: 3px 10px;
+      border-radius: 20px;
+    }
+    .post-date, .post-read {
+      font-size: 0.72rem;
+      color: var(--charcoal-soft);
+    }
+    .post-card h3 {
+      font-size: 1.05rem;
+      color: var(--on-dark);
+      line-height: 1.4;
+      margin: 12px 0 10px;
+    }
+    .post-card p {
+      font-size: 0.85rem;
+      color: var(--charcoal-soft);
+      line-height: 1.7;
+      margin: 0 0 20px;
+      flex: 1;
+    }
+    .post-read-link {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--gold);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .substack-band {
+      background: var(--dark-card);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 64px 0;
+      text-align: center;
+    }
+    .substack-band h3 { margin-bottom: 10px; }
+    .substack-band p { font-size: 0.92rem; color: var(--charcoal-soft); max-width: 480px; margin: 0 auto 28px; line-height: 1.75; }
+
+    @media (max-width: 900px) {
+      .featured-post { grid-template-columns: 1fr; }
+      .featured-post__img { min-height: 180px; }
+      .post-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 600px) {
+      .post-grid { grid-template-columns: 1fr; }
+      .featured-post__content { padding: 28px 24px; }
+    }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-nav">Skip to main content</a>
+
+  <nav class="nav" role="navigation">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo">
+        <img src="images/hbs-logo.svg" width="40" height="40" alt="" aria-hidden="true" />
+        <div class="nav__logo-text">
+          <span class="nav__logo-name">Human Behavior Specialists</span>
+          <span class="nav__logo-tag">Guidance for Career, Relationships &amp; Where to Live</span>
+        </div>
+      </a>
+      <ul class="nav__links">
+        <li><a href="the-work.html">The Work</a></li>
+        <li><a href="ways-to-work.html">Work Together</a></li>
+        <li><a href="personal-forecast.html">Personal Forecast</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="blog.html" aria-current="page">Blog</a></li>
+        <li><a href="begin.html">Contact</a></li>
+      </ul>
+      <a href="begin.html" class="btn btn-primary nav__cta">Begin</a>
+      <button class="nav__toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <main id="main-content">
+
+    <!-- HERO -->
+    <section class="blog-hero">
+      <div class="container">
+        <span class="eyebrow">The HBS Blog</span>
+        <h1>Timing, Transitions &amp; Direction</h1>
+        <p class="lead">Practical answers to the questions that come up during career shifts, relationship changes, financial decisions, and major moves.</p>
+      </div>
+    </section>
+
+    <!-- CATEGORY FILTER -->
+    <div class="blog-categories">
+      <div class="container">
+        <div class="blog-categories__inner">
+          <a href="#" class="cat-chip active">All</a>
+          <a href="#" class="cat-chip">Career</a>
+          <a href="#" class="cat-chip">Finances</a>
+          <a href="#" class="cat-chip">Relationships</a>
+          <a href="#" class="cat-chip">Health &amp; Well-being</a>
+          <a href="#" class="cat-chip">Where to Live</a>
+          <a href="#" class="cat-chip">Timing &amp; Cycles</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- BLOG GRID -->
+    <section class="blog-grid-section">
+      <div class="container">
+
+        <!-- FEATURED POST -->
+        <article class="featured-post fade-in">
+          <div class="featured-post__img">
+            <span class="featured-post__img-label">Featured</span>
+          </div>
+          <div class="featured-post__content">
+            <div class="post-meta">
+              <span class="post-cat">Timing &amp; Cycles</span>
+              <span class="post-date">October 2026</span>
+              <span class="post-read">7 min read</span>
+            </div>
+            <h2>What Is a Personal Year — and Why It Changes Everything About Your Decisions</h2>
+            <p>Most people make decisions based on what they want. The ones who consistently move well make decisions based on where they are in their cycle. Here's what a Personal Year is, how it's calculated, and what each of the nine years is actually designed for.</p>
+            <a href="blog/what-is-a-personal-year.html" class="btn btn-gold" style="align-self:flex-start;">Read the Article</a>
+          </div>
+        </article>
+
+        <!-- POST GRID -->
+        <div class="post-grid">
+
+          <article class="post-card fade-in">
+            <div class="post-card__top">
+              <span class="post-cat">Career</span>
+            </div>
+            <div class="post-card__body">
+              <div class="post-meta">
+                <span class="post-date">Coming Soon</span>
+              </div>
+              <h3>AI Isn't Replacing You. It's Revealing Whether You Know Your Timing.</h3>
+              <p>The people losing ground to AI aren't losing because of the technology. They're losing because they don't know which phase of their cycle they're in — and what this particular phase is built for.</p>
+              <span class="post-read-link">Coming Soon</span>
+            </div>
+          </article>
+
+          <article class="post-card fade-in">
+            <div class="post-card__top">
+              <span class="post-cat">Relationships</span>
+            </div>
+            <div class="post-card__body">
+              <div class="post-meta">
+                <span class="post-date">Coming Soon</span>
+              </div>
+              <h3>Why Relationships End When They Do — and What the Timing Usually Means</h3>
+              <p>Relationship endings rarely arrive at a random moment. There's almost always a cycle beneath it. Understanding the timing doesn't take the pain away — but it can remove the confusion.</p>
+              <span class="post-read-link">Coming Soon</span>
+            </div>
+          </article>
+
+          <article class="post-card fade-in">
+            <div class="post-card__top">
+              <span class="post-cat">Where to Live</span>
+            </div>
+            <div class="post-card__body">
+              <div class="post-meta">
+                <span class="post-date">Coming Soon</span>
+              </div>
+              <h3>Should I Move? How to Know if the Urge Is Timing — or Just Restlessness</h3>
+              <p>The question of whether to move comes up in almost every life transition. Here's a framework for distinguishing a real signal from a phase that's asking something different of you.</p>
+              <span class="post-read-link">Coming Soon</span>
+            </div>
+          </article>
+
+          <article class="post-card fade-in">
+            <div class="post-card__top">
+              <span class="post-cat">Finances</span>
+            </div>
+            <div class="post-card__body">
+              <div class="post-meta">
+                <span class="post-date">Coming Soon</span>
+              </div>
+              <h3>The Worst Time to Start a Business (And What to Do Instead)</h3>
+              <p>Starting a business in the wrong phase of your cycle doesn't mean failure is certain — but it means you'll work significantly harder for the same result. Here's how to read your window.</p>
+              <span class="post-read-link">Coming Soon</span>
+            </div>
+          </article>
+
+          <article class="post-card fade-in">
+            <div class="post-card__top">
+              <span class="post-cat">Health &amp; Well-being</span>
+            </div>
+            <div class="post-card__body">
+              <div class="post-meta">
+                <span class="post-date">Coming Soon</span>
+              </div>
+              <h3>Why You Feel Exhausted Even When Nothing Is Wrong</h3>
+              <p>Some phases of a nine-year cycle are designed for consolidation and rest — not output. Ignoring that design doesn't make you stronger. It just makes you tired for longer.</p>
+              <span class="post-read-link">Coming Soon</span>
+            </div>
+          </article>
+
+          <article class="post-card fade-in">
+            <div class="post-card__top">
+              <span class="post-cat">Timing &amp; Cycles</span>
+            </div>
+            <div class="post-card__body">
+              <div class="post-meta">
+                <span class="post-date">Coming Soon</span>
+              </div>
+              <h3>The Nine-Year Cycle Explained: What Each Year Is Actually Designed For</h3>
+              <p>A complete breakdown of every Personal Year from 1 through 9 — what each one supports, what it tends to resist, and the one mistake people make in each phase.</p>
+              <span class="post-read-link">Coming Soon</span>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- SUBSTACK CALLOUT -->
+    <section class="substack-band">
+      <div class="container">
+        <span class="eyebrow">Also on Substack</span>
+        <h3>Get These in Your Inbox</h3>
+        <p>The same content — deeper cuts, personal observations, and timing notes for whatever is happening in the current cycle — sent directly to you.</p>
+        <a href="https://substack.com" class="btn btn-outline" target="_blank" rel="noopener">Follow on Substack</a>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+      <div class="container">
+        <div class="cta-section__inner fade-in">
+          <span class="eyebrow">Know Your Phase</span>
+          <div class="cta-section__divider"></div>
+          <h2>Reading About Timing Is a Start. Knowing Yours Is Different.</h2>
+          <p class="lead">The Personal Year Report tells you exactly where you are in your cycle — what this year is designed for, and how to move with it instead of against it.</p>
+          <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+            <a href="report.html" class="btn btn-gold">Get Your Personal Year Report — $47</a>
+            <a href="personal-forecast.html" class="btn btn-outline">Book a Session Instead</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div>
+          <div class="footer__brand-logo">
+            <img src="images/hbs-logo.svg" width="32" height="32" alt="" aria-hidden="true" />
+            <div>
+              <span class="footer__brand-name">Human Behavior Specialists</span>
+              <span class="footer__brand-tag">Guidance for Career, Relationships &amp; Where to Live</span>
+            </div>
+          </div>
+          <p class="footer__desc">A pattern-based advisory practice focused on life transitions, decision timing, and sustainable direction.</p>
+          <div class="footer__social">
+            <a href="https://www.facebook.com/HumanBehaviorSpecialistsRS" aria-label="Facebook" target="_blank" rel="noopener">f</a>
+            <a href="https://www.instagram.com/humanbehaviorspecialists/" aria-label="Instagram" target="_blank" rel="noopener">in</a>
+            <a href="https://www.linkedin.com/company/77058778/" aria-label="LinkedIn" target="_blank" rel="noopener">Li</a>
+            <a href="https://www.threads.com/@humanbehaviorspecialists" aria-label="Threads" target="_blank" rel="noopener">Th</a>
+            <a href="https://x.com/HumanBehaviorSp" aria-label="X (Twitter)" target="_blank" rel="noopener">𝕏</a>
+            <a href="https://www.youtube.com/@TimingCodeHBS" aria-label="YouTube" target="_blank" rel="noopener" style="color:var(--gold);font-weight:600;font-size:0.8rem;letter-spacing:0.04em;">▶ YouTube</a>
+          </div>
+        </div>
+        <div class="footer__col">
+          <h5>Navigate</h5>
+          <ul class="footer__links">
+            <li><a href="the-work.html">The Work</a></li>
+            <li><a href="ways-to-work.html">Work Together</a></li>
+            <li><a href="personal-forecast.html">Personal Forecast Session</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="begin.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h5>Reports</h5>
+          <ul class="footer__links">
+            <li><a href="report.html">Personal Year Timing — $47</a></li>
+            <li><a href="full-numerology-report.html">Full Numerology Report — $67</a></li>
+            <li><a href="address-report.html">Address &amp; Location Report — $19.95</a></li>
+          </ul>
+          <h5 style="margin-top:24px;">The Timing Code</h5>
+          <ul class="footer__links">
+            <li><a href="https://www.youtube.com/@TimingCodeHBS" target="_blank" rel="noopener">YouTube Channel</a></li>
+            <li><a href="https://substack.com" target="_blank" rel="noopener">Substack</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p>&copy; 2026 Human Behavior Specialists. Advisory and educational in nature. Not therapy, medical, legal, or financial advice.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

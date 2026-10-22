@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>What Is a Personal Year — and Why It Changes Everything About Your Decisions | HBS</title>
+  <meta name="description" content="A Personal Year is a nine-year cycle that determines what each year of your life is designed for. Here's how it works, how to calculate yours, and what each year means for decisions about career, relationships, and where to live." />
+  <link rel="canonical" href="https://humanbehaviorspecialists.com/blog/what-is-a-personal-year.html" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <style>
+    .post-hero {
+      padding: 140px 0 72px;
+      background: linear-gradient(135deg, var(--violet-dark) 0%, var(--violet) 100%);
+      color: var(--white);
+    }
+    .post-hero .eyebrow { color: var(--gold-light); }
+    .post-hero h1 {
+      color: var(--white);
+      font-weight: 300;
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      line-height: 1.25;
+      max-width: 760px;
+      margin-bottom: 20px;
+    }
+    .post-hero__meta {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-top: 24px;
+    }
+    .post-hero__meta span { font-size: 0.82rem; color: rgba(255,255,255,0.6); }
+    .post-hero__meta .post-cat {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      background: rgba(201,168,76,0.15);
+      padding: 4px 12px;
+      border-radius: 20px;
+    }
+
+    .post-body { background: var(--dark-bg); padding: 80px 0 64px; }
+    .post-layout {
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 72px;
+      align-items: start;
+    }
+    .post-content { max-width: 680px; }
+    .post-content p {
+      font-size: 0.97rem;
+      color: var(--charcoal-soft);
+      line-height: 1.9;
+      margin-bottom: 24px;
+    }
+    .post-content h2 {
+      font-size: 1.4rem;
+      color: var(--on-dark);
+      margin: 48px 0 16px;
+      font-weight: 500;
+    }
+    .post-content h3 {
+      font-size: 1.1rem;
+      color: var(--on-dark);
+      margin: 32px 0 12px;
+      font-family: var(--font-serif);
+      font-weight: 500;
+    }
+    .post-content ul, .post-content ol {
+      padding-left: 24px;
+      margin-bottom: 24px;
+    }
+    .post-content li {
+      font-size: 0.95rem;
+      color: var(--charcoal-soft);
+      line-height: 1.8;
+      margin-bottom: 8px;
+    }
+    .post-content strong { color: var(--on-dark); }
+    .post-callout {
+      background: var(--dark-card);
+      border-left: 3px solid var(--gold);
+      border-radius: 0 4px 4px 0;
+      padding: 24px 28px;
+      margin: 32px 0;
+    }
+    .post-callout p { margin: 0; font-style: italic; color: var(--charcoal); }
+
+    .year-card {
+      background: var(--dark-card);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 20px 24px;
+      margin-bottom: 12px;
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+    }
+    .year-card__num {
+      font-family: var(--font-serif);
+      font-size: 1.8rem;
+      color: var(--gold);
+      opacity: 0.5;
+      line-height: 1;
+      min-width: 32px;
+    }
+    .year-card__text h4 {
+      font-family: var(--font-serif);
+      font-size: 1rem;
+      color: var(--on-dark);
+      margin-bottom: 4px;
+      font-weight: 500;
+    }
+    .year-card__text p {
+      font-size: 0.85rem;
+      color: var(--charcoal-soft);
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .post-sidebar { position: sticky; top: 100px; }
+    .sidebar-card {
+      background: var(--dark-card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 28px;
+      margin-bottom: 24px;
+    }
+    .sidebar-card .eyebrow { margin-bottom: 12px; display: block; }
+    .sidebar-card h4 { font-size: 1rem; color: var(--on-dark); margin-bottom: 10px; }
+    .sidebar-card p { font-size: 0.85rem; color: var(--charcoal-soft); line-height: 1.7; margin-bottom: 20px; }
+    .sidebar-toc { list-style: none; padding: 0; margin: 0; }
+    .sidebar-toc li { border-bottom: 1px solid var(--border); }
+    .sidebar-toc li:last-child { border-bottom: none; }
+    .sidebar-toc a {
+      display: block;
+      padding: 10px 0;
+      font-size: 0.82rem;
+      color: var(--charcoal-soft);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .sidebar-toc a:hover { color: var(--gold); }
+
+    .post-footer-nav {
+      background: var(--dark-card);
+      border-top: 1px solid var(--border);
+      padding: 48px 0;
+    }
+    .post-footer-nav__inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 960px) {
+      .post-layout { grid-template-columns: 1fr; }
+      .post-sidebar { position: static; }
+    }
+  </style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "What Is a Personal Year — and Why It Changes Everything About Your Decisions",
+    "description": "A Personal Year is a nine-year cycle that determines what each year of your life is designed for. Here's how it works, how to calculate yours, and what each year means for decisions about career, relationships, and where to live.",
+    "author": {
+      "@type": "Person",
+      "name": "Robert Schantz",
+      "url": "https://humanbehaviorspecialists.com/about.html"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Human Behavior Specialists",
+      "url": "https://humanbehaviorspecialists.com"
+    },
+    "datePublished": "2026-10-07",
+    "mainEntityOfPage": "https://humanbehaviorspecialists.com/blog/what-is-a-personal-year.html"
+  }
+  </script>
+</head>
+<body>
+  <a href="#main-content" class="skip-nav">Skip to main content</a>
+
+  <nav class="nav" role="navigation">
+    <div class="nav__inner">
+      <a href="../index.html" class="nav__logo">
+        <img src="../images/hbs-logo.svg" width="40" height="40" alt="" aria-hidden="true" />
+        <div class="nav__logo-text">
+          <span class="nav__logo-name">Human Behavior Specialists</span>
+          <span class="nav__logo-tag">Guidance for Career, Relationships &amp; Where to Live</span>
+        </div>
+      </a>
+      <ul class="nav__links">
+        <li><a href="../the-work.html">The Work</a></li>
+        <li><a href="../ways-to-work.html">Work Together</a></li>
+        <li><a href="../personal-forecast.html">Personal Forecast</a></li>
+        <li><a href="../about.html">About</a></li>
+        <li><a href="../blog.html">Blog</a></li>
+        <li><a href="../begin.html">Contact</a></li>
+      </ul>
+      <a href="../begin.html" class="btn btn-primary nav__cta">Begin</a>
+      <button class="nav__toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <main id="main-content">
+
+    <header class="post-hero">
+      <div class="container">
+        <a href="../blog.html" style="font-size:0.78rem;color:rgba(255,255,255,0.5);text-decoration:none;letter-spacing:0.04em;display:inline-block;margin-bottom:20px;">← Back to Blog</a>
+        <span class="eyebrow">Timing &amp; Cycles</span>
+        <h1>What Is a Personal Year — and Why It Changes Everything About Your Decisions</h1>
+        <div class="post-hero__meta">
+          <span class="post-cat">Timing &amp; Cycles</span>
+          <span>Robert Schantz</span>
+          <span>October 2026</span>
+          <span>7 min read</span>
+        </div>
+      </div>
+    </header>
+
+    <section class="post-body">
+      <div class="container">
+        <div class="post-layout">
+
+          <article class="post-content">
+
+            <p>Most people make decisions based on what they want. The ones who consistently move well make decisions based on <strong>where they are in their cycle</strong>.</p>
+
+            <p>A Personal Year is a numerological cycle that runs from 1 through 9 — and then repeats. Each year in that cycle carries a specific design: things it's built to support, and things it tends to resist. When you know which year you're in, you stop fighting your phase and start working with it.</p>
+
+            <p>This isn't about prediction. It's about orientation. The same way a farmer who knows the season doesn't plant in winter, someone who understands their Personal Year doesn't try to launch when their cycle is asking them to consolidate.</p>
+
+            <div class="post-callout">
+              <p>"Most people don't have a direction problem. They have a timing problem. They're doing the right things — just in the wrong year."</p>
+            </div>
+
+            <h2 id="how-to-calculate">How to Calculate Your Personal Year</h2>
+
+            <p>Your Personal Year is calculated by adding your birth month, birth day, and the current calendar year together, then reducing to a single digit.</p>
+
+            <p><strong>Example:</strong> If you were born on March 15 (3/15) and the current year is 2026:</p>
+            <ul>
+              <li>Birth month: 3</li>
+              <li>Birth day: 1 + 5 = 6</li>
+              <li>Current year: 2 + 0 + 2 + 6 = 10 → 1 + 0 = 1</li>
+              <li>Total: 3 + 6 + 1 = <strong>10 → Personal Year 1</strong></li>
+            </ul>
+
+            <p>If your total reaches 11 or 22, those are Master Numbers — they're read differently and carry additional weight. Most totals reduce to a number between 1 and 9.</p>
+
+            <p>Your Personal Year shifts on your birthday each year, not on January 1st. So if your birthday is in August, your new Personal Year begins in August — not in January.</p>
+
+            <h2 id="what-each-year-means">What Each Personal Year Is Designed For</h2>
+
+            <p>Here's a plain-language breakdown of all nine years. Notice that each year builds on the one before it — the cycle has a logic to it when you see them as a sequence.</p>
+
+            <div class="year-card">
+              <div class="year-card__num">1</div>
+              <div class="year-card__text">
+                <h4>Personal Year 1 — New Beginnings</h4>
+                <p>A year for starting. New projects, new directions, new identities. The cycle is fresh. This is the right year to launch, apply, move toward something you've been circling. Hesitation in a 1 year costs more than action.</p>
+              </div>
+            </div>
+
+            <div class="year-card">
+              <div class="year-card__num">2</div>
+              <div class="year-card__text">
+                <h4>Personal Year 2 — Partnership &amp; Patience</h4>
+                <p>A slower, more relational year. Decisions that were seeded in the 1 year begin to develop — but they need time. This is a year for collaboration, waiting, and building relationships rather than pushing for solo results.</p>
+              </div>
+            </div>
+
+            <div class="year-card">
+              <div class="year-card__num">3</div>
+              <div class="year-card__text">
+                <h4>Personal Year 3 — Expression &amp; Expansion</h4>
+                <p>A year for visibility and communication. Creative output, social connection, and putting yourself or your work in front of more people. The 3 year rewards self-expression. It's not the year for quiet, internal work.</p>
+              </div>
+            </div>
+
+            <div class="year-card">
+              <div class="year-card__num">4</div>
+              <div class="year-card__text">
+                <h4>Personal Year 4 — Structure &amp; Foundation</h4>
+                <p>A year for building the systems underneath the vision. Discipline, organization, practical work. The 4 year feels slower than the 3 — and that's by design. What you build now holds up later. What you skip now falls apart later.</p>
+              </div>
+            </div>
+
+            <div class="year-card">
+              <div class="year-card__num">5</div>
+              <div class="year-card__text">
+                <h4>Personal Year 5 — Change &amp; Freedom</h4>
+                <p>A year of movement, disruption, and unexpected shifts. Things that were stable may loosen. This is often when people move, change careers, or exit relationships — not always by choice. The 5 year asks for adaptability, not control.</p>
+              </div>
+            </div>
+
+            <div class="year-card">
+              <div class="year-card__num">6</div>
+              <div class="year-card__text">
+                <h4>Personal Year 6 — Responsibility &amp; Home</h4>
+                <p>A year focused on home, family, and service. Relationships deepen or resolve. Domestic decisions — buying a home, having children, caring for a parent — tend to surface in the 6 year. The 6 asks: where do your commitments actually lie?</p>
+              </div>
+            </div>
+
+            <div class="year-card">
+              <div class="year-card__num">7</div>
+              <div class="year-card__text">
+                <h4>Personal Year 7 — Rest, Reflection &amp; Inner Work</h4>
+                <p>The most internal year of the cycle. Analysis, study, solitude, and deep questioning. A 7 year is not designed for external output — trying to force expansion in a 7 year tends to produce frustration. This is the year to think, not to launch.</p>
+              </div>
+            </div>
+
+            <div class="year-card">
+              <div class="year-card__num">8</div>
+              <div class="year-card__text">
+                <h4>Personal Year 8 — Power &amp; Results</h4>
+                <p>A year when effort produces visible results — financially and professionally. What was built in the 4 and developed in the 5 and 6 now has the potential to pay off. The 8 rewards ambition. It also amplifies whatever you've been building, good or bad.</p>
+              </div>
+            </div>
+
+            <div class="year-card">
+              <div class="year-card__num">9</div>
+              <div class="year-card__text">
+                <h4>Personal Year 9 — Completion &amp; Release</h4>
+                <p>The final year of the cycle. Things that are finished tend to end — relationships, jobs, living situations. This year asks you to let go of what no longer fits so the 1 year can begin fresh. Holding on in a 9 year tends to drag the completion into the next cycle.</p>
+              </div>
+            </div>
+
+            <h2 id="why-it-matters">Why This Actually Changes How You Make Decisions</h2>
+
+            <p>When I work with someone who's frustrated — they've been pushing hard and not seeing results — the first thing I look at is their Personal Year. More often than not, the effort is right but the timing is off.</p>
+
+            <p>Someone launching a new business in a Personal Year 7 is fighting their cycle. The 7 year is built for internal development, not external launch. That doesn't mean they'll fail — it means they'll work significantly harder than someone doing the same thing in a Personal Year 1 or 8.</p>
+
+            <p>Someone trying to hold a relationship together in a Personal Year 9 is often fighting a completion that's already in motion. The question isn't whether to fight harder — it's whether the relationship is meant to complete, or evolve into something new in the 1 year ahead.</p>
+
+            <div class="post-callout">
+              <p>"The right move in the wrong year still costs you. Not because the move was wrong — because the timing was."</p>
+            </div>
+
+            <h2 id="limitations">What a Personal Year Doesn't Tell You</h2>
+
+            <p>A Personal Year is one layer of a larger picture. It tells you about the energetic design of a given year, but it doesn't tell you everything. Your Life Path, Expression Number, and Personal Month all add nuance — and the interaction between your numbers and a specific decision (a location, a partner, a business venture) adds more.</p>
+
+            <p>It also doesn't override agency. Knowing you're in a Personal Year 9 doesn't mean you have to end your relationship or quit your job. It means you should look clearly at what's completing — and make a conscious decision about it, rather than one driven by denial or inertia.</p>
+
+            <p>The goal is never to have the numbers make your decisions. The goal is to have better information when you do.</p>
+
+            <h2 id="next-step">How to Find Out What Your Current Year Is Asking Of You</h2>
+
+            <p>The Personal Year Report is a full breakdown of the year you're currently in — what it's designed for, what to watch for, and how your specific numbers interact with the cycle. It also covers your Personal Month cycle so you have a more detailed view of the shorter windows within the year.</p>
+
+            <p>It's the starting point for most of the people I work with — because once you know your phase, everything else gets clearer.</p>
+
+            <div style="margin-top:40px;padding:32px;background:var(--dark-card);border:1px solid var(--border);border-radius:6px;text-align:center;">
+              <span class="eyebrow" style="display:block;margin-bottom:12px;">Know Your Phase</span>
+              <h3 style="font-family:var(--font-serif);font-size:1.4rem;color:var(--on-dark);margin-bottom:12px;font-weight:400;">Get Your Personal Year Timing Report</h3>
+              <p style="font-size:0.88rem;color:var(--charcoal-soft);max-width:440px;margin:0 auto 24px;line-height:1.75;">An 18–22 page personalized PDF covering your current Personal Year, Personal Month cycles, and what the timing says about your most pressing decisions.</p>
+              <a href="../report.html" class="btn btn-gold">Get the Report — $47</a>
+            </div>
+
+          </article>
+
+          <!-- SIDEBAR -->
+          <aside class="post-sidebar">
+            <div class="sidebar-card">
+              <span class="eyebrow">In This Article</span>
+              <ul class="sidebar-toc">
+                <li><a href="#how-to-calculate">How to calculate your Personal Year</a></li>
+                <li><a href="#what-each-year-means">What each year is designed for</a></li>
+                <li><a href="#why-it-matters">Why it changes how you decide</a></li>
+                <li><a href="#limitations">What it doesn't tell you</a></li>
+                <li><a href="#next-step">How to find out yours</a></li>
+              </ul>
+            </div>
+
+            <div class="sidebar-card">
+              <span class="eyebrow">Related</span>
+              <h4>Get Your Personal Year Report</h4>
+              <p>An 18–22 page PDF personalized to your specific numbers and the year you're in right now.</p>
+              <a href="../report.html" class="btn btn-gold" style="width:100%;text-align:center;display:block;">$47 — Get the Report</a>
+            </div>
+
+            <div class="sidebar-card">
+              <h4>Work With Robert Directly</h4>
+              <p>A one-on-one Personal Forecast Session covers your full blueprint, your current cycle, and how it applies to the decisions you're actually facing.</p>
+              <a href="../personal-forecast.html" class="btn btn-outline" style="width:100%;text-align:center;display:block;">See the Session</a>
+            </div>
+          </aside>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER NAV -->
+    <div class="post-footer-nav">
+      <div class="container">
+        <div class="post-footer-nav__inner">
+          <a href="../blog.html" class="btn btn-outline">← All Articles</a>
+          <div style="text-align:right;">
+            <span style="display:block;font-size:0.72rem;color:var(--charcoal-soft);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:6px;">Next Article</span>
+            <span style="font-size:0.9rem;color:var(--charcoal);">Coming Soon</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div>
+          <div class="footer__brand-logo">
+            <img src="../images/hbs-logo.svg" width="32" height="32" alt="" aria-hidden="true" />
+            <div>
+              <span class="footer__brand-name">Human Behavior Specialists</span>
+              <span class="footer__brand-tag">Guidance for Career, Relationships &amp; Where to Live</span>
+            </div>
+          </div>
+          <p class="footer__desc">A pattern-based advisory practice focused on life transitions, decision timing, and sustainable direction.</p>
+        </div>
+        <div class="footer__col">
+          <h5>Navigate</h5>
+          <ul class="footer__links">
+            <li><a href="../the-work.html">The Work</a></li>
+            <li><a href="../ways-to-work.html">Work Together</a></li>
+            <li><a href="../about.html">About</a></li>
+            <li><a href="../blog.html">Blog</a></li>
+            <li><a href="../begin.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h5>Reports</h5>
+          <ul class="footer__links">
+            <li><a href="../report.html">Personal Year Timing — $47</a></li>
+            <li><a href="../full-numerology-report.html">Full Numerology Report — $67</a></li>
+            <li><a href="../address-report.html">Address &amp; Location Report — $19.95</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p>&copy; 2026 Human Behavior Specialists. Advisory and educational in nature. Not therapy, medical, legal, or financial advice.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

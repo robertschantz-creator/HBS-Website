@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ═══════════════════════════════════════════════════
+       STEP 1: Update these three lines
+       ═══════════════════════════════════════════════════ -->
+  <title>POST TITLE HERE | HBS</title>
+  <meta name="description" content="POST META DESCRIPTION — 150 characters max. Answer the question the post title asks. This is what AI and Google show in search results." />
+  <link rel="canonical" href="https://humanbehaviorspecialists.com/blog/YOUR-SLUG-HERE.html" />
+
+  <link rel="stylesheet" href="../css/style.css" />
+  <style>
+    .post-hero {
+      padding: 140px 0 72px;
+      background: linear-gradient(135deg, var(--violet-dark) 0%, var(--violet) 100%);
+      color: var(--white);
+    }
+    .post-hero .eyebrow { color: var(--gold-light); }
+    .post-hero h1 {
+      color: var(--white);
+      font-weight: 300;
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      line-height: 1.25;
+      max-width: 760px;
+      margin-bottom: 20px;
+    }
+    .post-hero__meta {
+      display: flex; gap: 20px; align-items: center; flex-wrap: wrap; margin-top: 24px;
+    }
+    .post-hero__meta span { font-size: 0.82rem; color: rgba(255,255,255,0.6); }
+    .post-hero__meta .post-cat {
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--gold); background: rgba(201,168,76,0.15); padding: 4px 12px; border-radius: 20px;
+    }
+    .post-body { background: var(--dark-bg); padding: 80px 0 64px; }
+    .post-layout { display: grid; grid-template-columns: 1fr 320px; gap: 72px; align-items: start; }
+    .post-content { max-width: 680px; }
+    .post-content p { font-size: 0.97rem; color: var(--charcoal-soft); line-height: 1.9; margin-bottom: 24px; }
+    .post-content h2 { font-size: 1.4rem; color: var(--on-dark); margin: 48px 0 16px; font-weight: 500; }
+    .post-content h3 { font-size: 1.1rem; color: var(--on-dark); margin: 32px 0 12px; font-family: var(--font-serif); font-weight: 500; }
+    .post-content ul, .post-content ol { padding-left: 24px; margin-bottom: 24px; }
+    .post-content li { font-size: 0.95rem; color: var(--charcoal-soft); line-height: 1.8; margin-bottom: 8px; }
+    .post-content strong { color: var(--on-dark); }
+    .post-callout {
+      background: var(--dark-card); border-left: 3px solid var(--gold);
+      border-radius: 0 4px 4px 0; padding: 24px 28px; margin: 32px 0;
+    }
+    .post-callout p { margin: 0; font-style: italic; color: var(--charcoal); }
+    .post-sidebar { position: sticky; top: 100px; }
+    .sidebar-card { background: var(--dark-card); border: 1px solid var(--border); border-radius: 6px; padding: 28px; margin-bottom: 24px; }
+    .sidebar-card .eyebrow { margin-bottom: 12px; display: block; }
+    .sidebar-card h4 { font-size: 1rem; color: var(--on-dark); margin-bottom: 10px; }
+    .sidebar-card p { font-size: 0.85rem; color: var(--charcoal-soft); line-height: 1.7; margin-bottom: 20px; }
+    .sidebar-toc { list-style: none; padding: 0; margin: 0; }
+    .sidebar-toc li { border-bottom: 1px solid var(--border); }
+    .sidebar-toc li:last-child { border-bottom: none; }
+    .sidebar-toc a { display: block; padding: 10px 0; font-size: 0.82rem; color: var(--charcoal-soft); text-decoration: none; transition: color 0.2s; }
+    .sidebar-toc a:hover { color: var(--gold); }
+    .post-footer-nav { background: var(--dark-card); border-top: 1px solid var(--border); padding: 48px 0; }
+    .post-footer-nav__inner { display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; }
+    @media (max-width: 960px) { .post-layout { grid-template-columns: 1fr; } .post-sidebar { position: static; } }
+  </style>
+
+  <!-- ═══════════════════════════════════════════════════
+       STEP 2: Update Schema (copy/paste, fill in blanks)
+       ═══════════════════════════════════════════════════ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "POST TITLE HERE",
+    "description": "POST META DESCRIPTION HERE",
+    "author": {
+      "@type": "Person",
+      "name": "Robert Schantz",
+      "url": "https://humanbehaviorspecialists.com/about.html"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Human Behavior Specialists",
+      "url": "https://humanbehaviorspecialists.com"
+    },
+    "datePublished": "YYYY-MM-DD",
+    "mainEntityOfPage": "https://humanbehaviorspecialists.com/blog/YOUR-SLUG-HERE.html"
+  }
+  </script>
+</head>
+<body>
+  <a href="#main-content" class="skip-nav">Skip to main content</a>
+
+  <nav class="nav" role="navigation">
+    <div class="nav__inner">
+      <a href="../index.html" class="nav__logo">
+        <img src="../images/hbs-logo.svg" width="40" height="40" alt="" aria-hidden="true" />
+        <div class="nav__logo-text">
+          <span class="nav__logo-name">Human Behavior Specialists</span>
+          <span class="nav__logo-tag">Guidance for Career, Relationships &amp; Where to Live</span>
+        </div>
+      </a>
+      <ul class="nav__links">
+        <li><a href="../the-work.html">The Work</a></li>
+        <li><a href="../ways-to-work.html">Work Together</a></li>
+        <li><a href="../personal-forecast.html">Personal Forecast</a></li>
+        <li><a href="../about.html">About</a></li>
+        <li><a href="../blog.html">Blog</a></li>
+        <li><a href="../begin.html">Contact</a></li>
+      </ul>
+      <a href="../begin.html" class="btn btn-primary nav__cta">Begin</a>
+      <button class="nav__toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <main id="main-content">
+
+    <!-- ═══════════════════════════════════════════════════
+         STEP 3: Fill in hero — title, category, date
+         Categories: Career | Finances | Relationships |
+                     Health & Well-being | Where to Live |
+                     Timing & Cycles
+         ═══════════════════════════════════════════════════ -->
+    <header class="post-hero">
+      <div class="container">
+        <a href="../blog.html" style="font-size:0.78rem;color:rgba(255,255,255,0.5);text-decoration:none;letter-spacing:0.04em;display:inline-block;margin-bottom:20px;">← Back to Blog</a>
+        <span class="eyebrow">CATEGORY HERE</span>
+        <h1>POST TITLE HERE</h1>
+        <div class="post-hero__meta">
+          <span class="post-cat">CATEGORY HERE</span>
+          <span>Robert Schantz</span>
+          <span>MONTH YEAR</span>
+          <span>X min read</span>
+        </div>
+      </div>
+    </header>
+
+    <section class="post-body">
+      <div class="container">
+        <div class="post-layout">
+
+          <article class="post-content">
+
+            <!-- ═══════════════════════════════════════════
+                 STEP 4: Write the article body below.
+
+                 AEO TIPS:
+                 - First paragraph: answer the post title question directly
+                 - Use h2 tags for major sections (these become FAQ anchors)
+                 - Phrase h2s as questions people actually ask ("How do you know when to change careers?")
+                 - Use post-callout divs for pull quotes
+                 - End with a CTA block linking to a report or session
+                 ═══════════════════════════════════════════ -->
+
+            <p>OPENING PARAGRAPH — Answer the post title question in plain language. AI citation engines (ChatGPT, Perplexity, Google AI Overviews) pull from the first clear answer they find. Make this paragraph count.</p>
+
+            <p>Second paragraph — expand on the concept. Give the reader the "so what."</p>
+
+            <div class="post-callout">
+              <p>"A pull quote that captures the core insight of the article — something worth repeating."</p>
+            </div>
+
+            <h2 id="section-one">Section One Headline (phrase as a question if possible)</h2>
+
+            <p>Body copy for this section.</p>
+
+            <h2 id="section-two">Section Two Headline</h2>
+
+            <p>Body copy for this section.</p>
+
+            <ul>
+              <li>Bullet point one</li>
+              <li>Bullet point two</li>
+              <li>Bullet point three</li>
+            </ul>
+
+            <h2 id="section-three">Section Three Headline</h2>
+
+            <p>Body copy for this section.</p>
+
+            <div class="post-callout">
+              <p>"Optional second pull quote."</p>
+            </div>
+
+            <h2 id="next-step">What to Do With This</h2>
+
+            <p>Close the article — what's the one thing the reader should take away? Where do they go next?</p>
+
+            <!-- CTA BLOCK — update link and copy as needed -->
+            <div style="margin-top:40px;padding:32px;background:var(--dark-card);border:1px solid var(--border);border-radius:6px;text-align:center;">
+              <span class="eyebrow" style="display:block;margin-bottom:12px;">Know Your Phase</span>
+              <h3 style="font-family:var(--font-serif);font-size:1.4rem;color:var(--on-dark);margin-bottom:12px;font-weight:400;">Get Your Personal Year Timing Report</h3>
+              <p style="font-size:0.88rem;color:var(--charcoal-soft);max-width:440px;margin:0 auto 24px;line-height:1.75;">An 18–22 page personalized PDF covering your current cycle and what it means for the decisions you're facing right now.</p>
+              <a href="../report.html" class="btn btn-gold">Get the Report — $47</a>
+            </div>
+
+          </article>
+
+          <!-- SIDEBAR — update TOC anchors to match your h2 ids above -->
+          <aside class="post-sidebar">
+            <div class="sidebar-card">
+              <span class="eyebrow">In This Article</span>
+              <ul class="sidebar-toc">
+                <li><a href="#section-one">Section one title</a></li>
+                <li><a href="#section-two">Section two title</a></li>
+                <li><a href="#section-three">Section three title</a></li>
+                <li><a href="#next-step">What to do with this</a></li>
+              </ul>
+            </div>
+
+            <div class="sidebar-card">
+              <span class="eyebrow">Related</span>
+              <h4>Get Your Personal Year Report</h4>
+              <p>An 18–22 page PDF personalized to your specific numbers and the year you're currently in.</p>
+              <a href="../report.html" class="btn btn-gold" style="width:100%;text-align:center;display:block;">$47 — Get the Report</a>
+            </div>
+
+            <div class="sidebar-card">
+              <h4>Work With Robert Directly</h4>
+              <p>A one-on-one Personal Forecast Session covers your full blueprint, your current cycle, and how it applies to the decisions you're actually facing.</p>
+              <a href="../personal-forecast.html" class="btn btn-outline" style="width:100%;text-align:center;display:block;">See the Session</a>
+            </div>
+          </aside>
+
+        </div>
+      </div>
+    </section>
+
+    <div class="post-footer-nav">
+      <div class="container">
+        <div class="post-footer-nav__inner">
+          <a href="../blog.html" class="btn btn-outline">← All Articles</a>
+          <!-- Optional: link to next post -->
+          <div style="text-align:right;">
+            <span style="display:block;font-size:0.72rem;color:var(--charcoal-soft);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:6px;">Next Article</span>
+            <a href="NEXT-POST-SLUG.html" style="font-size:0.9rem;color:var(--gold);">Next Post Title →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div>
+          <div class="footer__brand-logo">
+            <img src="../images/hbs-logo.svg" width="32" height="32" alt="" aria-hidden="true" />
+            <div>
+              <span class="footer__brand-name">Human Behavior Specialists</span>
+              <span class="footer__brand-tag">Guidance for Career, Relationships &amp; Where to Live</span>
+            </div>
+          </div>
+          <p class="footer__desc">A pattern-based advisory practice focused on life transitions, decision timing, and sustainable direction.</p>
+        </div>
+        <div class="footer__col">
+          <h5>Navigate</h5>
+          <ul class="footer__links">
+            <li><a href="../the-work.html">The Work</a></li>
+            <li><a href="../ways-to-work.html">Work Together</a></li>
+            <li><a href="../about.html">About</a></li>
+            <li><a href="../blog.html">Blog</a></li>
+            <li><a href="../begin.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h5>Reports</h5>
+          <ul class="footer__links">
+            <li><a href="../report.html">Personal Year Timing — $47</a></li>
+            <li><a href="../full-numerology-report.html">Full Numerology Report — $67</a></li>
+            <li><a href="../address-report.html">Address &amp; Location Report — $19.95</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p>&copy; 2026 Human Behavior Specialists. Advisory and educational in nature. Not therapy, medical, legal, or financial advice.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

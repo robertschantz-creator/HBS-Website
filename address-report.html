@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Address Numerology Report | Human Behavior Specialists</title>
+  <meta name="description" content="Every address carries a number. Here's what yours says. After 25 years in real estate — 12 as Managing Broker — I look at property addresses differently. $19.95 standalone or $9 add-on." />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .report-hero {
+      min-height: 80vh;
+      display: flex;
+      align-items: center;
+      padding-top: 72px;
+      background: linear-gradient(135deg, #1A0F2E 0%, #2A1A4E 60%, #3A2A5E 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .report-hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cg fill='%23C9A84C' fill-opacity='0.04'%3E%3Cpath d='M20 20.5V18H0v5h5v5H0v5h20v-9.5zm-2 4.5h-1v-1h1v1zm-1 4H5v-1h12v1zm0-4H7v-1h10v1zM0 0h23v18H0V0zm2 2v14h19V2H2zm19 0h-1V1h1v1zM0 18h5v5H0v-5zm2 2v1h1v-1H2zm-2 4h5v5H0v-5zm2 2v1h1v-1H2z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    .report-hero__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+    .report-hero__content .eyebrow { color: var(--gold-light); }
+    .report-hero__content h1 { color: var(--white); font-weight: 300; margin-bottom: 20px; }
+    .report-hero__content .lead { color: rgba(255,255,255,0.78); margin-bottom: 12px; }
+    .report-hero__proof { display: flex; gap: 20px; flex-wrap: wrap; margin-top: 28px; }
+    .report-hero__proof-item { font-size: 0.8rem; color: rgba(255,255,255,0.65); display: flex; gap: 8px; align-items: center; }
+    .report-hero__proof-item::before { content: '◆'; color: var(--gold); font-size: 0.5rem; }
+
+    .buy-card {
+      background: var(--dark-card);
+      border-radius: 6px;
+      padding: 48px 40px;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.25);
+    }
+    .buy-card__badge {
+      display: inline-block;
+      background: var(--gold-light);
+      color: #0D0A1A;
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 600;
+      padding: 5px 14px;
+      border-radius: 2px;
+      margin-bottom: 20px;
+    }
+    .buy-card__title { font-family: var(--font-serif); font-size: 1.4rem; color: var(--charcoal); margin-bottom: 8px; }
+    .buy-card__subtitle { font-size: 0.85rem; color: var(--charcoal-soft); margin-bottom: 28px; line-height: 1.6; }
+    .buy-card__price-row { display: flex; align-items: baseline; gap: 8px; margin-bottom: 28px; padding-bottom: 28px; border-bottom: 1px solid var(--border); }
+    .buy-card__price { font-family: var(--font-serif); font-size: 3.5rem; color: var(--charcoal); line-height: 1; }
+    .buy-card__price sup { font-size: 1.4rem; vertical-align: top; margin-top: 8px; display: inline-block; }
+    .buy-card__price-note { font-size: 0.8rem; color: var(--charcoal-soft); }
+    .buy-card__includes { list-style: none; margin-bottom: 28px; }
+    .buy-card__includes li { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 0.88rem; color: var(--charcoal-mid); }
+    .buy-card__includes li:last-child { border-bottom: none; }
+    .buy-card__includes li::before { content: '✓'; color: var(--gold); font-weight: 600; flex-shrink: 0; }
+    .buy-card__form input {
+      width: 100%; padding: 13px 16px;
+      border: 1.5px solid var(--border);
+      border-radius: 2px;
+      font-family: var(--font-sans); font-size: 0.9rem;
+      color: var(--charcoal); background: var(--cream);
+      margin-bottom: 12px; transition: border-color 0.2s; outline: none;
+    }
+    .buy-card__form input:focus { border-color: var(--gold); background: var(--dark-card); }
+    .buy-card__form input::placeholder { color: var(--charcoal-soft); }
+    .buy-card__disclaimer { font-size: 0.72rem; color: var(--charcoal-soft); text-align: center; margin-top: 12px; line-height: 1.6; }
+
+    .addon-callout {
+      background: rgba(96,64,160,0.15);
+      border: 1px solid rgba(96,64,160,0.35);
+      border-radius: 4px;
+      padding: 16px 20px;
+      margin-bottom: 20px;
+      font-size: 0.82rem;
+      color: var(--charcoal-soft);
+      line-height: 1.6;
+    }
+    .addon-callout strong { color: var(--violet-light, #9080D0); }
+    .addon-callout a { color: var(--gold); text-decoration: none; }
+    .addon-callout a:hover { text-decoration: underline; }
+
+    .re-context { background: var(--dark-card); padding: var(--section-pad) 0; }
+    .re-context__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+
+    .what-inside { background: var(--lavender-bg); padding: var(--section-pad) 0; }
+    .inside-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 48px; }
+    .inside-card { background: var(--dark-card); border: 1px solid var(--border); border-left: 3px solid var(--gold); border-radius: 4px; padding: 28px 24px; }
+    .inside-card__num { font-family: var(--font-serif); font-size: 2rem; color: var(--gold); opacity: 0.35; line-height: 1; margin-bottom: 8px; }
+    .inside-card h4 { font-family: var(--font-serif); font-size: 1rem; color: var(--charcoal); margin-bottom: 8px; line-height: 1.3; }
+    .inside-card p { font-size: 0.82rem; color: var(--charcoal-soft); line-height: 1.6; margin: 0; }
+
+    .who-for { background: var(--dark-card); padding: var(--section-pad) 0; }
+    .who-for__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 40px; }
+    .who-card { border: 1px solid var(--border); border-radius: 4px; padding: 24px; }
+    .who-card__icon { font-size: 1.4rem; margin-bottom: 12px; }
+    .who-card h4 { font-family: var(--font-serif); font-size: 0.95rem; color: var(--charcoal); margin-bottom: 8px; }
+    .who-card p { font-size: 0.82rem; color: var(--charcoal-soft); line-height: 1.6; margin: 0; }
+
+    .report-cta { background: linear-gradient(135deg, #1A0F2E 0%, #2A1A4E 100%); padding: 120px 0; text-align: center; }
+    .report-cta h2 { color: var(--white); margin-bottom: 16px; }
+    .report-cta .lead { color: rgba(255,255,255,0.75); max-width: 540px; margin: 0 auto 48px; }
+    .report-cta__options { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-bottom: 24px; }
+    .cta-option { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.15); border-radius: 4px; padding: 20px 28px; text-align: center; }
+    .cta-option__price { font-family: var(--font-serif); font-size: 2rem; color: var(--gold-light); line-height: 1; }
+    .cta-option__label { font-size: 0.75rem; color: rgba(255,255,255,0.55); letter-spacing: 0.08em; text-transform: uppercase; margin-top: 6px; }
+
+    @media (max-width: 900px) {
+      .report-hero__grid, .re-context__grid { grid-template-columns: 1fr; gap: 48px; }
+      .inside-grid, .who-for__grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      .report-cta__options { flex-direction: column; align-items: center; }
+    }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-nav">Skip to main content</a>
+
+  <nav class="nav" role="navigation">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo">
+        <img src="images/hbs-logo.svg" width="40" height="40" alt="" aria-hidden="true" />
+        <div class="nav__logo-text">
+          <span class="nav__logo-name">Human Behavior Specialists</span>
+          <span class="nav__logo-tag">Guidance for Career, Relationships &amp; Where to Live</span>
+        </div>
+      </a>
+      <ul class="nav__links">
+        <li><a href="the-work.html">The Work</a></li>
+        <li><a href="ways-to-work.html">Work Together</a></li>
+        <li><a href="personal-forecast.html">Personal Forecast</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="begin.html">Contact</a></li>
+      </ul>
+      <a href="begin.html" class="btn btn-primary nav__cta">Begin</a>
+      <button class="nav__toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <main id="main-content">
+
+  <!-- HERO + BUY -->
+  <section class="report-hero">
+    <div class="container">
+      <div class="report-hero__grid">
+        <div class="report-hero__content fade-in">
+          <span class="eyebrow">Address Numerology — $19.95</span>
+          <h1>Address Report</h1>
+          <p class="lead">Every address carries a number. Here's what yours says.</p>
+          <p style="font-size:0.93rem;color:rgba(255,255,255,0.65);line-height:1.75;margin-bottom:8px;">After 25 years in real estate — 12 as Managing Broker — I look at property addresses differently. The street number, the unit, the structure of the address — these all reduce to a core vibration. That vibration affects what kinds of energy tend to gather in that space.</p>
+          <p style="font-size:0.93rem;color:rgba(255,255,255,0.65);line-height:1.75;margin-bottom:8px;">Thinking about leaving your current city or state but not sure where to land? This report can also help you determine which city or state actually resonates with your blueprint — so instead of guessing, you're choosing a location that's compatible with who you are and where you are in your cycle.</p>
+          <p style="font-size:0.82rem;color:rgba(255,255,255,0.45);font-style:italic;margin-bottom:36px;">It won't replace an inspection. It might explain why a place feels right — or why it doesn't.</p>
+          <div class="report-hero__proof">
+            <span class="report-hero__proof-item">Street address, city, or state</span>
+            <span class="report-hero__proof-item">Delivered within 48 hours</span>
+            <span class="report-hero__proof-item">$9 when added to a Timing or Numerology Report</span>
+          </div>
+        </div>
+        <div class="buy-card fade-in">
+          <span class="buy-card__badge">Location Compatibility</span>
+          <p class="buy-card__title">Address &amp; Location Report</p>
+          <p class="buy-card__subtitle">The numerological profile of any address, city, or state — what the number supports, what to watch for, and how it fits you specifically.</p>
+          <div class="buy-card__price-row">
+            <div class="buy-card__price"><sup>$</sup>19<span style="font-size:1.8rem;">.95</span></div>
+            <span class="buy-card__price-note">Standalone · One-time</span>
+          </div>
+          <div class="addon-callout">
+            <strong>Already ordering a Timing or Numerology Report?</strong> Add this for just <strong>$9</strong> instead of $19.95. Check the add-on box on the <a href="report.html">Personal Forecast Report</a> or <a href="full-numerology-report.html">Full Numerology Report</a> pages.
+          </div>
+          <ul class="buy-card__includes">
+            <li>Location Number — the core vibration of the address, city, or state</li>
+            <li>Best Fit — what this location tends to support</li>
+            <li>Watch Points — what to be aware of in this space</li>
+            <li>Compatibility With You — how the location number relates to your personal chart</li>
+            <li>Practical Suggestions — small adjustments that can shift the energy</li>
+          </ul>
+          <form class="buy-card__form" action="begin.html" method="get">
+            <label for="address" style="display:block;font-size:0.72rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--charcoal-mid);margin-bottom:4px;">Address, City, or State to Analyze *</label>
+            <input id="address" type="text" name="address" placeholder="Street address, city name, or state" required aria-required="true" />
+            <label for="birth_name" style="display:block;font-size:0.72rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--charcoal-mid);margin-bottom:4px;">Full Birth Certificate Name *</label>
+            <input id="birth_name" type="text" name="birth_name" placeholder="Name as it appears on your birth certificate" required aria-required="true" />
+            <label for="current_name" style="display:block;font-size:0.72rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--charcoal-mid);margin-bottom:4px;">Full Name You Currently Use *</label>
+            <input id="current_name" type="text" name="current_name" placeholder="Name you go by today (married name, etc.)" required aria-required="true" />
+            <label for="dob" style="display:block;font-size:0.72rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--charcoal-mid);margin-bottom:4px;">Date of Birth *</label>
+            <input id="dob" type="text" name="dob" placeholder="MM/DD/YYYY" required aria-required="true" />
+            <label for="email" style="display:block;font-size:0.72rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--charcoal-mid);margin-bottom:4px;">Email Address *</label>
+            <input id="email" type="email" name="email" placeholder="Where we'll deliver your report" required aria-required="true" />
+            <a href="begin.html" class="btn btn-gold" style="width:100%;text-align:center;display:block;margin-top:8px;" role="button">
+              Get My Address Report — $19.95
+            </a>
+          </form>
+          <p class="buy-card__disclaimer">Advisory and educational in nature. Delivered as a PDF within 48 hours of purchase.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REAL ESTATE CONTEXT -->
+  <section class="re-context">
+    <div class="container">
+      <div class="re-context__grid">
+        <div class="fade-in">
+          <span class="eyebrow">Why a Real Estate Broker Does This</span>
+          <h2>The Numbers Were Always There.</h2>
+          <p style="font-size:0.93rem;color:var(--charcoal-soft);line-height:1.85;margin-bottom:16px;">I've spent 25 years in real estate — 12 as Managing Broker, working with 2,000+ agents and thousands of transactions. I've watched clients choose properties based on gut feeling, and sometimes they were right in ways they couldn't explain. The address number is one layer of that.</p>
+          <p style="font-size:0.93rem;color:var(--charcoal-soft);line-height:1.85;margin-bottom:16px;">Pythagorean numerology assigns a value to each digit in an address. Those values reduce to a single core number. That number carries a specific energetic pattern — things it tends to support, and things it tends to create friction around.</p>
+          <p style="font-size:0.93rem;color:var(--charcoal-soft);line-height:1.85;">I'm not saying to skip the inspection. I'm saying there's a data point worth having before you commit to a space you'll spend years in.</p>
+        </div>
+        <div class="fade-in">
+          <span class="eyebrow" style="display:block;margin-bottom:20px;">What the Numbers Look For</span>
+          <div style="display:flex;flex-direction:column;gap:16px;">
+            <div style="padding:20px;background:var(--lavender-bg);border-radius:4px;border-left:3px solid var(--gold);">
+              <p style="font-size:0.85rem;color:var(--charcoal-soft);margin:0;line-height:1.7;"><strong style="color:var(--charcoal);">Address Number 1</strong> — Independence, leadership, new starts. Strong for self-employed people or anyone launching something.</p>
+            </div>
+            <div style="padding:20px;background:var(--lavender-bg);border-radius:4px;border-left:3px solid var(--gold);">
+              <p style="font-size:0.85rem;color:var(--charcoal-soft);margin:0;line-height:1.7;"><strong style="color:var(--charcoal);">Address Number 4</strong> — Stability, structure, hard work. Great for building. Can feel heavy if you're trying to relax.</p>
+            </div>
+            <div style="padding:20px;background:var(--lavender-bg);border-radius:4px;border-left:3px solid var(--gold);">
+              <p style="font-size:0.85rem;color:var(--charcoal-soft);margin:0;line-height:1.7;"><strong style="color:var(--charcoal);">Address Number 6</strong> — Family, nurturing, beauty. Classic home energy. Strong for raising children or long-term partnership.</p>
+            </div>
+            <p style="font-size:0.75rem;color:var(--charcoal-soft);font-style:italic;margin:8px 0 0;">Your full report covers all nine address numbers and your specific compatibility.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT'S INSIDE -->
+  <section class="what-inside">
+    <div class="container">
+      <div style="text-align:center;max-width:520px;margin:0 auto;" class="fade-in">
+        <span class="eyebrow">What's Inside</span>
+        <h2>Five Sections, One Property</h2>
+        <p class="lead">Each section is written specifically for the address you provide and your personal chart numbers.</p>
+      </div>
+      <div class="inside-grid">
+        <div class="inside-card fade-in">
+          <div class="inside-card__num">01</div>
+          <h4>Address Number</h4>
+          <p>The core vibration of the property — how the street number reduces, what that single digit means, and what it tends to attract.</p>
+        </div>
+        <div class="inside-card fade-in">
+          <div class="inside-card__num">02</div>
+          <h4>Best Fit</h4>
+          <p>What this address tends to support most — lifestyle, work, relationships, energy — and the types of residents who tend to thrive here.</p>
+        </div>
+        <div class="inside-card fade-in">
+          <div class="inside-card__num">03</div>
+          <h4>Watch Points</h4>
+          <p>What to be aware of in this space — patterns that tend to emerge, friction points, and what to monitor if you move in.</p>
+        </div>
+        <div class="inside-card fade-in">
+          <div class="inside-card__num">04</div>
+          <h4>Compatibility With You</h4>
+          <p>How the address number interacts with your Life Path and Personal Year — whether the energy of the space supports where you are right now.</p>
+        </div>
+        <div class="inside-card fade-in" style="grid-column: 1 / -1;">
+          <div class="inside-card__num">05</div>
+          <h4>Practical Suggestions</h4>
+          <p>Small, grounded adjustments — not rituals, not renovation projects — that can help you work with the energy of the space rather than against it.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHO IT'S FOR -->
+  <section class="who-for">
+    <div class="container">
+      <div style="text-align:center;max-width:520px;margin:0 auto 16px;" class="fade-in">
+        <span class="eyebrow">Ideal For</span>
+        <h2>Anyone Making a Property Decision</h2>
+      </div>
+      <div class="who-for__grid">
+        <div class="who-card fade-in">
+          <div class="who-card__icon">🏠</div>
+          <h4>Home buyers comparing properties</h4>
+          <p>Narrowing down to two or three options? The address numbers can add a layer of data to the decision that an inspection won't cover.</p>
+        </div>
+        <div class="who-card fade-in">
+          <div class="who-card__icon">📋</div>
+          <h4>Sellers preparing to list</h4>
+          <p>Understanding what your property's number supports can inform how you position and market the space.</p>
+        </div>
+        <div class="who-card fade-in">
+          <div class="who-card__icon">📈</div>
+          <h4>Investors evaluating a property</h4>
+          <p>Whether it's a rental or a flip, the address number affects what kind of occupants tend to stay and what patterns tend to repeat.</p>
+        </div>
+        <div class="who-card fade-in">
+          <div class="who-card__icon">🏢</div>
+          <h4>Business owners choosing a location</h4>
+          <p>The number of your business address can either align with your vision or work against it. Worth knowing before you sign a lease.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="report-cta">
+    <div class="container">
+      <div class="fade-in">
+        <span class="eyebrow" style="color:var(--gold-light);">Choose Your Path</span>
+        <h2>Know What Your Address Is Saying.</h2>
+        <p class="lead">Standalone, or add it to a Personal Forecast or Full Numerology Report for $9. Either way, you'll have it before you commit.</p>
+        <div class="report-cta__options">
+          <div class="cta-option">
+            <div class="cta-option__price">$19.95</div>
+            <div class="cta-option__label">Standalone Address Report</div>
+            <a href="begin.html" class="btn btn-gold" style="margin-top:16px;padding:10px 24px;font-size:0.8rem;display:block;">Order Now</a>
+          </div>
+          <div class="cta-option">
+            <div class="cta-option__price">$9</div>
+            <div class="cta-option__label">Add-on with any Report</div>
+            <a href="report.html" class="btn btn-outline" style="margin-top:16px;padding:10px 24px;font-size:0.8rem;display:block;">See Reports</a>
+          </div>
+        </div>
+        <p style="color:rgba(255,255,255,0.35);font-size:0.75rem;margin-top:12px;">Advisory and educational in nature. Not a replacement for professional property inspection or legal/financial advice.</p>
+      </div>
+    </div>
+  </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div>
+          <div class="footer__brand-logo">
+            <img src="images/hbs-logo.svg" width="32" height="32" alt="" aria-hidden="true" />
+            <div>
+              <span class="footer__brand-name">Human Behavior Specialists</span>
+              <span class="footer__brand-tag">Guidance for Career, Relationships &amp; Where to Live</span>
+            </div>
+          </div>
+          <p class="footer__desc">A pattern-based advisory practice focused on life transitions, decision timing, and sustainable direction.</p>
+          <div class="footer__social">
+            <a href="https://www.facebook.com/HumanBehaviorSpecialistsRS" aria-label="Facebook" target="_blank" rel="noopener">f</a>
+            <a href="https://www.instagram.com/humanbehaviorspecialists/" aria-label="Instagram" target="_blank" rel="noopener">in</a>
+            <a href="https://www.linkedin.com/company/77058778/" aria-label="LinkedIn" target="_blank" rel="noopener">Li</a>
+            <a href="https://www.threads.com/@humanbehaviorspecialists" aria-label="Threads" target="_blank" rel="noopener">Th</a>
+            <a href="https://x.com/HumanBehaviorSp" aria-label="X (Twitter)" target="_blank" rel="noopener">𝕏</a>
+            <a href="https://www.youtube.com/@TimingCodeHBS" aria-label="YouTube — Timing Code HBS" target="_blank" rel="noopener" style="color:var(--gold);font-weight:600;font-size:0.8rem;letter-spacing:0.04em;">▶ YouTube</a>
+          </div>
+        </div>
+        <div class="footer__col">
+          <h5>Navigate</h5>
+          <ul class="footer__links">
+            <li><a href="the-work.html">The Work</a></li>
+            <li><a href="ways-to-work.html">Work Together</a></li>
+            <li><a href="personal-forecast.html">Personal Forecast Session</a></li>
+            <li><a href="about.html">About</a></li>
+        <li><a href="blog.html">Blog</a></li>
+            <li><a href="report.html">Reports</a></li>
+            <li><a href="begin.html">Begin</a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h5>Contact</h5>
+          <div class="footer__contact-item"><span>Email</span> accounts@humanbehaviorspecialists.com</div>
+          <div style="margin-top:24px;">
+            <h5>Reports</h5>
+            <ul class="footer__links" style="margin-top:12px;">
+              <li><a href="report.html">Personal Year Timing — $47</a></li>
+              <li><a href="full-numerology-report.html">Full Numerology Report — $67</a></li>
+              <li><a href="address-report.html">Address Report — $19.95</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p>&copy; 2026 Human Behavior Specialists. All rights reserved.</p>
+        <p class="footer__disclaimer">This work is advisory and educational in nature and does not replace professional medical, legal, financial, or therapeutic services.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
